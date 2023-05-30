@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_BOOKS,GET_BOOKS_BY_NAME } from "./actionsTypes";
+import { GET_BOOKS,GET_BOOKS_BY_NAME,GET_BOOK_DETAIL,CREATE_BOOK,CLEAR_FILTERS,PAGINATED } from "./actionsTypes";
 
 export function getBooks() {
   return async function (dispatch) {
@@ -24,5 +24,40 @@ export const getBooksByName = name => {
     } catch (error) {
       console.log(error.message);
     };
+  }
+};
+
+export const getBookDetail = (id) => {
+  return async function (dispatch){
+    const response = (await axios.get()).data; //Falta url en axios.get para traer los libros por id.
+
+    return dispatch ({
+        type: GET_BOOK_DETAIL,
+        payload: response
+    });
+  }
+};
+
+export const createBooks = payload => {
+  return async function (dispatch) {
+    const newBook = await axios.post(); //Falta url en axios.post para crear los libros.
+    return dispatch ({
+      type: CREATE_BOOK,
+      payload: newBook.data,
+    });
+  }
+};
+
+export const clearFilters = allBooks => {
+  return {
+    type: CLEAR_FILTERS,
+    payload: allBooks,
+  }
+};
+
+export const getPages = payload => {
+  return{
+    type: PAGINATED,
+    payload,
   }
 };
