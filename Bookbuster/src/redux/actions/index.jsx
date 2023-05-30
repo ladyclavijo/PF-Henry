@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_BOOKS } from "./actionsTypes";
+import { GET_BOOKS,GET_BOOKS_BY_NAME } from "./actionsTypes";
 
 export function getBooks() {
   return async function (dispatch) {
@@ -11,4 +11,18 @@ export function getBooks() {
       payload: allBooks.data,
     });
   };
-}
+};
+
+export const getBooksByName = name => {
+  return async function (dispatch) {
+    try {
+      const response = (await axios.get()).data //Falta url en axios.get para traer los libros por nombre.
+      return dispatch({
+        type:GET_BOOKS_BY_NAME,
+        payload:response,
+      });
+    } catch (error) {
+      console.log(error.message);
+    };
+  }
+};
