@@ -1,9 +1,9 @@
 import React, {Fragment} from "react";
 
-export default function Card({id,title,author,image,isActive}) { // Props que vienen del back, destructuring provisional
+export default function Card({id,title,author,cover,isActive,genres}) { // Props basadas en la API
 
     function handleAddCart() { // Acá iría toda la lógica de añadir el libro a la lista de la compra
-
+        console.log("WIP")
     }
     
     if(isActive) { // Este "if()" es para saber si el libro está en stock o no 
@@ -18,12 +18,15 @@ export default function Card({id,title,author,image,isActive}) { // Props que vi
                             <p>{author}</p>
                         </div>
                         <div className="image">
-                            <img src={image} alt={title}/>
+                            <img src={cover} alt={title}/>
+                        </div>
+                        <div className="genres">
+                            <p className="genreString">
+                            {genres.map((g) => `${g.name} `).join(', ')} {/* Listado de géneros/tags */}
+                            </p>
                         </div>
                         <div className="toCart">
                             <button onClick={handleAddCart()}></button>
-                        </div>
-                        <div className="rate">
                         </div>
                     </div>
                 </Link>
@@ -40,7 +43,7 @@ export default function Card({id,title,author,image,isActive}) { // Props que vi
                         <p>{author}</p>
                     </div>
                     <div className="image">
-                        <img src={image} alt={title}/>
+                        <img src={cover} alt={title}/>
                     </div>
                     <p>Sold out</p> {/* Línea provisional */}
                 </div>
