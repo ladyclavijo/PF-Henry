@@ -1,0 +1,59 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 40px;
+  }
+  
+  /* Estilos del encabezado */
+  header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+  }
+  
+  nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  nav ul li {
+    display: inline;
+  }
+  
+  nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    margin-right: 20px;
+  }
+  
+  /* Estilos de la sección de inicio */
+  #inicio {
+    background-color: #d02e2e;
+    text-align: center;
+    padding: 100px 0;
+  }
+  
+  #inicio h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+  }
+  
+
+  
+  #inicio p {
+    font-size: 24px;
+    margin-bottom: 40px;
+  }
+  
+  .btn {
+    display: inline-block
+    
+  

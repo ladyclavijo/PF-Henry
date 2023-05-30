@@ -13,7 +13,7 @@ export default function Home() {
   }, [dispatch]);
   const allBooks = useSelector((state) => state.allBooks);
   return (
-    <div>
+    <div>Home
       <NavBar></NavBar>
       <Filters></Filters>
       <Cards allBooks={allBooks}></Cards>
