@@ -1,4 +1,4 @@
-import { GET_BOOKS, GET_BOOKS_BY_NAME, GET_BOOK_DETAIL, CREATE_BOOK, CLEAR_FILTERS, PAGINATED } from "../actions/actionsTypes";
+import { GET_BOOKS, GET_BOOKS_BY_NAME, GET_BOOK_DETAIL, CREATE_BOOK, CLEAR_FILTERS, PAGINATED, CLEAR_DETAILS } from "../actions/actionsTypes";
 
 const initialState = {
   allBooks: [],
@@ -9,7 +9,6 @@ const initialState = {
   paginated:1,
 
 };
-
 export default  rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_BOOKS:
@@ -40,6 +39,11 @@ export default  rootReducer = (state = initialState, action) => {
         bookSorted: [],
         error: {},
       };
+  case CLEAR_DETAILS:
+            return {
+                ...state,
+                booksDetail: [],
+            }
     case PAGINATED:
       return {
         ...state,

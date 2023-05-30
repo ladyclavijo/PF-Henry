@@ -4,3 +4,4 @@ export const GET_BOOK_DETAIL = 'GET_BOOK_DETAIL';
 export const CREATE_BOOK = 'CREATE_BOOK';
 export const CLEAR_FILTERS = 'CLEAR_FILTERS';
 export const PAGINATED = 'PAGINATED';
+export const CLEAR_DETAILS = "CLEAR_DETAILS";
