@@ -1,23 +1,53 @@
-import React, {Fragment} from "react";
-// import {useDispatch, useSelector} from "react-redux";
-// import {getDetails, clearDetails} from "../../redux/actions/index.jsx"
+import React, {useEffect, useState} from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useParams } from 'react-router-dom';
+import {getDetails, clearDetails, getBookDetail} from "../../redux/actions/index.jsx"
+import { Loader } from '../../components/Loader/Loader.jsx';
+import './Details.css';
 
-export default function Details(props) {
-    // const dispatch = useDispatch();
-    // const myBook = useSelector((state) => state.bookDetails);
+export default  Details = () =>  {
+    const { id } = useParams();
+    const [ loading, setLoading ] = useState(false);
+
+    const book = useSelector((state)=>state.booksDetail);
+    const dispatch = useDispatch();
 
 
-    // useEffect(() =>{
-    //     dispatch(getDetails(props.match.params.id));
-    //     return () => dispatch(clearDetails());
-    // }, [dispatch,props.match.params.id])
-
+    useEffect(() =>{
+        setLoading(true);
+        dispatch(getBookDetail(id));
+        setTimeout(()=>{
+            setLoading(false);
+        },1000);
+        return () => dispatch(clearDetails());
+    }, [dispatch,id]);
 
     return (
-        <Fragment>
-            <div className="bookDetails">
-                WIP
-            </div>
-        </Fragment>
+        <div>
+            {loading ? (
+                <Loader />
+            ) : (
+                <div>
+                    <Link to= '/home'>
+                        <div>
+                         <span> Back To Home </span>
+                        </div>
+                    </Link>
+                    <img src={book.cover} alt={`${book.title} book`} />
+                    <h1>{book.title}</h1>
+                    <div>
+                        <h2>Author: {book.author}</h2>
+                        <h2>Description: {book.description}</h2>
+                        <h2>Price: {book.price}</h2>
+                        <h2>Publisher: {book.publisher}</h2>
+                        <h2>Publisher Date: {book.publisher_date}</h2>
+                        <h2>Pages: {book.pages}</h2>
+                        <h2>Language: {book.language}</h2>
+                    </div>
+                </div>
+            )}
+        </div>
     )
-}
+        
+    
+};
