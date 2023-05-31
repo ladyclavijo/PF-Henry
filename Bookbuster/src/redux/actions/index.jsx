@@ -1,63 +1,68 @@
 import axios from "axios";
-import { GET_BOOKS,GET_BOOKS_BY_NAME,GET_BOOK_DETAIL,CREATE_BOOK,CLEAR_FILTERS,PAGINATED } from "./actionsTypes";
+import {
+  GET_BOOKS,
+  GET_BOOKS_BY_NAME,
+  GET_BOOK_DETAIL,
+  CREATE_BOOK,
+  CLEAR_FILTERS,
+  PAGINATED,
+} from "./actionsTypes";
 
 export function getBooks() {
   return async function (dispatch) {
-    const allBooks = await axios.get(
-      "https://www.googleapis.com/books/v1/volumes?maxResults=40&startIndex=0&q=&key=AIzaSyAOkpKXCbBqHIPdBUfdUcB8yeV6kCFUAvw"
-    );
+    const allBooks = await axios.get("/books");
     return dispatch({
       type: GET_BOOKS,
       payload: allBooks.data,
     });
   };
-};
+}
 
-export const getBooksByName = name => {
+export const getBooksByName = (name) => {
   return async function (dispatch) {
     try {
-      const response = (await axios.get()).data //Falta url en axios.get para traer los libros por nombre.
+      const response = (await axios.get()).data; //Falta url en axios.get para traer los libros por nombre.
       return dispatch({
-        type:GET_BOOKS_BY_NAME,
-        payload:response,
+        type: GET_BOOKS_BY_NAME,
+        payload: response,
       });
     } catch (error) {
       console.log(error.message);
-    };
-  }
+    }
+  };
 };
 
 export const getBookDetail = (id) => {
-  return async function (dispatch){
+  return async function (dispatch) {
     const response = (await axios.get()).data; //Falta url en axios.get para traer los libros por id.
 
-    return dispatch ({
-        type: GET_BOOK_DETAIL,
-        payload: response
+    return dispatch({
+      type: GET_BOOK_DETAIL,
+      payload: response,
     });
-  }
+  };
 };
 
-export const createBooks = payload => {
+export const createBooks = (payload) => {
   return async function (dispatch) {
     const newBook = await axios.post(); //Falta url en axios.post para crear los libros.
-    return dispatch ({
+    return dispatch({
       type: CREATE_BOOK,
       payload: newBook.data,
     });
-  }
+  };
 };
 
-export const clearFilters = allBooks => {
+export const clearFilters = (allBooks) => {
   return {
     type: CLEAR_FILTERS,
     payload: allBooks,
-  }
+  };
 };
 
-export const getPages = payload => {
-  return{
+export const getPages = (payload) => {
+  return {
     type: PAGINATED,
     payload,
-  }
+  };
 };
