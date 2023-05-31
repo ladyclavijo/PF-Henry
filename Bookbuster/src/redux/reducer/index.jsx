@@ -1,15 +1,22 @@
-import { GET_BOOKS, GET_BOOKS_BY_NAME, GET_BOOK_DETAIL, CREATE_BOOK, CLEAR_FILTERS, PAGINATED, CLEAR_DETAILS } from "../actions/actionsTypes";
+import {
+  GET_BOOKS,
+  GET_BOOKS_BY_NAME,
+  GET_BOOK_DETAIL,
+  CREATE_BOOK,
+  CLEAR_FILTERS,
+  PAGINATED,
+  CLEAR_DETAILS,
+} from "../actions/actionsTypes";
 
 const initialState = {
   allBooks: [],
   bookSorted: [],
   booksDetail: [],
   bookCreate: [],
-  error:[],
-  paginated:1,
-
+  error: [],
+  paginated: 1,
 };
-export default  rootReducer = (state = initialState, action) => {
+export default function rootReducer(state = initialState, action) {
   switch (action.type) {
     case GET_BOOKS:
       return {
@@ -18,15 +25,15 @@ export default  rootReducer = (state = initialState, action) => {
         allBooks: action.payload,
       };
     case GET_BOOK_DETAIL:
-        return {
-          ...state,
-          bookDetail: action.payload,
-        };
+      return {
+        ...state,
+        bookDetail: action.payload,
+      };
     case GET_BOOKS_BY_NAME:
-          return {
-            ...state,
-            bookSorted: action.payload,
-          };
+      return {
+        ...state,
+        bookSorted: action.payload,
+      };
     case CREATE_BOOK:
       return {
         ...state,
@@ -39,18 +46,18 @@ export default  rootReducer = (state = initialState, action) => {
         bookSorted: [],
         error: {},
       };
-  case CLEAR_DETAILS:
-            return {
-                ...state,
-                booksDetail: [],
-            }
+    case CLEAR_DETAILS:
+      return {
+        ...state,
+        booksDetail: [],
+      };
     case PAGINATED:
       return {
         ...state,
         paginated: action.payload,
       };
-        
+
     default:
       return state;
   }
-};
+}
