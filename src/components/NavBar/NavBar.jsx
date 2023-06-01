@@ -3,11 +3,12 @@ import Filters from "../Filters/Filters";
 import SearchBar from "../SearchBar/SearchBar.jsx";
 import { Link } from "react-router-dom";
 
-export default function NavBar({ setCurrentPage }) {
+export default function NavBar({ setCurrentPage, setLoading }) {
   return (
     <div>
+      <Link to='/landing'><span>Landing</span></Link>
       <div>
-        <SearchBar setCurrentPage={setCurrentPage} />
+        <SearchBar setCurrentPage={setCurrentPage} setLoading={setLoading} />
       </div>
       <div>
         <Link to="/form">
@@ -19,4 +20,4 @@ export default function NavBar({ setCurrentPage }) {
       </div>
     </div>
   );
-}
+};
