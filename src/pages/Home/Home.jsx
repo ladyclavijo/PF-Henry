@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import NavBar from "../../components/NavBar/NavBar.jsx";
 // import Filters from "../../components/Filters/Filters.jsx";
-import Cards from "../../components/Cards/Cards.jsx";
+import Card from "../../components/Card/Card.jsx";
 import Pagination from "../../components/Pagination/Pagination.jsx";
 import { getBooks } from "../../redux/actions/index.jsx";
 
@@ -44,13 +44,14 @@ export default function Home() {
           ) : (
             currentCards?.map((book) => {
               return (
-                <Cards 
+                <Card 
                 key={book.id}
-                id={book.id}
-                title= {book.title}
-                cover={book.title}
-                author={book.name}
-                description={book.description}
+                id={book.id} 
+                title={book.title} 
+                author={book.author} 
+                cover={book.cover} 
+                isActive={book.isActive}
+                genres={book.genres} 
                 />
               )
             })
@@ -72,4 +73,4 @@ export default function Home() {
     //   <Pagination></Pagination>
     // </div>
   );
-};
+}
