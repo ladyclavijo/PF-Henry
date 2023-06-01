@@ -66,12 +66,5 @@ export default function Home() {
       )}
     </div>
 
-    // <div>
-
-    //   <NavBar></NavBar>
-    //   <Filters></Filters>
-    //   <Cards allBooks={allBooks}></Cards>
-    //   <Pagination></Pagination>
-    // </div>
   );
 };
