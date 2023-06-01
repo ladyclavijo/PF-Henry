@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import NavBar from "../../components/NavBar/NavBar.jsx";
-// import Filters from "../../components/Filters/Filters.jsx";
 import Card from "../../components/Card/Card.jsx";
 import Loader from '../../components/Loader/Loader.jsx';
 import Pagination from "../../components/Pagination/Pagination.jsx";
@@ -31,7 +30,6 @@ export default function Home() {
     },1000);
   },[dispatch]);
 
-  // const allBooks = useSelector((state) => state.allBooks);
 
   return (
     <div>
