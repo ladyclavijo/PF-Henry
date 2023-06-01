@@ -30,6 +30,7 @@ export default function Details() {
       {loading ? (
         <Loader />
       ) : (
+        <>
         <div>
           <Link to="/home">
             <div>
@@ -48,7 +49,8 @@ export default function Details() {
             <h2>Language: {book.language}</h2>
           </div>
         </div>
-      )}
+        </>
+      )};
     </div>
   );
 }
