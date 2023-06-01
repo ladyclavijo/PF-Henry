@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import NavBar from "../../components/NavBar/NavBar.jsx";
 // import Filters from "../../components/Filters/Filters.jsx";
 import Card from "../../components/Card/Card.jsx";
+import Loader from '../../components/Loader/Loader.jsx';
 import Pagination from "../../components/Pagination/Pagination.jsx";
 import { getBooks } from "../../redux/actions/index.jsx";
 
@@ -73,4 +74,4 @@ export default function Home() {
     //   <Pagination></Pagination>
     // </div>
   );
-}
+};
