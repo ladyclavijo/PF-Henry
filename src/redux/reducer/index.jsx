@@ -15,6 +15,7 @@ const initialState = {
   bookCreate: [],
   error: [],
   paginated: 1,
+  genres: [],
 };
 export default function rootReducer(state = initialState, action) {
   switch (action.type) {
@@ -56,6 +57,11 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         paginated: action.payload,
       };
+    case GET_ALL_GENRES:
+      return {
+        ...state,
+        genres: action.payload,
+      }
 
     default:
       return state;
