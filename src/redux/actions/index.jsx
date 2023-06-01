@@ -21,7 +21,7 @@ export function getBooks() {
 export const getBooksByName = (name) => {
   return async function (dispatch) {
     try {
-      const response = (await axios.get()).data; //Falta url en axios.get para traer los libros por nombre.
+      const response = (await axios.get(`/books?name=${name}`)).data; //Falta url en axios.get para traer los libros por nombre.
       return dispatch({
         type: GET_BOOKS_BY_NAME,
         payload: response,
@@ -34,7 +34,7 @@ export const getBooksByName = (name) => {
 
 export const getBookDetail = (id) => {
   return async function (dispatch) {
-    const response = (await axios.get()).data; //Falta url en axios.get para traer los libros por id.
+    const response = (await axios.get(`/books/${id}`)).data; //Falta url en axios.get para traer los libros por id.
 
     return dispatch({
       type: GET_BOOK_DETAIL,
@@ -45,7 +45,7 @@ export const getBookDetail = (id) => {
 
 export const createBooks = (payload) => {
   return async function (dispatch) {
-    const newBook = await axios.post(); //Falta url en axios.post para crear los libros.
+    const newBook = await axios.post(`/books`,payload); //Falta url en axios.post para crear los libros.
     return dispatch({
       type: CREATE_BOOK,
       payload: newBook.data,
