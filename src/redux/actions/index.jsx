@@ -6,6 +6,7 @@ import {
   CREATE_BOOK,
   CLEAR_FILTERS,
   PAGINATED,
+  GET_ALL_GENRES,
 } from "./actionsTypes";
 
 export function getBooks() {
@@ -66,3 +67,18 @@ export const getPages = (payload) => {
     payload,
   };
 };
+
+
+export const getAllGenres = () => {
+    return async function (dispatch) {
+        try {
+            const response = (await axios.get("/genres")).data;
+            return dispatch({
+                type: GET_ALL_GENRES,
+                payload: response,
+            });
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+}
