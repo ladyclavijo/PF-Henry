@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 export default function NavBar({ setCurrentPage, setLoading }) {
   return (
     <div>
-      <Link to='/landing'><span>Landing</span></Link>
+      <Link to='/'><span>Landing</span></Link>
       <div>
         <SearchBar setCurrentPage={setCurrentPage} setLoading={setLoading} />
       </div>
