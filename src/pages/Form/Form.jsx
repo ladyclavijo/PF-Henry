@@ -1,11 +1,12 @@
 import React, { useEffect, useState, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
-import { createBooks } from "../../redux/actions/index"
+import { Link, useNavigate } from "react-router-dom";
+import { createBooks, getAllGenres } from "../../redux/actions/index"
+import validations from "./validations.js"
 
 export default function Form() {
     const dispatch = useDispatch();
-    const history = useHistory();
+    const history = useNavigate();
     const genres = useSelector((state) => state.genres).sort()
     const [errors, setErrors] = useState({validations})
     const [input, setInput] = useState({
@@ -76,7 +77,7 @@ export default function Form() {
     }
 
     useEffect(() => {
-        dispatch(getGenreList());
+        dispatch(getAllGenres());
     }, [dispatch]);
 
 
