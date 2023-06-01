@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import {
-  //   getDetails,
-  //   clearDetails,
-  getBookDetail,
-} from "../../redux/actions/index.jsx";
+import {getBookDetail} from "../../redux/actions/index.jsx";
 import Loader from "../../components/Loader/Loader.jsx";
 import "./Details.css";
 
@@ -22,7 +18,6 @@ export default function Details() {
     setTimeout(() => {
       setLoading(false);
     }, 1000);
-    return () => dispatch(clearDetails());
   }, [dispatch, id]);
 
   return (
