@@ -4,23 +4,21 @@ import './Landing.css'
 
 export default function Landing() {
   return (
-    <div>
+    <div >
       <header>
         <nav>
-
           <Link to="/about">
             <button>Contact us</button>
           </Link>
-        </nav>
-      </header>
-
-      <section id="inicio">
-        <div className="container">
-          <h1>BookBoster</h1>
-          <p>Cambia y vende libros usados de manera fácil y rápida.</p>
           <Link to="/home">
             <button>Log in</button>
           </Link>
+        </nav>
+      </header>
+      <section id="inicio">
+        <div className="container">
+          <h1>Welcome reader</h1>
+          <p>BookBoster:Exchange and sell used or new books easily and quickly.</p>
         </div>
       </section>
 
