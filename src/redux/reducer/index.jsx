@@ -6,6 +6,7 @@ import {
   CLEAR_FILTERS,
   PAGINATED,
   CLEAR_DETAILS,
+  GET_ALL_GENRES
 } from "../actions/actionsTypes";
 
 const initialState = {
