@@ -286,9 +286,6 @@ export default function Form() {
                     </form>
                 </div>
             </div>
-            {/* <div className={styles.bigImg}>
-                        <img src={input.image} alt="img"/>
-            </div> */}
         </Fragment>
     );
 };
