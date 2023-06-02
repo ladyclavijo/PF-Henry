@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import './Landing.css'
+import FormLanding from "../../components/Form Landing/FormLanding"
 
 export default function Landing() {
   return (
@@ -21,7 +22,7 @@ export default function Landing() {
           <p>BookBoster:Exchange and sell used or new books easily and quickly.</p>
         </div>
       </section>
-
+      <FormLanding />
       <section id="cambiar">
         <div className="container">
           <h2>Cambia tus libros</h2>

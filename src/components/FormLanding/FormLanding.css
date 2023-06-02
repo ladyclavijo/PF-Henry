@@ -1,0 +1,112 @@
+.Juntos {
+align-items: center;
+}
+.texto-form {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  color: rgb(255, 255, 255); /* Cambia el color según tu preferencia */
+}
+#Forms {
+margin-top: 20px;
+border: 5px solid rgba(0, 0, 0, 0);
+padding-bottom: 10px; 
+width: 300px; /* Ajusta el ancho según tu necesidad */
+margin-left: auto;
+margin-right: auto;
+background-color: rgba(19, 35, 47, 0.9);
+}
+.selected {
+  background-color: rgba(21, 255, 0, 0.866);
+}
+#signup-button,
+#login-button {
+  margin-top: 5px;
+  border-color: #179b7800;
+  background-color: rgba(160, 179, 176, 0.25);
+  /* Resto de los estilos del botón */
+}
+
+#signup-button.active,
+#login-button.active {
+  /* Estilos para el botón activo */
+  background-color: #1ab188;
+  /* Resto de los estilos del botón activo */
+}
+
+#signup-button:hover,
+#login-button:hover {
+  /* Estilos para el efecto hover */
+  background-color: #179b77;
+  transition: .5s;
+  border-color: #179b7800;
+  /* Resto de los estilos del botón en hover */
+}
+
+
+#signup-button.active:hover,
+#login-button.active:hover {
+  /* Estilos para el botón activo */
+  background-color: #179b77;
+  transition: .5s;
+  border-color: #179b7800;
+    /* Resto de los estilos del botón activo */
+}
+
+#signup-button-action {
+  background-color: #1ab188;
+  border-color: rgba(245, 245, 220, 0);
+  font-size: 100%;
+  /* Otros estilos para el botón de registro */
+}
+#signup-button-action:hover {
+  background-color: #179b77;
+  transition: .5s;
+  /* Otros estilos para el botón de registro */
+}
+
+#login-button-action {
+  background-color: #1ab188;
+  border-color: rgba(0, 0, 0, 0);
+  /* Otros estilos para el botón de inicio de sesión */
+}
+#login-button-action:hover {
+  background-color: #179b77;
+  transition: .5s;
+  /* Otros estilos para el botón de registro */
+}
+#signup-form input[name="firstName"] {
+  background-color: #179b7800;
+  border-color: white;
+
+}
+
+#signup-form input[name="lastName"] {
+  background-color: #179b7800;
+  border-color: white;
+}
+
+#signup-form input[name="username"] {
+  background-color: #179b7800;
+  border-color: white;
+}
+
+#signup-form input[name="email"],
+#login-form input[name="email"] {
+  background-color: #179b7800;
+  border-color: white;
+}
+
+#signup-form input[name="password"],
+#login-form input[name="password"] {
+  background-color: #179b7800;
+  border-color: white;
+}
+
+#signup-form button[type="submit"],
+#login-form button[type="submit"] {
+  margin-top: 20px;
+  width: 200px; /* Ajusta el ancho según tu necesidad */
+  height: 30px; /* Ajusta el alto según tu necesidad */
+  /* border-radius: 5%; */
+
+}
