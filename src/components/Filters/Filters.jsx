@@ -53,13 +53,14 @@ export default function Filters() {
 
       <select onChange={filterBooksByGenres}>
         <option value="Genres">Genres</option>
-        <option value="Fiction">Fiction</option>
-        <option value="Science">Science</option>
-        <option value="Economy">Economy</option>
-        <option value="Math">Math</option>
-        <option value="Criminology">Criminology</option>
-        <option value="Biography">Biography</option>
-        <option value="computing">computing</option>
+        <option value="Ficción">Fiction</option>
+        <option value="Ciencia">Science</option>
+        <option value="Economía">Economy</option>
+        <option value="Matemática">Math</option>
+        <option value="Criminología">Criminology</option>
+        <option value="Biografía">Biography</option>
+        <option value="Computación">Computing</option>
+        <option value="Historia">History</option>
       </select>
 
       <select onChange={filterBooksByLanguages}>

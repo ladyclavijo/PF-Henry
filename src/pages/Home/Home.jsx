@@ -49,8 +49,9 @@ export default function Home() {
                 title={book.title} 
                 author={book.author} 
                 cover={book.cover} 
-                isActive={book.isActive}
+                stock={book.stock}
                 genres={book.genres} 
+                price={book.price}
                 />
               )
             })
