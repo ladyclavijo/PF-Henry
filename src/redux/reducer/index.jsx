@@ -79,23 +79,14 @@ export default function rootReducer(state = initialState, action) {
       //     ...state,
       //     bookSorted:bookFilter
       //   };
-      const booksAll = [...state.bookSorted];
-      const allGenres = [];
-      const minu = action.payload.toLowerCase();
-      const genresFilter = booksAll.filter((el) => {
-        for (let k = 0; k < el.genre?.length; k++) {
-          console.log(el.genre[k])
-          if (
-            el.genre[k]?.name.toLowerCase() === minu &&
-            !allGenres.includes(el)
-          ) {
-            allGenres.push(el);
-  
-          }
-        }
-        console.log(allGenres)
+      const genres= action.payload;
+      const filterByGenres = [...state.allBooks].filter((b) => {
+        return b.genre.includes(genres);
       });
-
+      return {
+        ...state,
+        bookSorted: filterByGenres ,
+      };
     case SORT_BY:
       if (action.payload === "PRI-") {
         return {
