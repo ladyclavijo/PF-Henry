@@ -12,7 +12,7 @@ import {
   FILTER_BY_LANGUAGES,
   GET_GENRES_BY_ID,
   GET_AUTHORS,
-  GET_AUTHORS_BY_ID
+  GET_AUTHORS_BY_ID,
 } from "../actions/actionsTypes";
 
 const initialState = {
@@ -22,10 +22,10 @@ const initialState = {
   bookCreate: [],
   error: [],
   paginated: 1,
-  genres: [],
+  genre: [],
   genresId: [],
-  authors : [],
-  authorsId : [],
+  authors: [],
+  authorsId: [],
 };
 export default function rootReducer(state = initialState, action) {
   switch (action.type) {
@@ -70,7 +70,7 @@ export default function rootReducer(state = initialState, action) {
     case GET_ALL_GENRES:
       return {
         ...state,
-        genres: action.payload,
+        genre: action.payload,
       };
     case FILTER_BY_GENRES:
       //  const allBooks = state.bookSorted
@@ -83,77 +83,84 @@ export default function rootReducer(state = initialState, action) {
       const allGenres = [];
       const minu = action.payload.toLowerCase();
       const genresFilter = booksAll.filter((el) => {
-          for (let k = 0; k < el.genre?.length; k++) {
-              if (el.genre[k]?.name.toLowerCase() === minu && !allGenres.includes(el)) {
-                allGenres.push(el)
-              };
-          };
+        for (let k = 0; k < el.genre?.length; k++) {
+          if (
+            el.genre[k]?.name.toLowerCase() === minu &&
+            !allGenres.includes(el)
+          ) {
+            allGenres.push(el);
+          }
+        }
       });
 
-      case SORT_BY:
-        if(action.payload === "PRI-") {
-          return {
-            ...state,
-            bookSorted: state.bookSorted.slice().sort((a, b) => a.price - b.price)
-          }
-
-        } else if (action.payload === "PRI+") {
-
-          return {
-            ...state,
-            bookSorted: state.bookSorted.slice().sort((a, b) => b.price - a.price)
-          }
-        } else if (action.payload === "ASC") {
-          const result = state.bookSorted.slice().sort((a, b) => {
-            if(a.title < b.title) return -1
-            if(b.title < a.title) return 1
-            return 0
-          })
-          return {
-            ...state,
-            bookSorted: result
-          }
-        } else if (action.payload === "DES") {
-          const result = state.bookSorted.slice().sort((a, b) => {
-            if(a.title < b.title) return -1
-            if(b.title < a.title) return 1
-            return 0
-          })
-          return {
-            ...state,
-            bookSorted: result.reverse()
-          }
-        } else {
-            return {
-              ...state,
-              bookSorted: state.allBooks
-            }
-        };
-      case FILTER_BY_LANGUAGES:
-        const allLanguages = state.allBooks
-        const filterLanguage = action.payload === 'All' ? allLanguages : allLanguages.filter(f=> f.language === action.payload)
-         return {
+    case SORT_BY:
+      if (action.payload === "PRI-") {
+        return {
           ...state,
-          bookSorted: filterLanguage,
-         };
-        case GET_GENRES_BY_ID:
-          return {
-            ...state,
-            genresId: action.payload,
-          };
-        case GET_AUTHORS:
-          return {
-            ...state,
-            authors: action.payload,
-          };
-        case GET_AUTHORS_BY_ID:
-          return {
-            ...state,
-            authorsId: action.payload,
-          };
-
+          bookSorted: state.bookSorted
+            .slice()
+            .sort((a, b) => a.price - b.price),
+        };
+      } else if (action.payload === "PRI+") {
+        return {
+          ...state,
+          bookSorted: state.bookSorted
+            .slice()
+            .sort((a, b) => b.price - a.price),
+        };
+      } else if (action.payload === "ASC") {
+        const result = state.bookSorted.slice().sort((a, b) => {
+          if (a.title < b.title) return -1;
+          if (b.title < a.title) return 1;
+          return 0;
+        });
+        return {
+          ...state,
+          bookSorted: result,
+        };
+      } else if (action.payload === "DES") {
+        const result = state.bookSorted.slice().sort((a, b) => {
+          if (a.title < b.title) return -1;
+          if (b.title < a.title) return 1;
+          return 0;
+        });
+        return {
+          ...state,
+          bookSorted: result.reverse(),
+        };
+      } else {
+        return {
+          ...state,
+          bookSorted: state.allBooks,
+        };
+      }
+    case FILTER_BY_LANGUAGES:
+      const allLanguages = state.allBooks;
+      const filterLanguage =
+        action.payload === "All"
+          ? allLanguages
+          : allLanguages.filter((f) => f.language === action.payload);
+      return {
+        ...state,
+        bookSorted: filterLanguage,
+      };
+    case GET_GENRES_BY_ID:
+      return {
+        ...state,
+        genresId: action.payload,
+      };
+    case GET_AUTHORS:
+      return {
+        ...state,
+        authors: action.payload,
+      };
+    case GET_AUTHORS_BY_ID:
+      return {
+        ...state,
+        authorsId: action.payload,
+      };
 
     default:
       return state;
   }
-};
+}
