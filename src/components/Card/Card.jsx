@@ -27,7 +27,7 @@ export default function Card({id,title,author,cover,stock,genres, price}) { // P
                             </p>
                         </div> */}
                         <div claasName="price">
-                            <p>${price}</p>
+                            <p>${price.toLocaleString('es-ES')}</p>
                         </div>
                         {/* <div className="toCart">
                             <button onClick={handleAddCart()}></button>

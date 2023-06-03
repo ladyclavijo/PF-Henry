@@ -73,28 +73,12 @@ export default function rootReducer(state = initialState, action) {
         genre: action.payload,
       };
     case FILTER_BY_GENRES:
-      //  const allBooks = state.bookSorted
-      //  const bookFilter = action.payload === 'book' ? allBooks.filter(f=> f.book.length!==0): action.payload === 'noB'? allBooks.filter(f=>!f.book.length) : allBooks
-      //   return {
-      //     ...state,
-      //     bookSorted:bookFilter
-      //   };
-      const booksAll = [...state.bookSorted];
-      const allGenres = [];
-      const minu = action.payload.toLowerCase();
-      const genresFilter = booksAll.filter((el) => {
-        for (let k = 0; k < el.genre?.length; k++) {
-          console.log(el.genre[k])
-          if (
-            el.genre[k]?.name.toLowerCase() === minu &&
-            !allGenres.includes(el)
-          ) {
-            allGenres.push(el);
-  
-          }
-        }
-        console.log(allGenres)
-      });
+      const allGenre = state.allBooks
+      const filterGenre = action.payload === 'All' ? allGenre : allGenre.filter(f=> f.genre === action.payload)
+      return {
+          ...state,
+          bookSorted: filterGenre,
+      };
 
     case SORT_BY:
       if (action.payload === "PRI-") {

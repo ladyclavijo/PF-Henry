@@ -52,7 +52,7 @@ export default function Filters() {
       </select>
 
       <select onChange={filterBooksByGenres}>
-        <option value="Genres">Genres</option>
+        <option value="All">Genres</option>
         <option value="Ficción">Fiction</option>
         <option value="Ciencia">Science</option>
         <option value="Economía">Economy</option>
