@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import './Landing.css'
-import FormLanding from "../../components/Form Landing/FormLanding"
+import "./Landing.css";
+import FormLanding from "../../components/FormLanding/FormLanding";
 
 export default function Landing() {
   return (
-    <div >
+    <div>
       <header>
         <nav>
           <Link to="/about">
@@ -19,14 +19,19 @@ export default function Landing() {
       <section id="inicio">
         <div className="container">
           <h1>Welcome reader</h1>
-          <p>BookBoster:Exchange and sell used or new books easily and quickly.</p>
+          <p>
+            BookBoster:Exchange and sell used or new books easily and quickly.
+          </p>
         </div>
       </section>
       <FormLanding />
       <section id="cambiar">
         <div className="container">
           <h2>Cambia tus libros</h2>
-          <p>Explora nuestra amplia selección de libros usados y encuentra nuevas lecturas.</p>
+          <p>
+            Explora nuestra amplia selección de libros usados y encuentra nuevas
+            lecturas.
+          </p>
         </div>
       </section>
 
