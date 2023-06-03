@@ -28,7 +28,7 @@ export function getBooks() {
 export const getBooksByName = (name) => {
   return async function (dispatch) {
     try {
-      const response = (await axios.get(`/books?name=${name}`)).data; 
+      const response = (await axios.get(`/books?title=${name}`)).data;
       return dispatch({
         type: GET_BOOKS_BY_NAME,
         payload: response,
@@ -52,7 +52,7 @@ export const getBookDetail = (id) => {
 
 export const createBooks = (payload) => {
   return async function (dispatch) {
-    const newBook = await axios.post(`/books`,payload); 
+    const newBook = await axios.post(`/books`, payload);
     return dispatch({
       type: CREATE_BOOK,
       payload: newBook.data,
@@ -74,83 +74,79 @@ export const getPages = (payload) => {
   };
 };
 
-
 export const getAllGenres = () => {
-    return async function (dispatch) {
-        try {
-            const response = (await axios.get("/genres")).data;
-            return dispatch({
-                type: GET_ALL_GENRES,
-                payload: response,
-            });
-        } catch (error) {
-            console.log(error.message);
-        }
+  return async function (dispatch) {
+    try {
+      const response = (await axios.get("/genres")).data;
+      return dispatch({
+        type: GET_ALL_GENRES,
+        payload: response,
+      });
+    } catch (error) {
+      console.log(error.message);
     }
+  };
 };
 
 export const getGenresById = (id) => {
   return async function (dispatch) {
-      try {
-          const response = (await axios.get(`/genres/${id}`)).data;
-          return dispatch({
-              type: GET_GENRES_BY_ID,
-              payload: response,
-          });
-      } catch (error) {
-          console.log(error.message);
-      }
-  }
+    try {
+      const response = (await axios.get(`/genres/${id}`)).data;
+      return dispatch({
+        type: GET_GENRES_BY_ID,
+        payload: response,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 };
 
 export const getAuthor = () => {
   return async function (dispatch) {
-      try {
-          const response = (await axios.get(`/authors`)).data;
-          return dispatch({
-              type: GET_AUTHORS,
-              payload: response,
-          });
-      } catch (error) {
-          console.log(error.message);
-      }
-  }
+    try {
+      const response = (await axios.get(`/authors`)).data;
+      return dispatch({
+        type: GET_AUTHORS,
+        payload: response,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 };
 
 export const getAuthorsById = (id) => {
   return async function (dispatch) {
-      try {
-          const response = (await axios.get(`/authors/${id}`)).data;
-          return dispatch({
-              type: GET_AUTHORS_BY_ID,
-              payload: response,
-          });
-      } catch (error) {
-          console.log(error.message);
-      }
-  }
+    try {
+      const response = (await axios.get(`/authors/${id}`)).data;
+      return dispatch({
+        type: GET_AUTHORS_BY_ID,
+        payload: response,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 };
-
-
 
 export const filterByGenres = (payload) => {
   return {
     type: FILTER_BY_GENRES,
     payload,
-  }
+  };
 };
 
 export const sortBy = (payload) => {
   return {
     type: SORT_BY,
-    payload
-  }
+    payload,
+  };
 };
 
 export const filterByLanguages = (payload) => {
   return {
     type: FILTER_BY_LANGUAGES,
-    payload
-  }
+    payload,
+  };
 };
-
