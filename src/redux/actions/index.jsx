@@ -51,12 +51,18 @@ export const getBookDetail = (id) => {
 };
 
 export const createBooks = (payload) => {
-  return async function (dispatch) {
-    const newBook = await axios.post(`/books`, payload);
-    return dispatch({
-      type: CREATE_BOOK,
-      payload: newBook.data,
-    });
+  console.log(payload);
+  return async (dispatch) => {
+    try {
+      let response = await axios.post("/books/post", payload);
+      return dispatch({
+        type: CREATE_BOOK,
+        payload: response,
+      });
+    } catch (error) {
+      console.log(error);
+      alert(error.message);
+    }
   };
 };
 
