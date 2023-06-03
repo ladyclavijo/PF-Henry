@@ -25,8 +25,9 @@ export default function Cards() {
               title={book.title} // "Matemática para todos"
               author={book.author} // "Adrián Paenza"
               cover={book.cover} // img URL
-              isActive={book.isActive} // DB info
+              stock={book.stock} // DB info
               genres={book.genres} // Objeto con sus tags/generos
+              price={book.price}
             />
           );
         })}

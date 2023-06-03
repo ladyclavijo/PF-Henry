@@ -84,13 +84,16 @@ export default function rootReducer(state = initialState, action) {
       const minu = action.payload.toLowerCase();
       const genresFilter = booksAll.filter((el) => {
         for (let k = 0; k < el.genre?.length; k++) {
+          console.log(el.genre[k])
           if (
             el.genre[k]?.name.toLowerCase() === minu &&
             !allGenres.includes(el)
           ) {
             allGenres.push(el);
+  
           }
         }
+        console.log(allGenres)
       });
 
     case SORT_BY:

@@ -1,15 +1,16 @@
 import React, {Fragment} from "react";
+import {Link} from "react-router-dom"
 
-export default function Card({id,title,author,cover,isActive,genres}) { // Props basadas en la API
 
-    function handleAddCart() { // Acá iría toda la lógica de añadir el libro a la lista de la compra
-        console.log("WIP")
-    }
-    
-    if(isActive) { // Este "if()" es para saber si el libro está en stock o no 
+export default function Card({id,title,author,cover,stock,genres, price}) { // Props basadas en la API
+
+    // function handleAddCart() { // Acá iría toda la lógica de añadir el libro a la lista de la compra
+    //     console.log("WIP")
+    // }
+    if(stock) { // Este "if()" es para saber si el libro está en stock o no 
         return (
             <Fragment>
-                <Link to={"/books" + id}>
+                <Link to={"/book/" + id}>
                     <div className="bookName">
                         <h3>{title}</h3>
                     </div>
@@ -20,14 +21,17 @@ export default function Card({id,title,author,cover,isActive,genres}) { // Props
                         <div className="image">
                             <img src={cover} alt={title}/>
                         </div>
-                        <div className="genres">
+                        {/* <div className="genres">
                             <p className="genreString">
-                            {genres.map((g) => `${g.name} `).join(', ')} {/* Listado de géneros/tags */}
+                            {genres?.map((g) => `${g.name} `).join(', ')}
                             </p>
+                        </div> */}
+                        <div claasName="price">
+                            <p>${price}</p>
                         </div>
-                        <div className="toCart">
+                        {/* <div className="toCart">
                             <button onClick={handleAddCart()}></button>
-                        </div>
+                        </div> */}
                     </div>
                 </Link>
             </Fragment>
