@@ -1,59 +1,88 @@
-/* Estilos generales */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .container {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 40px;
-  }
-  
-  /* Estilos del encabezado */
-  header {
-    background-color: #333;
-    color: #fff;
-    padding: 20px;
-  }
-  
-  nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  nav ul li {
-    display: inline;
-  }
-  
-  nav ul li a {
-    color: #fff;
-    text-decoration: none;
-    margin-right: 20px;
-  }
-  
-  /* Estilos de la sección de inicio */
-  #inicio {
-    background-color: #d02e2e;
-    text-align: center;
-    padding: 100px 0;
-  }
-  
-  #inicio h1 {
-    font-size: 48px;
-    margin-bottom: 20px;
-  }
-  
+/* Landing.css */
+.landing-page {
+  color: rgb(255, 255, 255);
+}
 
-  
-  #inicio p {
-    font-size: 24px;
-    margin-bottom: 40px;
-  }
-  
-  .btn {
-    display: inline-block
-    
-  
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  padding: 10px;
+  width: 100%;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  background-color: black;
+}
+
+.logo {
+  font-size: 24px;
+}
+
+.buttons {
+  display: flex;
+}
+
+.buttonLog,
+.buttonSign,
+.buttonAbout {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 26px;
+  margin-left: 10px;
+}
+
+.content {
+  position: fixed;
+  left: 0;
+  display: flex;
+  width: 100%;
+  margin-top: 140px;
+  background-color: rgb(1, 1, 122);
+}
+
+.text-container {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.blue-box {
+  text-align: center;
+}
+
+.blue-box h2 {
+  color: white;
+  font-size: 3em;
+}
+
+.explore-button {
+  background-color: rgb(89, 92, 186);
+  color: rgb(255, 255, 255);
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+.explore-button:hover{
+  background-color: rgb(25, 29, 168);
+  color: rgb(255, 255, 255);
+  transition: .8s;
+}
+
+.image-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+}

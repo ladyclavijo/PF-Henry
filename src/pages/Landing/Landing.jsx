@@ -5,55 +5,38 @@ import FormLanding from "../../components/FormLanding/FormLanding";
 
 export default function Landing() {
   return (
-    <div>
-      <header>
-        <nav>
+    <div className="landing-page">
+      <nav className="navbar">
+        <div className="logo">
+          <img
+            src=""
+            alt="Book Logo"
+          />
+          BookBuster</div>
+        <div className="buttons">
+          {/* <button className="buttonLog">Log In</button>
+          <button className="buttonSign">Sign Up</button> */}
           <Link to="/about">
-            <button>Contact us</button>
+            <button className="buttonAbout">About</button>
           </Link>
-          <Link to="/home">
-            <button>Log in</button>
-          </Link>
-        </nav>
-      </header>
-      <section id="inicio">
-        <div className="container">
-          <h1>Welcome reader</h1>
-          <p>
-            BookBoster:Exchange and sell used or new books easily and quickly.
-          </p>
         </div>
-      </section>
-      <FormLanding />
-      <section id="cambiar">
-        <div className="container">
-          <h2>Cambia tus libros</h2>
-          <p>
-            Explora nuestra amplia selección de libros usados y encuentra nuevas
-            lecturas.
-          </p>
+      </nav>
+      <div className="content">
+        <div className="text-container">
+          <div className="blue-box">
+            <h2>Find the book you are looking for easier to read.</h2>
+            <Link to="/home">
+              <button className="explore-button">Explore books</button>
+            </Link>
+          </div>
         </div>
-      </section>
-
-      <section id="vender">
-        <div className="container">
-          <h2>Vende tus libros</h2>
-          <p>Gana dinero extra vendiendo los libros que ya no necesitas.</p>
+        <div className="image-container">
+          <img
+            src="https://www.todoliteratura.es/fotos/1/Alice_Kellen_leyendo_novela_en_primer_plano_copy_Umami_Brands_thumb_468.jpg"
+            alt="Book Image"
+          />
         </div>
-      </section>
-
-      <section id="contacto">
-        <div className="container">
-          <h2>Contacto</h2>
-          <p>¡Contáctanos si tienes alguna pregunta o sugerencia!</p>
-        </div>
-      </section>
-
-      <footer>
-        <div className="container">
-          <p>&copy; 2023 BookBoster. Todos los derechos reservados.</p>
-        </div>
-      </footer>
+      </div>
     </div>
   );
 }
