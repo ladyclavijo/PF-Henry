@@ -1,0 +1,35 @@
+.navbar-home {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgb(1, 1, 122);
+    height: 60px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.navbar-home a {
+    text-decoration: none;
+}
+
+.backToLanding {
+    margin-left: 10px;
+}
+
+.button-about {
+    color: white;
+    margin-right: 20px;
+}
+
+.icon-button {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+}
+
+.icon-button svg {
+    font-size: 25px;
+    color: white;
+}

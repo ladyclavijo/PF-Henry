@@ -32,8 +32,8 @@ export default function Home() {
 
 
   return (
-    <div>
-      <div>
+    <div className="home-page">
+      <div className="div-navBar">
         <NavBar setLoading={setLoading} />
       </div>
       <div>
