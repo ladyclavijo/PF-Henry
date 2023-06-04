@@ -1,0 +1,130 @@
+
+/* .navbar {
+    background-color: #000;
+    color: #fff;
+    padding: 20px;
+  }
+
+  .navbar button {
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    margin-right: 2px;
+  }
+
+  .navbar button:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  } */
+
+/*___________________________________*/
+  .containerOne {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 7%;
+    margin-bottom: 40px;
+  }
+
+  .containerOne .divAboutLeft {
+    width: 60%;
+    color: rgb(46, 61, 78);
+  }
+
+  .containerTwo {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 40px;
+  }
+
+  .containerTwo .divAboutRight {
+    width: 60%;
+    color: rgb(46, 61, 78);
+  }
+
+  .containerThree {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 20px; /* Ajusta el margen superior según tus necesidades */
+  }
+  
+  .containerThree .divAboutttLeft {
+    width: 60%;
+    color: rgb(46, 61, 78);
+  }
+  
+/*___________________________________*/
+
+  .global {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-top: 60px;
+    color: rgb(46, 61, 78);
+  }
+
+  .titulo {
+    margin-bottom: 20px;
+  }
+
+  .containerFlex {
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+  }
+
+  .column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 80px;
+
+  }
+
+  .titluloFront,
+  .titluloBack {
+    font-size: 25px;
+    margin-bottom: 10px;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+  }
+
+  li {
+    margin-bottom: 10px;
+  }
+
+
+
+li {
+  margin-bottom: 10px;
+  transition: color 0.3s; /* Transición suave para el cambio de color */
+  position: relative; /* Necesario para posicionar los enlaces */
+  cursor: pointer; /* Cambiar el cursor al pasar el mouse por encima */
+}
+
+li:hover {
+  color: #52949c; /* Cambiar al color azul más claro deseado */
+}
+
+h3:hover, h2:hover {
+  color: #215961;
+}
+
+p:hover{
+  color:#285f66;
+}
+
+
+.titles{
+    font-size: 30px;
+    font-weight: normal;
+  }
