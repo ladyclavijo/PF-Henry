@@ -8,7 +8,7 @@ import { getBooks } from "../../redux/actions/index.jsx";
 
 export default function Home() {
 
-  const [cardsPerPage] = useState(10);
+  const [cardsPerPage] = useState(6);
   const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
