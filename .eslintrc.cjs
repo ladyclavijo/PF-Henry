@@ -12,4 +12,10 @@ module.exports = {
   rules: {
     'react-refresh/only-export-components': 'warn',
   },
-}
+  overrides: [
+    {
+      files: ['tailwind.config.js'],
+      env: { node: true },
+    },
+  ],
+};

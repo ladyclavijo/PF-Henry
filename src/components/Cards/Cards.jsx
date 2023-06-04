@@ -16,22 +16,18 @@ export default function Cards() {
   // console.log(allBooks)
 
   return (
-    <Fragment>
-      <div className="allBooks">
-        {allBooks.map((book) => {
-          return (
-            <Card
-              id={book.id} // "10273"
-              title={book.title} // "Matemática para todos"
-              author={book.author} // "Adrián Paenza"
-              cover={book.cover} // img URL
-              stock={book.stock} // DB info
-              genres={book.genres} // Objeto con sus tags/generos
-              price={book.price}
-            />
-          );
-        })}
-      </div>
-    </Fragment>
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
+      {allBooks.map((book) => (
+        <div key={book.id}>
+          <Card
+            id={book.id}
+            title={book.title}
+            author={book.author}
+            cover={book.cover}
+            price={book.price}
+          />
+        </div>
+      ))}
+    </div>
   );
 }
