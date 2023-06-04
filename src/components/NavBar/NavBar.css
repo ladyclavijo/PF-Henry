@@ -3,8 +3,8 @@
     align-items: center;
     justify-content: space-between;
     background-color: rgb(1, 1, 122);
-    height: 60px;
-    position: fixed;
+    height: 50px;
+    position: fixed; /* para que quede fija sin moverse*/
     top: 0;
     left: 0;
     right: 0;

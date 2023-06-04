@@ -1,10 +1,14 @@
+import "./Home.css";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import NavBar from "../../components/NavBar/NavBar.jsx";
 import Card from "../../components/Card/Card.jsx";
 import Loader from '../../components/Loader/Loader.jsx';
 import Pagination from "../../components/Pagination/Pagination.jsx";
 import { getBooks } from "../../redux/actions/index.jsx";
+import SearchBar from "../../components/SearchBar/SearchBar.jsx";
+import logo from "../../assets/images/Logo.png";
 
 export default function Home() {
 
@@ -33,9 +37,29 @@ export default function Home() {
 
   return (
     <div className="home-page">
-      <div className="div-navBar">
+
+      <div className="home-navbar">
+
+        <div className="div-logo">
+          <img src={logo} alt="logo"/>
+        </div>
+
+        <div className="div-searchbar">
+         <SearchBar/>
+        </div>
+
+        <div className="div-form">
+         <Link to="/form">
+           <span>Publish Book</span>
+         </Link>
+       </div>
+
+      </div>
+
+      <div>
         <NavBar setLoading={setLoading} />
       </div>
+
       <div>
         <div>
           {loading ? (
