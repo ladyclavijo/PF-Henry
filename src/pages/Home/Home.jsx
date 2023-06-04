@@ -22,13 +22,13 @@ export default function Home() {
   const currentCards = bookSorted.slice(firstCardIndex, lastCardIndex);
 
 
-  useEffect(()=>{
+  useEffect(() => {
     setLoading(true);
     dispatch(getBooks());
-    setTimeout(()=>{
-        setLoading(false);
-    },1000);
-  },[dispatch]);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  }, [dispatch]);
 
 
   return (
@@ -36,32 +36,33 @@ export default function Home() {
       <div className="div-navBar">
         <NavBar setLoading={setLoading} />
       </div>
-      <div>
-        <div>
-          {loading ? (
-            <Loader />
-          ) : (
-            currentCards?.map((book) => {
-              return (
-                <Card 
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {loading ? (
+          <Loader />
+        ) : (
+          currentCards?.map((book, index) => (
+            <div className="mx-auto" key={book.id}>
+              <Card
                 key={book.id}
-                id={book.id} 
-                title={book.title} 
-                author={book.author} 
-                cover={book.cover} 
+                id={book.id}
+                title={book.title}
+                author={book.author}
+                cover={book.cover}
                 stock={book.stock}
-                genres={book.genres} 
+                genres={book.genres}
                 price={book.price}
-                />
-              )
-            })
-          )}
-        </div>
+                className={index % 3 === 2 ? 'last:mb-0' : 'mb-4'}
+              />
+            </div>
+
+          ))
+        )}
       </div>
       {!error.length && (
-        <Pagination 
-        cardsPerPage={cardsPerPage}
-        bookSorted={bookSorted.length}/>
+        <Pagination
+          cardsPerPage={cardsPerPage}
+          bookSorted={bookSorted.length}
+        />
       )}
     </div>
 

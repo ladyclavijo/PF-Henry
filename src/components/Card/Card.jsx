@@ -1,41 +1,29 @@
-import React, {Fragment} from "react";
-import {Link} from "react-router-dom"
+import React, { Fragment } from "react";
+import { Link } from "react-router-dom"
 
 
-export default function Card({id,title,author,cover,stock,genres, price}) { // Props basadas en la API
+export default function Card({ id, title, author, cover, stock, genres, price }) { // Props basadas en la API
 
     // function handleAddCart() { // Acá iría toda la lógica de añadir el libro a la lista de la compra
     //     console.log("WIP")
     // }
-    if(stock) { // Este "if()" es para saber si el libro está en stock o no 
+    if (stock) { // Este "if()" es para saber si el libro está en stock o no 
         return (
-            <Fragment>
-                <Link to={"/book/" + id}>
-                    <div className="bookName">
-                        <h3>{title}</h3>
-                    </div>
-                    <div className="info">
-                        <div className="author">
-                            <p>{author}</p>
+            <div className="bg-[#52e6c3] border-2 border-[#52e6c3] w-64 h-128 rounded-md hover:opacity-75 transition duration-500 mx-auto">
+                <div className="p-4 flex flex-col justify-between h-full ">
+                    <Link to={"/book/" + id} className="text-black ">
+                        <div className="bg-[#52e6c3]">
+                            <h3 className="text-xl font-semibold h-20 overflow-hidden mb-2">{title}</h3>
+                            <div className="mt-1 flex-grow">
+                                <img src={cover} alt={title} className="w-full h-auto" />
+                            </div>
+                            <p className="mt-2">{author}</p>
+                            <p className="mt-2">${price}</p>
                         </div>
-                        <div className="image">
-                            <img src={cover} alt={title}/>
-                        </div>
-                        {/* <div className="genres">
-                            <p className="genreString">
-                            {genres?.map((g) => `${g.name} `).join(', ')}
-                            </p>
-                        </div> */}
-                        <div claasName="price">
-                            <p>${price}</p>
-                        </div>
-                        {/* <div className="toCart">
-                            <button onClick={handleAddCart()}></button>
-                        </div> */}
-                    </div>
-                </Link>
-            </Fragment>
-            )
+                    </Link>
+                </div>
+            </div>
+        )
     } else {
         return (
             <Fragment>
@@ -47,11 +35,11 @@ export default function Card({id,title,author,cover,stock,genres, price}) { // P
                         <p>{author}</p>
                     </div>
                     <div className="image">
-                        <img src={cover} alt={title}/>
+                        <img src={cover} alt={title} />
                     </div>
                     <p>Sold out</p> {/* Línea provisional */}
                 </div>
             </Fragment>
-            )
+        )
     }
 }
