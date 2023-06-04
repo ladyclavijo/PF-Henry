@@ -2,6 +2,7 @@ import React, { useState, useEffect, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { getAllGenres, createBooks } from "../../redux/actions/index.jsx";
+import NavBar from "../../components/NavBar/NavBar.jsx"
 
 function validateForm(input) {
   let errors = {};
@@ -177,130 +178,130 @@ export default function Form() {
   }, [dispatch, input]);
   return (
     <Fragment>
-      <div className="mainContainer">
+      <NavBar/>
+      <div className="mt-5 bg-[#52e6c3] border-2 border-[#52e6c3] w-5/12 h-9/12 rounded-1 mx-auto p-2">
         <div>
-          <h2>Book creator</h2>
+          <h2 className="text-xl font-bold mb-3">Upload your book</h2>
         </div>
 
-        <div className="container">
+        <div className="bg-[#ffffff] p-3">
           <form onSubmit={(e) => handleSubmit(e)}>
-            <div className="section">
-              <label>Title:</label>
+            <div className="mt-1 mb-1 p-1 bg-[#52e6c3]">
               <input
+                className="peer block w-full"
                 type="text"
                 value={input.title}
                 name="title"
-                placeholder="Title"
+                placeholder=" Title"
                 onChange={(e) => handleChange(e)}
               />
               <div>
-                <p className="eerror">{errors.title}</p>
+                <p className="text-xs text-[#ff0b11] italic mt-0.5">{errors.title}</p>
               </div>
             </div>
 
-            <div className="section">
-              <label>Cover URL:</label>
+            <div className="p-1 mt-1 mb-1 bg-[#52e6c3]">
               <input
+                className="peer block w-full"
                 type="text"
                 value={input.cover}
                 name="cover"
-                placeholder="URL"
+                placeholder=" Cover URL"
                 onChange={(e) => handleChange(e)}
               />
               <div>
-                <p className="error">{errors.cover}</p>
+                <p className="text-xs text-[#ff0b11] italic mt-0.5">{errors.cover}</p>
               </div>
             </div>
 
-            <div className="section">
-              <label>Price:</label>
+            <div className="p-1 mt-1 mb-1 bg-[#52e6c3]">
               <input
+                className="peer block w-full"
                 type="number"
                 value={input.price}
                 name="price"
-                placeholder="Price"
+                placeholder=" Price"
                 onChange={(e) => handleChange(e)}
               />
               <div>
-                <p className="error">{errors.price}</p>
+                <p className="text-xs text-[#ff0b11] italic mt-0.5">{errors.price}</p>
               </div>
             </div>
 
-            <div className="section">
-              <label>Publisher:</label>
+            <div className="p-1 mt-1 mb-1 bg-[#52e6c3]">
               <input
+                className="peer block w-full"
                 type="text"
                 value={input.publisher}
                 name="publisher"
-                placeholder="Publisher"
+                placeholder=" Publisher"
                 onChange={(e) => handleChange(e)}
               />
               <div>
-                <p className="error">{errors.publisher}</p>
+                <p className="text-xs text-[#ff0b11] italic mt-0.5">{errors.publisher}</p>
               </div>
             </div>
 
-            <div className="section">
-              <label>Publisher date:</label>
+            <div className="p-1 mt-1 mb-1 bg-[#52e6c3]">
               <input
+                className="peer block w-full"
                 type="date"
                 value={input.publisher_date}
                 name="publisher_date"
-                placeholder="Publisher date"
+                placeholder=" Publisher date"
                 onChange={(e) => handleChange(e)}
               />
               <div>
-                <p className="error">{errors.publisher_date}</p>
+                <p className="text-xs text-[#ff0b11] italic mt-0.5">{errors.publisher_date}</p>
               </div>
             </div>
 
-            <div className="section">
-              <label>Pages:</label>
+            <div className="p-1 mt-1 mb-1 bg-[#52e6c3]">
               <input
+                className="peer block w-full"
                 type="number"
                 value={input.pages}
                 name="pages"
-                placeholder="Pages"
+                placeholder=" Page number"
                 onChange={(e) => handleChange(e)}
               />
               <div>
-                <p className="error">{errors.pages}</p>
+                <p className="text-xs text-[#ff0b11] italic mt-0.5">{errors.pages}</p>
               </div>
             </div>
 
-            <div className="section">
-              <label>Language:</label>
+            <div className="p-1 mt-1 mb-1 bg-[#52e6c3]">
               <input
+                className="peer block w-full"
                 type="text"
                 value={input.language}
                 name="language"
-                placeholder="Language"
+                placeholder=" Language"
                 onChange={(e) => handleChange(e)}
               />
               <div>
-                <p className="error">{errors.language}</p>
+                <p className="text-xs text-[#ff0b11] italic mt-0.5">{errors.language}</p>
               </div>
             </div>
-            <div className="section">
-              <label>Author</label>
+            <div className="p-1 mt-1 mb-1 bg-[#52e6c3]">
               <input
+                className="peer block w-full"
                 type="text"
                 value={input.author}
                 name="author"
-                placeholder="Author"
+                placeholder=" Author"
                 onChange={(e) => handleChange(e)}
               />
               <div>
-                <p className="error">{errors.author}</p>
+                <p className="text-xs text-[#ff0b11] italic mt-0.5">{errors.author}</p>
               </div>
             </div>
 
-            <div className="{styles.section}">
-              <label>Genre</label>
+            <div className="p-1 mt-1 mb-1 bg-[#52e6c3]">
               <select
                 name="genre"
                 onChange={(e) => handleChange(e)}
-                className="styledGenres"
+                className="peer block w-full"
               >
                 <option>Select a genre</option>
                 {genre.map((gen) => {
@@ -312,36 +313,36 @@ export default function Form() {
                 })}
               </select>
               <div>
-                <p className="error">{errors.genre}</p>
+                <p className="text-xs text-[#ff0b11] italic mt-0.5">{errors.genre}</p>
               </div>
             </div>
-            <div className="section">
-              <label>Description:</label>
+            <div className="p-1 mt-1 mb-1 bg-[#52e6c3]">
               <textarea
-                rows="5"
+                className="peer block w-full"
+                rows="3"
                 type="text"
                 value={input.description}
                 name="description"
-                placeholder="Description"
+                placeholder=" Description"
                 onChange={(e) => handleChange(e)}
                 maxLength="1000"
               />
               <div>
-                <p className="error">{errors.description}</p>
+                <p className="text-xs text-[#ff0b11] italic mt-0.5">{errors.description}</p>
               </div>
             </div>
 
             <div className="buttonSection">
               <Link to="/home">
-                <button className="cancelButton">Cancelar</button>
+                <button className="m-1 bg-[#01017a] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Cancel</button>
               </Link>
               <button
                 id="btn"
-                className="error"
+                className="mt-1 m-1 bg-[#01017a] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 type="submit"
                 disabled={disable}
               >
-                Crear
+                Create
               </button>
             </div>
           </form>
