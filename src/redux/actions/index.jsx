@@ -15,15 +15,19 @@ import {
   GET_AUTHORS_BY_ID,
 } from "./actionsTypes";
 
-export function getBooks() {
+export const getBooks = () => {
   return async function (dispatch) {
-    const allBooks = await axios.get("/books");
-    return dispatch({
-      type: GET_BOOKS,
-      payload: allBooks.data,
-    });
+    try {
+      const allBooks = await axios.get("/books");
+      return dispatch({
+        type: GET_BOOKS,
+        payload: allBooks.data,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
   };
-}
+};
 
 export const getBooksByName = (name) => {
   return async function (dispatch) {
@@ -41,12 +45,16 @@ export const getBooksByName = (name) => {
 
 export const getBookDetail = (id) => {
   return async function (dispatch) {
-    const response = (await axios.get(`/books/${id}`)).data;
+    try {
+      const response = (await axios.get(`/books/${id}`)).data;
 
-    return dispatch({
-      type: GET_BOOK_DETAIL,
-      payload: response,
-    });
+      return dispatch({
+        type: GET_BOOK_DETAIL,
+        payload: response,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 };
 

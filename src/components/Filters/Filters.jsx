@@ -7,25 +7,36 @@ import {
   getAllGenres,
   getBooks,
   filterByLanguages,
+  clearFilters,
 } from "../../redux/actions";
 import "./Filters.css";
 
 export default function Filters() {
   const dispatch = useDispatch();
   const books = useSelector((state) => state.allBooks);
+  const appliedFilters = useSelector((state) => state.appliedFilters);
 
   const handleSort = (e) => {
-    dispatch(sortBy(e.target.value, books));
+    dispatch(sortBy(e.target.value));
     dispatch(getPages(1));
   };
 
   const filterBooksByGenres = (e) => {
-    dispatch(filterByGenres(e.target.value, books));
+    const selectedGenre = e.target.value;
+    if (selectedGenre === "All") {
+      dispatch(clearFilters(books));
+    } else {
+      dispatch(filterByGenres(selectedGenre));
+    }
     dispatch(getPages(1));
   };
 
   const filterBooksByLanguages = (e) => {
-    dispatch(filterByLanguages(e.target.value, books));
+    const selectedLanguage = e.target.value;
+    if (selectedLanguage === "All") {
+      dispatch(clearFilters(books));
+    }
+    dispatch(filterByLanguages(selectedLanguage));
     dispatch(getPages(1));
   };
 
@@ -34,7 +45,8 @@ export default function Filters() {
   }, [dispatch]);
 
   const handleClear = () => {
-    dispatch(getBooks());
+    dispatch(clearFilters(books));
+    dispatch(getPages(1));
   };
 
   return (
@@ -52,7 +64,7 @@ export default function Filters() {
       </select>
 
       <select onChange={filterBooksByGenres}>
-        <option value="Genres">Genres</option>
+        <option value="All">Genres</option>
         <option value="Ficción">Fiction</option>
         <option value="Ciencia">Science</option>
         <option value="Economía">Economy</option>
@@ -69,7 +81,9 @@ export default function Filters() {
         <option value="en">English</option>
       </select>
 
-      <button onClick={handleClear}>Clear Filters</button>
+      {Object.values(appliedFilters).some((filter) => filter !== null) && (
+        <button onClick={handleClear}>Clear Filters</button>
+      )}
     </div>
   );
 }
