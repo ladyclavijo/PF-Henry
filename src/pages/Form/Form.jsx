@@ -5,7 +5,6 @@ import { getAllGenres, createBooks } from "../../redux/actions/index.jsx";
 
 function validateForm(input) {
   let errors = {};
-
   // Title
   if (!input.title) errors.title = "Books must have a title.";
   else errors.title = "";
@@ -13,11 +12,17 @@ function validateForm(input) {
   // Description
   if (!input.description)
     errors.description = "Books must have a short description (max 500 chr)";
-  else errors.description = "";
+  else if (!/^[\s\S]{1,1000}$/.test(input.description)) {
+    errors.description = "The description must have a maximum of 1000 letters";
+  } else errors.description = "";
 
   // Cover
   if (!input.cover) errors.cover = "Books must have a cover photo.";
-  else errors.cover = "";
+  else if (!/^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/.test(input.cover)) {
+    errors.cover = "Books must have a URL photo.";
+  } else {
+    errors.cover = "";
+  }
 
   // Price
   if (!input.price) errors.price = "Books must have a price.";
@@ -38,14 +43,21 @@ function validateForm(input) {
 
   // Language
   if (!input.language) errors.language = "Books must have a main language.";
-  else errors.language = "";
+  else if (!/(^[A-Za-z]).{1,}$/.test(input.language)) {
+    errors.language = "The language must have a minimun of 2 letters";
+  } else if (!/(^[A-Za-z]).{1,1}$/.test(input.language)) {
+    errors.language = "The language must have a maximum of 2 letters";
+  } else {
+    errors.language = "";
+  }
 
   // Genres
-  if (!input.genres) errors.genres = "Books must have at least one genre.";
-  else errors.genres = "";
+  if (!input.genre[0]) {
+    errors.genre = "Books must have at least one genre.";
+  } else errors.genre = "";
 
   // Authors
-  if (!input.author) errors.author = "Books must have at least one author.";
+  if (!input.author[0]) errors.author = "Books must have at least one author.";
   else errors.author = "";
 
   return errors;
@@ -81,6 +93,11 @@ export default function Form() {
         ...input,
         [e.target.name]: Number(e.target.value),
       });
+    } else if (e.target.name === "genre") {
+      setInput({
+        ...input,
+        [e.target.name]: [e.target.value],
+      });
     } else {
       setInput({
         ...input,
@@ -112,14 +129,6 @@ export default function Form() {
       })
     );
   }
-
-  function handleSelect(e) {
-    setInput({
-      ...input,
-      genre: [...input.genre, e.target.value],
-    });
-  }
-
   // function handleDelete(el) {
   //     setInput({
   //         ...input,
@@ -164,7 +173,6 @@ export default function Form() {
   useEffect(() => {
     dispatch(getAllGenres());
   }, [dispatch]);
-
   return (
     <Fragment>
       <div className="mainContainer">
@@ -249,7 +257,7 @@ export default function Form() {
             <div className="section">
               <label>Publisher date:</label>
               <input
-                type="text"
+                type="date"
                 value={input.publisher_date}
                 name="publisher_date"
                 placeholder="Publisher date"
@@ -287,7 +295,7 @@ export default function Form() {
                 <p className="error">{errors.language}</p>
               </div>
             </div>
-            <div className="{styles.section}">
+            <div className="section">
               <label>Author</label>
               <input
                 type="text"
@@ -304,11 +312,11 @@ export default function Form() {
             <div className="{styles.section}">
               <label>Genre</label>
               <select
-                onChange={(e) => handleSelect(e)}
+                name="genre"
+                onChange={(e) => handleChange(e)}
                 className="styledGenres"
               >
                 <option>Select a genre</option>
-                <option>WIP</option>
                 {genre.map((gen) => {
                   return (
                     <option key={gen.id} name={gen.name}>
@@ -317,6 +325,9 @@ export default function Form() {
                   );
                 })}
               </select>
+              <div>
+                <p className="error">{errors.genre}</p>
+              </div>
             </div>
 
             <div className="buttonSection">
