@@ -6,5 +6,5 @@ export default function Loader() {
     <div className="loader">
       <h1>Loading...</h1>
     </div>
-  );
+  )
 }
