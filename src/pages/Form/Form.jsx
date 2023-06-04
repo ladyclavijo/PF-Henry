@@ -81,12 +81,14 @@ export default function Form() {
     author: [],
     genre: [],
   });
-
+  const authorSeparator = (author) => {
+    return author.trim().replace(/\s/g, "").split(",");
+  };
   function handleChange(e) {
     if (e.target.name === "author") {
       setInput({
         ...input,
-        [e.target.name]: [e.target.value],
+        [e.target.name]: authorSeparator(e.target.value),
       });
     } else if (e.target.name === "price" || e.target.name === "pages") {
       setInput({
@@ -172,7 +174,7 @@ export default function Form() {
 
   useEffect(() => {
     dispatch(getAllGenres());
-  }, [dispatch]);
+  }, [dispatch, input]);
   return (
     <Fragment>
       <div className="mainContainer">
@@ -193,22 +195,6 @@ export default function Form() {
               />
               <div>
                 <p className="eerror">{errors.title}</p>
-              </div>
-            </div>
-
-            <div className="section">
-              <label>Description:</label>
-              <textarea
-                rows="5"
-                type="text"
-                value={input.description}
-                name="description"
-                placeholder="Description"
-                onChange={(e) => handleChange(e)}
-                maxLength="1000"
-              />
-              <div>
-                <p className="error">{errors.description}</p>
               </div>
             </div>
 
@@ -327,6 +313,21 @@ export default function Form() {
               </select>
               <div>
                 <p className="error">{errors.genre}</p>
+              </div>
+            </div>
+            <div className="section">
+              <label>Description:</label>
+              <textarea
+                rows="5"
+                type="text"
+                value={input.description}
+                name="description"
+                placeholder="Description"
+                onChange={(e) => handleChange(e)}
+                maxLength="1000"
+              />
+              <div>
+                <p className="error">{errors.description}</p>
               </div>
             </div>
 
