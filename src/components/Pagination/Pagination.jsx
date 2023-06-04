@@ -41,11 +41,11 @@ import "./Pagination.css";
 // }
 
 
-export default function Pagination({ bookSorted, booksPerPage }) {
+export default function Pagination({ bookSorted, cardsPerPage }) {
   const currentPage = useSelector((state) => state.paginated);
   const dispatch = useDispatch();
 
-  let pages = Math.ceil(bookSorted / booksPerPage);
+  let pages = Math.ceil(bookSorted / cardsPerPage);
 
   const hasNextPage = currentPage < pages;
 
