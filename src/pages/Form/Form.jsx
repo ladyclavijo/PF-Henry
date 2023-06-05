@@ -82,14 +82,12 @@ export default function Form() {
     author: [],
     genre: [],
   });
-  const authorSeparator = (author) => {
-    return author.trim().replace(/\s/g, "").split(",");
-  };
+  
   function handleChange(e) {
     if (e.target.name === "author") {
       setInput({
         ...input,
-        [e.target.name]: authorSeparator(e.target.value),
+        [e.target.name]: [e.target.value],
       });
     } else if (e.target.name === "price" || e.target.name === "pages") {
       setInput({
@@ -172,7 +170,6 @@ export default function Form() {
     }
     navigate("/home");
   }
-
   useEffect(() => {
     dispatch(getAllGenres());
   }, [dispatch, input]);
@@ -271,14 +268,15 @@ export default function Form() {
             </div>
 
             <div className="p-1 mt-1 mb-1 bg-[#52e6c3]">
-              <input
+              <select
                 className="peer block w-full"
-                type="text"
-                value={input.language}
                 name="language"
-                placeholder=" Language"
                 onChange={(e) => handleChange(e)}
-              />
+              >
+                <option disabled selected>Select a language</option>
+                <option value="es">Español</option>
+                <option value="en">English</option>
+                </select>
               <div>
                 <p className="text-xs text-[#ff0b11] italic mt-0.5">{errors.language}</p>
               </div>
@@ -303,7 +301,7 @@ export default function Form() {
                 onChange={(e) => handleChange(e)}
                 className="peer block w-full"
               >
-                <option>Select a genre</option>
+                <option disabled selected>Select a genre</option>
                 {genre.map((gen) => {
                   return (
                     <option key={gen.id} name={gen.name}>
