@@ -86,13 +86,13 @@ export default function Home() {
             })
           )}
         </div>
-      </div>
-
       {!error.length && (
         <Pagination 
         cardsPerPage={cardsPerPage}
         bookSorted={bookSorted.length}/>
       )}
+      </div>
+
     </div>
 
   );
