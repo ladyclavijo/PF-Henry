@@ -1,3 +1,4 @@
+import "./Filters.css";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -9,7 +10,6 @@ import {
   filterByLanguages,
   clearFilters,
 } from "../../redux/actions";
-import "./Filters.css";
 
 export default function Filters() {
   const dispatch = useDispatch();
@@ -50,21 +50,30 @@ export default function Filters() {
   };
 
   return (
-    <div>
+    <div className="filters-container">
+
+      <div className="filter-section">
+      <label>Sort By:</label>
       <select onChange={handleSort}>
-        <option value="All">Sort By</option>
+        <option value="All">All</option>
         <option value="ASC">A-Z</option>
         <option value="DES">Z-A</option>
       </select>
+      </div>
 
+      <div className="filter-section">
+      <label>Price:</label>
       <select onChange={handleSort}>
-        <option value="All">Price</option>
+        <option value="All">All</option>
         <option value="PRI+">HIGHER PRICES</option>
         <option value="PRI-">LESSER PRICES</option>
       </select>
+      </div>
 
+      <div className="filter-section">
+        <label>Genres:</label>
       <select onChange={filterBooksByGenres}>
-        <option value="All">Genres</option>
+        <option value="All">All</option>
         <option value="Ficción">Fiction</option>
         <option value="Ciencia">Science</option>
         <option value="Economía">Economy</option>
@@ -74,16 +83,22 @@ export default function Filters() {
         <option value="Computación">Computing</option>
         <option value="Historia">History</option>
       </select>
+      </div>
 
+      <div className="filter-section">
+      <label>Language:</label>
       <select onChange={filterBooksByLanguages}>
-        <option value="All">Language</option>
+        <option value="All">All</option>
         <option value="es">Spanish</option>
         <option value="en">English</option>
       </select>
+      </div>
 
-      {Object.values(appliedFilters).some((filter) => filter !== null) && (
-        <button onClick={handleClear}>Clear Filters</button>
-      )}
+      <div className="clean-div">
+       {/* {Object.values(appliedFilters).some((filter) => filter !== null) && ( -------OCULTA EL BOTON AL LIMPIAR LOS FILTROS-------*/}
+        <button className="clear-filters-button" onClick={handleClear}>Clear Filters</button>
+       
+      </div>
     </div>
   );
 }
