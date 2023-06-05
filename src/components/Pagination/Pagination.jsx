@@ -1,7 +1,7 @@
-import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getPages } from "../../redux/actions";
-import "./Pagination.css";
+import style from "./Pagination.module.css";
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 // export default function Pagination({ bookSorted, booksPerPage }) {
 //   const currentPage = useSelector((state) => state.paginated);
@@ -50,25 +50,31 @@ export default function Pagination({ bookSorted, cardsPerPage }) {
   const hasNextPage = currentPage < pages;
 
   return (
-    <div>
+    <div className={style.pagination}>
       <div>
+      <span>
         <button
+          className={`${style.prevNext}`}
           onClick={() => dispatch(getPages(currentPage - 1))}
           disabled={currentPage === 1}
         >
-          {"<"}
+          <FaChevronLeft />
         </button>
+        </span>
       </div>
       <div>
-        <button>{currentPage}</button>
+        <button  className={`${style.button} ${currentPage && style.active}`} >{currentPage}</button>
       </div>
       <div>
+      <span>
         <button
+        className={`${style.prevNext}`}
           onClick={() => dispatch(getPages(currentPage + 1))}
           disabled={!hasNextPage}
         >
-          {">"}
+          <FaChevronRight />
         </button>
+        </span>
       </div>
     </div>
   );
