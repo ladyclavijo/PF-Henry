@@ -9,10 +9,10 @@ export default function Card({ id, title, author, cover, stock, genres, price })
     // }
     if (stock) { // Este "if()" es para saber si el libro está en stock o no 
         return (
-            <div className="bg-[#52e6c3] border-2 border-[#52e6c3] w-64 h-128 rounded-md hover:opacity-75 transition duration-500 mx-auto">
+            <div className="bg-[#9DC8C5] border-2 border-[#9DC8C5] w-64 h-128 rounded-md hover:opacity-75 transition duration-500 mx-auto">
                 <div className="p-4 flex flex-col justify-between h-full ">
                     <Link to={"/book/" + id} className="text-black ">
-                        <div className="bg-[#52e6c3]">
+                        <div className="bg-[#9DC8C5]">
                             <h3 className="text-xl font-semibold h-20 overflow-hidden mb-2">{title}</h3>
                             <div className="mt-1 flex-grow">
                                 <img src={cover} alt={title} className="w-full h-auto" />
