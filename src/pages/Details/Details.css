@@ -1,0 +1,116 @@
+.conteiner1{
+    display: flex;
+    flex-direction: row;
+    background-color: #BFE1DF;
+    width: 720px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+    justify-content: flex-start;
+    margin-left: -10px;
+}
+.conteiner1 img{
+    width: 300px;
+    height: 600px;
+}
+
+.conteinerInfo{
+    width: 380px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #BFE1DF;
+    margin-left: 0
+}
+
+.conteinerInfo h1{
+    font-family: serif;
+    color: #150F6F;
+    font-size: 28px;
+    margin-bottom: 40px;
+}
+.moreInfo{
+    font-family: serif;
+    color: #150F6F;
+    font-size: 28px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    align-items: center;
+}
+.author{
+    color: #130E6C;
+    font-size: 22px;
+    font-family: serif;
+    margin-bottom: 40px;
+}
+.description{
+    width: 350px;
+    max-height: 400px;
+    background-color: #a8d2d0;
+    overflow-y: auto;
+    text-align: center;
+}
+
+.description::-webkit-scrollbar {
+    width: 8px; /* Ancho de la barra de desplazamiento */
+  }
+  
+  .description::-webkit-scrollbar-track {
+    background-color: #a8d2d0; /* Color de la pista de la barra de desplazamiento */
+  }
+  
+  .description::-webkit-scrollbar-thumb {
+    background-color: #150F6F; /* Color del pulgar de la barra de desplazamiento */
+    border-radius: 4px; /* Radio de esquina del pulgar */
+  }
+  
+  .description::-webkit-scrollbar-thumb:hover {
+    background-color: #150F6F; /* Color del pulgar al pasar el cursor sobre él */
+  }
+
+.body{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.price{
+    width: 450px;
+    height: 450px;
+    background-color: #BFE1DF;
+}
+
+.price h1{
+    font-size: 48px;
+    font-family: serif;
+    color: #130E6C;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+.price span{
+    font-size: 26px;
+    color: #3572CE;
+    font-family: serif;
+}
+.icon{
+    width: 30px;
+    height: 30px;
+    display: inline;
+}
+.buttons{
+    margin-top: 60px;
+    gap: 50px;
+}
+.buttons button{
+    background-color: #91AFAE; /* Green */
+    border: none;
+    color: white;
+    font-family: serif;
+    padding: 10px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
