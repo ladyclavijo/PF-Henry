@@ -3,44 +3,6 @@ import { getPages } from "../../redux/actions";
 import style from "./Pagination.module.css";
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
-// export default function Pagination({ bookSorted, booksPerPage }) {
-//   const currentPage = useSelector((state) => state.paginated);
-//   const dispatch = useDispatch();
-
-//   let pages = [];
-
-//   for (let i = 1; i < Math.ceil(bookSorted / booksPerPage); i++) {
-//     pages.push(i);
-//   }
-
-//   return (
-//     <div>
-//       <div>
-//         {currentPage === 1 ? (
-//           <button></button>
-//         ) : (
-//           <button onClick={() => dispatch(getPages(currentPage - 1))}>
-//             {"<"}
-//           </button>
-//         )}
-//       </div>
-//       <div>
-//         <button>{currentPage}</button>
-//       </div>
-//       <div>
-//         {currentPage === pages.length ? (
-//           <button></button>
-//         ) : (
-//           <button onClick={() => dispatch(getPages(currentPage + 1))}>
-//             {">"}
-//           </button>
-//         )}
-//       </div>
-//     </div>
-//   );
-// }
-
-
 export default function Pagination({ bookSorted, cardsPerPage }) {
   const currentPage = useSelector((state) => state.paginated);
   const dispatch = useDispatch();
@@ -48,34 +10,49 @@ export default function Pagination({ bookSorted, cardsPerPage }) {
   let pages = Math.ceil(bookSorted / cardsPerPage);
 
   const hasNextPage = currentPage < pages;
+  const hasPreviousPage = currentPage > 1;
+
+  // Crear un rango de números de página
+  const pageRange = Array.from({ length: pages }, (_, i) => i + 1);
 
   return (
     <div className={style.pagination}>
       <div>
-      <span>
-        <button
-          className={`${style.prevNext}`}
-          onClick={() => dispatch(getPages(currentPage - 1))}
-          disabled={currentPage === 1}
-        >
-          <FaChevronLeft />
-        </button>
+        <span>
+          <button
+            className={`${style.prevNext}`}
+            onClick={() => dispatch(getPages(currentPage - 1))}
+            disabled={!hasPreviousPage}
+            style={{ visibility: hasPreviousPage ? "visible" : "hidden" }}
+          >
+            <FaChevronLeft />
+          </button>
         </span>
       </div>
       <div>
-        <button  className={`${style.button} ${currentPage && style.active}`} >{currentPage}</button>
+        {/* Mostrar los números de página */}
+        {pageRange.map((page) => (
+          <button
+            key={page}
+            className={`${style.button} ${currentPage === page && style.active}`}
+            onClick={() => dispatch(getPages(page))}
+          >
+            {page}
+          </button>
+        ))}
       </div>
       <div>
-      <span>
-        <button
-        className={`${style.prevNext}`}
-          onClick={() => dispatch(getPages(currentPage + 1))}
-          disabled={!hasNextPage}
-        >
-          <FaChevronRight />
-        </button>
+        <span>
+          <button
+            className={`${style.prevNext}`}
+            onClick={() => dispatch(getPages(currentPage + 1))}
+            disabled={!hasNextPage}
+            style={{ visibility: hasNextPage ? "visible" : "hidden" }}
+          >
+            <FaChevronRight />
+          </button>
         </span>
       </div>
     </div>
   );
-}
+};
