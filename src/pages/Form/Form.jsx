@@ -2,7 +2,7 @@ import React, { useState, useEffect, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { getAllGenres, createBooks } from "../../redux/actions/index.jsx";
-import NavBar from "../../components/NavBar/NavBar.jsx"
+import NavBar from "../../components/NavBar/NavBar.jsx";
 
 function validateForm(input) {
   let errors = {};
@@ -82,7 +82,7 @@ export default function Form() {
     author: [],
     genre: [],
   });
-  
+
   function handleChange(e) {
     if (e.target.name === "author") {
       setInput({
@@ -97,7 +97,7 @@ export default function Form() {
     } else if (e.target.name === "genre") {
       setInput({
         ...input,
-        [e.target.name]: [e.target.value],
+        [e.target.name]: [Number(e.target.value)],
       });
     } else {
       setInput({
@@ -175,7 +175,7 @@ export default function Form() {
   }, [dispatch, input]);
   return (
     <Fragment>
-      <NavBar/>
+      <NavBar />
       <div className="mt-5 bg-[#52e6c3] border-2 border-[#52e6c3] w-5/12 h-9/12 rounded-1 mx-auto p-2">
         <div>
           <h2 className="text-xl font-bold mb-3">Upload your book</h2>
@@ -193,7 +193,9 @@ export default function Form() {
                 onChange={(e) => handleChange(e)}
               />
               <div>
-                <p className="text-xs text-[#ff0b11] italic mt-0.5">{errors.title}</p>
+                <p className="text-xs text-[#ff0b11] italic mt-0.5">
+                  {errors.title}
+                </p>
               </div>
             </div>
 
@@ -207,7 +209,9 @@ export default function Form() {
                 onChange={(e) => handleChange(e)}
               />
               <div>
-                <p className="text-xs text-[#ff0b11] italic mt-0.5">{errors.cover}</p>
+                <p className="text-xs text-[#ff0b11] italic mt-0.5">
+                  {errors.cover}
+                </p>
               </div>
             </div>
 
@@ -221,7 +225,9 @@ export default function Form() {
                 onChange={(e) => handleChange(e)}
               />
               <div>
-                <p className="text-xs text-[#ff0b11] italic mt-0.5">{errors.price}</p>
+                <p className="text-xs text-[#ff0b11] italic mt-0.5">
+                  {errors.price}
+                </p>
               </div>
             </div>
 
@@ -235,7 +241,9 @@ export default function Form() {
                 onChange={(e) => handleChange(e)}
               />
               <div>
-                <p className="text-xs text-[#ff0b11] italic mt-0.5">{errors.publisher}</p>
+                <p className="text-xs text-[#ff0b11] italic mt-0.5">
+                  {errors.publisher}
+                </p>
               </div>
             </div>
 
@@ -249,7 +257,9 @@ export default function Form() {
                 onChange={(e) => handleChange(e)}
               />
               <div>
-                <p className="text-xs text-[#ff0b11] italic mt-0.5">{errors.publisher_date}</p>
+                <p className="text-xs text-[#ff0b11] italic mt-0.5">
+                  {errors.publisher_date}
+                </p>
               </div>
             </div>
 
@@ -263,7 +273,9 @@ export default function Form() {
                 onChange={(e) => handleChange(e)}
               />
               <div>
-                <p className="text-xs text-[#ff0b11] italic mt-0.5">{errors.pages}</p>
+                <p className="text-xs text-[#ff0b11] italic mt-0.5">
+                  {errors.pages}
+                </p>
               </div>
             </div>
 
@@ -273,12 +285,16 @@ export default function Form() {
                 name="language"
                 onChange={(e) => handleChange(e)}
               >
-                <option disabled selected>Select a language</option>
+                <option disabled selected>
+                  Select a language
+                </option>
                 <option value="es">Español</option>
                 <option value="en">English</option>
-                </select>
+              </select>
               <div>
-                <p className="text-xs text-[#ff0b11] italic mt-0.5">{errors.language}</p>
+                <p className="text-xs text-[#ff0b11] italic mt-0.5">
+                  {errors.language}
+                </p>
               </div>
             </div>
             <div className="p-1 mt-1 mb-1 bg-[#52e6c3]">
@@ -291,7 +307,9 @@ export default function Form() {
                 onChange={(e) => handleChange(e)}
               />
               <div>
-                <p className="text-xs text-[#ff0b11] italic mt-0.5">{errors.author}</p>
+                <p className="text-xs text-[#ff0b11] italic mt-0.5">
+                  {errors.author}
+                </p>
               </div>
             </div>
 
@@ -300,18 +318,21 @@ export default function Form() {
                 name="genre"
                 onChange={(e) => handleChange(e)}
                 className="peer block w-full"
+                value={input.genre}
               >
-                <option disabled selected>Select a genre</option>
-                {genre.map((gen) => {
-                  return (
-                    <option key={gen.id} name={gen.name}>
-                      {gen.name}
-                    </option>
-                  );
-                })}
+                 <option disabled selected>
+                  Select a genre
+                </option>
+                {genre.map((gen) => (
+                  <option key={gen.id} value={gen.id}>
+                    {gen.name}
+                  </option>
+                ))}
               </select>
               <div>
-                <p className="text-xs text-[#ff0b11] italic mt-0.5">{errors.genre}</p>
+                <p className="text-xs text-[#ff0b11] italic mt-0.5">
+                  {errors.genre}
+                </p>
               </div>
             </div>
             <div className="p-1 mt-1 mb-1 bg-[#52e6c3]">
@@ -326,13 +347,17 @@ export default function Form() {
                 maxLength="1000"
               />
               <div>
-                <p className="text-xs text-[#ff0b11] italic mt-0.5">{errors.description}</p>
+                <p className="text-xs text-[#ff0b11] italic mt-0.5">
+                  {errors.description}
+                </p>
               </div>
             </div>
 
             <div className="buttonSection">
               <Link to="/home">
-                <button className="m-1 bg-[#01017a] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Cancel</button>
+                <button className="m-1 bg-[#01017a] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                  Cancel
+                </button>
               </Link>
               <button
                 id="btn"
