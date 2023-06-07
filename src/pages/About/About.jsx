@@ -39,18 +39,18 @@ export default function About() {
               <div className="column">
                 <h3 className="titluloFront">Frontend Developers</h3>
                 <ul>
-                  <li><a href="https://www.linkedin.com/in/bautista-bauz%C3%A1-8ba37325b/">Bautista Bauzá</a></li>
-                  <li><a href="https://www.linkedin.com/in/juan-mart%C3%ADn-salinas-112216236/">Juan Salinas</a></li>
-                  <li><a href="https://www.linkedin.com/in/roberto-arregui-rosas-7a7803206/">Roberto Arregui</a></li>
+                  <li><a href="https://www.linkedin.com/in/bautista-bauz%C3%A1-8ba37325b/" target="blank">Bautista Bauzá</a></li>
+                  <li><a href="https://www.linkedin.com/in/juan-mart%C3%ADn-salinas-112216236/" target="blank">Juan Salinas</a></li>
+                  <li><a href="https://www.linkedin.com/in/roberto-arregui-rosas-7a7803206/" target="blank">Roberto Arregui</a></li>
                   </ul>
               </div>
               <div className="column">
               <h3 className="titluloBack">Backend Developers</h3>
               <ul>
-                <li><a href="https://www.linkedin.com/in/fmaldeco/">Franco Aldeco</a></li>
-                <li><a href="https://www.linkedin.com/in/ladyclavijo">Lady Clavijo</a></li>
-                <li><a href="https://www.linkedin.com/in/stivliz">Steven Lizarazo</a></li>
-                <li><a href="https://www.linkedin.com/in/agust%C3%ADn-ju%C3%A1rez-7a742b237/">Agustin Juarez</a></li>
+                <li><a href="https://www.linkedin.com/in/fmaldeco/" target="blank">Franco Aldeco</a></li>
+                <li><a href="https://www.linkedin.com/in/ladyclavijo" target="blank">Lady Clavijo</a></li>
+                <li><a href="https://www.linkedin.com/in/stivliz" target="blank">Steven Lizarazo</a></li>
+                <li><a href="https://www.linkedin.com/in/agust%C3%ADn-ju%C3%A1rez-7a742b237/" target="blank">Agustin Juarez</a></li>
               </ul>
               </div>
           </div>
