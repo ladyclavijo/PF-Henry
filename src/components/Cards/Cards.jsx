@@ -6,7 +6,7 @@ import Card from "../Card/Card.jsx";
 
 export default function Cards() {
   const dispatch = useDispatch();
-  const allBooks = useSelector((state) => state.allBooks);
+  const allBooks = useSelector((state) => state.bookSorted);
   // const [actualPage, setActualPage] = useState(1); // para el paginado
 
   useEffect(() => {
