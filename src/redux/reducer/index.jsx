@@ -73,38 +73,38 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         genre: action.payload,
       };
-      case FILTER_BY_GENRES:
-        const genresAux = action.payload;
-        const { language } = state.appliedFilters;
-        let filteredBooks = [...state.allBooks];
-  
-        if (language) {
-          filteredBooks = filteredBooks.filter((b) => b.language === language);
-        }
-  
-        if (genresAux === "Genres") {
-          return {
-            ...state,
-            bookSorted: filteredBooks,
-            appliedFilters: { ...state.appliedFilters, genre: null },
-          };
-        }
-  
-        filteredBooks = filteredBooks.filter((b) => {
-          return b.genres.some((genre) => genre.name === genresAux);
-        });
-  
+    case FILTER_BY_GENRES:
+      const genresAux = action.payload;
+      const { language } = state.appliedFilters;
+      let filteredBooks = [...state.allBooks];
+
+      if (language) {
+        filteredBooks = filteredBooks.filter((b) => b.language === language);
+      }
+
+      if (genresAux === "Genres") {
         return {
           ...state,
           bookSorted: filteredBooks,
-          appliedFilters: { ...state.appliedFilters, genre: genresAux },
+          appliedFilters: { ...state.appliedFilters, genre: null },
         };
+      }
+
+      filteredBooks = filteredBooks.filter((b) => {
+        return b.genres.some((genres) => genres.name === genresAux);
+      });
+
+      return {
+        ...state,
+        bookSorted: filteredBooks,
+        appliedFilters: { ...state.appliedFilters, genres: genresAux },
+      };
     case SORT_BY:
       const { genre: sortGenre, language: sortLanguage } = state.appliedFilters;
       let sortedBooks = [...state.allBooks];
 
       if (sortGenre) {
-        sortedBooks = sortedBooks.filter((b) => b.genre.includes(sortGenre));
+        sortedBooks = sortedBooks.filter((b) => b.genres.includes(sortGenre));
       }
 
       if (sortLanguage) {
@@ -125,30 +125,34 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         bookSorted: sortedBooks,
       };
-      case FILTER_BY_LANGUAGES:
-        const selectedLanguage = action.payload;
-        const { genre } = state.appliedFilters;
-        let languageFilteredBooks = [...state.allBooks];
-  
-        if (genre) {
-          languageFilteredBooks = languageFilteredBooks.filter((b) => b.genre.includes(genre));
-        }
-  
-        if (selectedLanguage === "All") {
-          return {
-            ...state,
-            bookSorted: languageFilteredBooks,
-            appliedFilters: { ...state.appliedFilters, language: null },
-          };
-        }
-  
-        languageFilteredBooks = languageFilteredBooks.filter((b) => b.language === selectedLanguage);
-  
+    case FILTER_BY_LANGUAGES:
+      const selectedLanguage = action.payload;
+      const { genres } = state.appliedFilters;
+      let languageFilteredBooks = [...state.allBooks];
+
+      if (genres) {
+        languageFilteredBooks = languageFilteredBooks.filter((b) =>
+          b.genres.includes(genres)
+        );
+      }
+
+      if (selectedLanguage === "All") {
         return {
           ...state,
           bookSorted: languageFilteredBooks,
-          appliedFilters: { ...state.appliedFilters, language: selectedLanguage },
+          appliedFilters: { ...state.appliedFilters, language: null },
         };
+      }
+
+      languageFilteredBooks = languageFilteredBooks.filter(
+        (b) => b.language === selectedLanguage
+      );
+
+      return {
+        ...state,
+        bookSorted: languageFilteredBooks,
+        appliedFilters: { ...state.appliedFilters, language: selectedLanguage },
+      };
     case GET_GENRES_BY_ID:
       return {
         ...state,
