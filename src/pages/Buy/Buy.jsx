@@ -1,9 +1,10 @@
 import React from 'react'
+import ContainerAddress from './Address'
 
-export default function Pay() {
+export default function Buy() {
     return (
         <div>
-            Pago
+            <ContainerAddress />
         </div>
     )
 }
