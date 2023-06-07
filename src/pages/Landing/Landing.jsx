@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./Landing.css";
 import FormLanding from "../../components/FormLanding/FormLanding";
+import imagen from "../../assets/landing-image.png"
+import logo from "../../assets/Logo.png"
 
 export default function Landing() {
   return (
@@ -9,16 +11,15 @@ export default function Landing() {
       <nav className="navbar">
         <div className="logo">
           <img
-            src=""
+            src={logo}
             alt="Book Logo"
+            style={{ width: '200px', height: 'auto' }}
           />
-          BookBuster</div>
+        </div>
         <div className="buttons">
           {/* <button className="buttonLog">Log In</button>
           <button className="buttonSign">Sign Up</button> */}
-          <Link to="/about">
-            <button className="buttonAbout">About</button>
-          </Link>
+
         </div>
       </nav>
       <div className="content">
@@ -32,8 +33,9 @@ export default function Landing() {
         </div>
         <div className="image-container">
           <img
-            src="https://www.todoliteratura.es/fotos/1/Alice_Kellen_leyendo_novela_en_primer_plano_copy_Umami_Brands_thumb_468.jpg"
+            src={imagen}
             alt="Book Image"
+            style={{ width: 'auto', height: 'auto' }}
           />
         </div>
       </div>

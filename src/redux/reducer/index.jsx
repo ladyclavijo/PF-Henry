@@ -74,7 +74,7 @@ export default function rootReducer(state = initialState, action) {
         genre: action.payload,
       };
       case FILTER_BY_GENRES:
-        const genres = action.payload;
+        const genresAux = action.payload;
         const { language } = state.appliedFilters;
         let filteredBooks = [...state.allBooks];
   
@@ -82,7 +82,7 @@ export default function rootReducer(state = initialState, action) {
           filteredBooks = filteredBooks.filter((b) => b.language === language);
         }
   
-        if (genres === "Genres") {
+        if (genresAux === "Genres") {
           return {
             ...state,
             bookSorted: filteredBooks,
@@ -90,12 +90,14 @@ export default function rootReducer(state = initialState, action) {
           };
         }
   
-        filteredBooks = filteredBooks.filter((b) => b.genre.includes(genres));
+        filteredBooks = filteredBooks.filter((b) => {
+          return b.genres.some((genre) => genre.name === genresAux);
+        });
   
         return {
           ...state,
           bookSorted: filteredBooks,
-          appliedFilters: { ...state.appliedFilters, genre: genres },
+          appliedFilters: { ...state.appliedFilters, genre: genresAux },
         };
     case SORT_BY:
       const { genre: sortGenre, language: sortLanguage } = state.appliedFilters;

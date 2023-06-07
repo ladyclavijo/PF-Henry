@@ -1,0 +1,80 @@
+.filters-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+  }
+  
+  .filter-section {
+    margin-bottom: 30px;
+  }
+
+  .filter-section select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    position: relative;
+    padding: 5px 30px 5px 10px;
+    border-radius: 3px;
+    background-color: white;
+    color: rgb(107, 107, 107);
+    width: 150px;
+    line-height: 25px;
+    text-align: center;
+  }
+  
+  .filter-section select::after {
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid black;
+    pointer-events: none;
+  }
+  
+  .filter-section select option {
+    background-color: white;
+    color: black;
+  }
+  
+  
+  label {
+    cursor: pointer;
+    margin-right: 5px;
+    color: rgb(255, 255, 255);
+  }
+  
+  select {
+    cursor: pointer;
+  }
+
+  select option {
+    background-color: #fff; /* Cambia el color de fondo de las opciones desplegadas */
+    color: black; /* Cambia el color del texto de las opciones desplegadas */
+  }
+  
+  /*------------------------------------BOTON CLEAN-----------------------------------*/
+  .clean-div {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .clear-filters-button {
+    display: flex;
+    padding: 10px 20px;
+    border: none;
+    background-color:  rgb(48, 48, 121);
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: 20px;
+    border-radius: 5px;
+  }
+  
+  .clear-filters-button:hover {
+    background-color: #7496b8;
+  }  

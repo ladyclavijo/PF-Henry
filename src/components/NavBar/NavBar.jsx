@@ -24,13 +24,12 @@ import { Link } from "react-router-dom";
 //   );
 // };
 
-
 const NavBar = () => {
   return(
     <div className="navbar-home">
 
       <div className="backToLanding">
-        <Link to="/">
+        <Link to="/home">
           <div className="icon-button">
             <AiOutlineHome className="icon"/>
           </div>

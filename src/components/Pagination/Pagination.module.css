@@ -1,0 +1,46 @@
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .prevNext {
+    border: none;
+    background-color: #02355e;
+    color: #fff;
+    font-size: 16px;
+    padding: 8px 16px;
+    margin: 0 10px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .prevNext:hover {
+    background-color: #68a19d;
+  }
+  
+  .button {
+    border: none;
+    background-color: transparent;
+    color: #000;
+    font-size: 16px;
+    padding: 8px 16px;
+    margin: 0 10px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .button:hover {
+    background-color: #68a19d;
+  }
+  .active {
+    background-color: #02355e;
+    color: #d8d8d8;
+  }
+
+
+
+
+
