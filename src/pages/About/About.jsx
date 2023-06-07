@@ -62,3 +62,9 @@ export default function About() {
 
 
 
+/*
+-new home
+-new perfil
+-welcome
+
+*/
