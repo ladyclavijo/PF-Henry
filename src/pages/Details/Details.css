@@ -80,6 +80,15 @@
     width: 450px;
     height: 450px;
     background-color: #BFE1DF;
+    display: flex;
+    flex-direction: column;
+}
+
+.delivery-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
 }
 
 .price h1{
@@ -113,4 +122,35 @@
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
+}
+
+.Buy-it {
+    background-color: #D9619A;
+    color: white;
+    font-family: serif;
+    border-radius: 5px;
+    width: 150px;
+    height: 30px;
+    margin-top: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.Buy-it:hover {
+    background-color: #C85387; 
+}
+
+.Add-to-cart {
+    background-color: #91AFAE;
+    border: none;
+    color: white;
+    font-family: serif;
+    border-radius: 5px;
+    width: 150px;
+    height: 30px;
+    margin-top: 5px;
+    transition: background-color 0.3s ease; 
+}
+
+.Add-to-cart:hover {
+    background-color: #74908F; 
 }
