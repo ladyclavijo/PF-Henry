@@ -1,10 +1,10 @@
 import "./NavBar.css";
 import { AiOutlineHome } from 'react-icons/ai';
 import React from "react";
+import { Link, useLocation } from 'react-router-dom';
+
 // import Filters from "../Filters/Filters";
 // import SearchBar from "../SearchBar/SearchBar.jsx";
-import { Link } from "react-router-dom";
-
 // export default function NavBar({ setCurrentPage, setLoading }) {
 //   return (
 //     <div>
@@ -25,15 +25,18 @@ import { Link } from "react-router-dom";
 // };
 
 const NavBar = () => {
-  return(
+  const location = useLocation();
+  return (
     <div className="navbar-home">
 
       <div className="backToLanding">
-        <Link to="/home">
-          <div className="icon-button">
-            <AiOutlineHome className="icon"/>
-          </div>
-        </Link>   
+        {location.pathname !== '/home' && (
+          <Link to="/home">
+            <div className="icon-button">
+              <AiOutlineHome className="icon" />
+            </div>
+          </Link>
+        )}
       </div>
 
       <div className="nav-aboutUs">
