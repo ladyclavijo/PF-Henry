@@ -23,10 +23,10 @@ const initialState = {
   error: [],
   paginated: 1,
   genre: [],
+  language: [],
   genresId: [],
   authors: [],
   authorsId: [],
-  appliedFilters: { genre: null, language: null },
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -56,7 +56,8 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         bookSorted: state.allBooks,
-        appliedFilters: { genre: null, language: null },
+        genre: [],
+        language: [],
       };
     case CLEAR_DETAILS:
       return {
@@ -75,42 +76,36 @@ export default function rootReducer(state = initialState, action) {
       };
     case FILTER_BY_GENRES:
       const genresAux = action.payload;
-      const { language } = state.appliedFilters;
+      const language = state.language;
       let filteredBooks = [...state.allBooks];
-
-      if (language) {
-        filteredBooks = filteredBooks.filter((b) => b.language === language);
-      }
-
-      if (genresAux === "Genres") {
+      if (language.length !== 0) {
+        const filteredBooksByGenre = filteredBooks.filter((b) => {
+          return b.genres.some((genres) => genres.name === genresAux);
+        });
+        console.log(filteredBooksByGenre);
+        const filteredBooksByGenreWithLanguage = filteredBooksByGenre.filter(
+          (b) => {
+            return b.language === language;
+          }
+        );
         return {
           ...state,
-          bookSorted: filteredBooks,
-          appliedFilters: { ...state.appliedFilters, genre: null },
+          bookSorted: filteredBooksByGenreWithLanguage,
+          genre: genresAux,
+        };
+      } else {
+        const filteredBooksByGenre = filteredBooks.filter((b) => {
+          return b.genres.some((genres) => genres.name === genresAux);
+        });
+        return {
+          ...state,
+          bookSorted: filteredBooksByGenre,
+          genre: genresAux,
         };
       }
 
-      filteredBooks = filteredBooks.filter((b) => {
-        return b.genres.some((genres) => genres.name === genresAux);
-      });
-
-      return {
-        ...state,
-        bookSorted: filteredBooks,
-        appliedFilters: { ...state.appliedFilters, genres: genresAux },
-      };
     case SORT_BY:
-      const { genre: sortGenre, language: sortLanguage } = state.appliedFilters;
-      let sortedBooks = [...state.allBooks];
-
-      if (sortGenre) {
-        sortedBooks = sortedBooks.filter((b) => b.genres.includes(sortGenre));
-      }
-
-      if (sortLanguage) {
-        sortedBooks = sortedBooks.filter((b) => b.language === sortLanguage);
-      }
-
+      let sortedBooks = [...state.bookSorted];
       if (action.payload === "PRI-") {
         sortedBooks.sort((a, b) => a.price - b.price);
       } else if (action.payload === "PRI+") {
@@ -120,39 +115,38 @@ export default function rootReducer(state = initialState, action) {
       } else if (action.payload === "DES") {
         sortedBooks.sort((a, b) => b.title.localeCompare(a.title));
       }
-
       return {
         ...state,
         bookSorted: sortedBooks,
       };
     case FILTER_BY_LANGUAGES:
       const selectedLanguage = action.payload;
-      const { genres } = state.appliedFilters;
+      const genre = state.genre;
       let languageFilteredBooks = [...state.allBooks];
-
-      if (genres) {
-        languageFilteredBooks = languageFilteredBooks.filter((b) =>
-          b.genres.includes(genres)
+      if (genre.length !== 0) {
+        const filteredBooksByLanguage = languageFilteredBooks.filter(
+          (b) => b.language === selectedLanguage
         );
-      }
-
-      if (selectedLanguage === "All") {
+        const filteredBooksByLanguageWithGenre = filteredBooksByLanguage.filter(
+          (b) => {
+            return b.genres.some((genres) => genres.name === genre);
+          }
+        );
         return {
           ...state,
-          bookSorted: languageFilteredBooks,
-          appliedFilters: { ...state.appliedFilters, language: null },
+          bookSorted: filteredBooksByLanguageWithGenre,
+          language: selectedLanguage,
+        };
+      } else {
+        const filteredBooksByLanguage = languageFilteredBooks.filter(
+          (b) => b.language === selectedLanguage
+        );
+        return {
+          ...state,
+          bookSorted: filteredBooksByLanguage,
+          language: selectedLanguage,
         };
       }
-
-      languageFilteredBooks = languageFilteredBooks.filter(
-        (b) => b.language === selectedLanguage
-      );
-
-      return {
-        ...state,
-        bookSorted: languageFilteredBooks,
-        appliedFilters: { ...state.appliedFilters, language: selectedLanguage },
-      };
     case GET_GENRES_BY_ID:
       return {
         ...state,
