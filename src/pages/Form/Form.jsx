@@ -61,15 +61,22 @@ function validateForm(input) {
   if (!input.author[0]) errors.author = "Books must have at least one author.";
   else errors.author = "";
 
+  // Stock
+  if (!input.stock) errors.stock = "Books must have a stock.";
+  else if (!/^[1-9]\d*$/.test(input.stock)) {
+    errors.stock = "The stock must be an integer greater than zero.";
+  } else errors.stock = "";
+
   return errors;
 }
 
 export default function Form() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [disable, setDisable] = useState(true);
+  // const [disable, setDisable] = useState(true);
   const [errors, setErrors] = useState({});
   const genre = useSelector((state) => state.genre);
+  const [secondSelectVisible, setSecondSelectVisible] = useState(false);
   const [input, setInput] = useState({
     title: "",
     description: "",
@@ -81,15 +88,19 @@ export default function Form() {
     language: "",
     author: [],
     genre: [],
+    stock: "",
   });
-
   function handleChange(e) {
     if (e.target.name === "author") {
       setInput({
         ...input,
         [e.target.name]: [e.target.value],
       });
-    } else if (e.target.name === "price" || e.target.name === "pages") {
+    } else if (
+      e.target.name === "price" ||
+      e.target.name === "pages" ||
+      e.target.name === "stock"
+    ) {
       setInput({
         ...input,
         [e.target.name]: Number(e.target.value),
@@ -99,6 +110,7 @@ export default function Form() {
         ...input,
         [e.target.name]: [Number(e.target.value)],
       });
+      setSecondSelectVisible(true);
     } else {
       setInput({
         ...input,
@@ -106,22 +118,23 @@ export default function Form() {
       });
     }
 
-    if (
-      input.title &&
-      input.description &&
-      input.cover &&
-      input.price &&
-      input.publisher &&
-      input.publisher_date &&
-      input.pages &&
-      input.language &&
-      input.genre &&
-      input.author
-    ) {
-      setDisable(false);
-    } else {
-      setDisable(true);
-    }
+    // if (
+    //   input.title &&
+    //   input.description &&
+    //   input.cover &&
+    //   input.price &&
+    //   input.publisher &&
+    //   input.publisher_date &&
+    //   input.pages &&
+    //   input.language &&
+    //   input.genre &&
+    //   input.author &&
+    //   input.stock
+    // ) {
+    //   setDisable(false);
+    // } else {
+    //   setDisable(true);
+    // }
 
     setErrors(
       validateForm({
@@ -130,6 +143,14 @@ export default function Form() {
       })
     );
   }
+  const handleSecondSelectChange = (e) => {
+    if (e.target.name === "genre") {
+      setInput({
+        ...input,
+        [e.target.name]: [...input.genre, Number(e.target.value)],
+      });
+    }
+  };
   // function handleDelete(el) {
   //     setInput({
   //         ...input,
@@ -149,7 +170,8 @@ export default function Form() {
       !errors.pages &&
       !errors.language &&
       !errors.genre &&
-      !errors.author
+      !errors.author &&
+      !errors.stock
     ) {
       alert("Your book has been created.");
       dispatch(createBooks(input));
@@ -164,6 +186,7 @@ export default function Form() {
         language: "",
         author: [],
         genre: [],
+        stock: "",
       });
     } else {
       return alert("Something went wrong. Please try again.");
@@ -318,9 +341,8 @@ export default function Form() {
                 name="genre"
                 onChange={(e) => handleChange(e)}
                 className="peer block w-full"
-                value={input.genre}
               >
-                 <option disabled selected>
+                <option disabled selected>
                   Select a genre
                 </option>
                 {genre.map((gen) => (
@@ -332,6 +354,39 @@ export default function Form() {
               <div>
                 <p className="text-xs text-[#ff0b11] italic mt-0.5">
                   {errors.genre}
+                </p>
+              </div>
+              {secondSelectVisible && (
+                <div>
+                  <select
+                    name="genre"
+                    onChange={handleSecondSelectChange}
+                    className="peer block w-full"
+                  >
+                    <option disabled selected>
+                      Select a genre
+                    </option>
+                    {genre.map((gen) => (
+                      <option key={gen.id} value={gen.id}>
+                        {gen.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
+            </div>
+            <div className="p-1 mt-1 mb-1 bg-[#52e6c3]">
+              <input
+                className="peer block w-full"
+                type="number"
+                value={input.stock}
+                name="stock"
+                placeholder=" Stock"
+                onChange={(e) => handleChange(e)}
+              />
+              <div>
+                <p className="text-xs text-[#ff0b11] italic mt-0.5">
+                  {errors.stock}
                 </p>
               </div>
             </div>
@@ -363,7 +418,7 @@ export default function Form() {
                 id="btn"
                 className="mt-1 m-1 bg-[#01017a] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 type="submit"
-                disabled={disable}
+                disabled={errors.length}
               >
                 Create
               </button>

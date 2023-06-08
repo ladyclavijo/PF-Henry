@@ -91,7 +91,7 @@ export default function Filters() {
           <option value="Computación">Computing</option>
           <option value="Historia">History</option>
           <option value="Literatura">Literature</option>
-          <option value="Fantasía">Fancy</option>
+          <option value="Fantasía">Fantasy</option>
         </select>
       </div>
 
