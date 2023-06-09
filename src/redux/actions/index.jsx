@@ -15,6 +15,7 @@ import {
   GET_AUTHORS_BY_ID,
   REGISTER_USER_SUCCESS,
   REGISTER_USER_FAILURE,
+  GET_USERS,
 } from "./actionsTypes";
 
 export const getBooks = () => {
@@ -167,11 +168,11 @@ export const filterByLanguages = (payload) => {
   };
 };
 
-
 export const registerUser = (userData) => {
+  console.log(userData);
   return async (dispatch) => {
     try {
-      const response = await axios.post("/register", userData);
+      const response = await axios.post("/users/register", userData);
       dispatch({
         type: REGISTER_USER_SUCCESS,
         payload: response.data,
@@ -181,6 +182,19 @@ export const registerUser = (userData) => {
         type: REGISTER_USER_FAILURE,
         payload: error.message,
       });
+    }
+  };
+};
+export const getUsers = () => {
+  return async function (dispatch) {
+    try {
+      const allBooks = await axios.get("/users");
+      return dispatch({
+        type: GET_USERS,
+        payload: allBooks.data,
+      });
+    } catch (error) {
+      console.log(error.message);
     }
   };
 };

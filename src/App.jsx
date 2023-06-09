@@ -6,10 +6,10 @@ import { getBooks } from "./redux/actions/index";
 import Landing from "./pages/Landing/Landing";
 import Home from "./pages/Home/Home";
 import Details from "./pages/Details/Details";
-import Form from "./pages/Form/Form"; 
+import Form from "./pages/Form/Form";
 import About from "./pages/About/About";
 import Buy from "./pages/Buy/Buy";
-import Cart from "./pages/Cart/Cart"
+import Cart from "./pages/Cart/Cart";
 //------------------------- AUTH COMPONENTS ------------------------------//
 // // import HomeAuth from "./components/Auth/HomeAuth/HomeAuth";
 import Login from "./components/Auth/Login/Login";
@@ -26,12 +26,12 @@ function App() {
   }, [dispatch]);
   const allBooks = useSelector((state) => state.allBooks);
   return (
-    <div className="bg-slate-300 h-screen text-black flex"> {/*estilo tailwind*/}
-    
+    <div className="bg-slate-300 h-screen text-black flex">
+      {" "}
+      {/*estilo tailwind*/}
       {/* <Elements stripe={stripePromise}>
         <CheckoutForm />
       </Elements> */}
-
       <AuthProvider> {/*el Provider es quien me dice de dónde vienen los datos*/}
       <Routes>
         <Route path="/" element={<Landing />} />
@@ -50,7 +50,6 @@ function App() {
         <Route path="/newuser" element={<NewUsersForm />} />
       </Routes>
       </AuthProvider>
-
     </div>
   );
 }
