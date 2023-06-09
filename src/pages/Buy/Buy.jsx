@@ -6,11 +6,10 @@ import { Link } from 'react-router-dom';
 
 export default function Buy() {
     return (
-        <div>
-            <Link to='/home'>Home</Link>
+        <main className='Contenedor-Contenedores grid justify-center bg-black w-full'>
             <ContainerAddress />
             <Payment />
             <Articles />
-        </div>
+        </main>
     )
 };

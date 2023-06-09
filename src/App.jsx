@@ -6,7 +6,7 @@ import { getBooks } from "./redux/actions/index";
 import Landing from "./pages/Landing/Landing";
 import Home from "./pages/Home/Home";
 import Details from "./pages/Details/Details";
-import Form from "./pages/Form/Form"; 
+import Form from "./pages/Form/Form";
 import About from "./pages/About/About";
 import Buy from "./pages/Buy/Buy";
 import Cart from "./pages/Cart/Cart"
@@ -26,29 +26,29 @@ function App() {
   }, [dispatch]);
   const allBooks = useSelector((state) => state.allBooks);
   return (
-    <div className="bg-slate-300 h-screen text-black flex"> {/*estilo tailwind*/}
-    
+    <div > {/*estilo tailwind*/}
+
       {/* <Elements stripe={stripePromise}>
         <CheckoutForm />
       </Elements> */}
 
       <AuthProvider> {/*el Provider es quien me dice de dónde vienen los datos*/}
-      <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/book/:id" element={<Details allBooks={allBooks} />} />
-        <Route path="/form" element={<Form />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/buy" element={<Buy />} />
-        <Route path="/cart" element={<Cart />} />
-  {/*---------------------- AUTH ROUTES ------------------------------- */}
-        {/* <ProtectedRoute> */}
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/book/:id" element={<Details allBooks={allBooks} />} />
+          <Route path="/form" element={<Form />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/buy" element={<Buy />} />
+          <Route path="/cart" element={<Cart />} />
+          {/*---------------------- AUTH ROUTES ------------------------------- */}
+          {/* <ProtectedRoute> */}
           {/* <Route path="/welcome" element={<HomeAuth />} /> */}
-        {/* </ProtectedRoute> */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/newuser" element={<NewUsersForm />} />
-      </Routes>
+          {/* </ProtectedRoute> */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/newuser" element={<NewUsersForm />} />
+        </Routes>
       </AuthProvider>
 
     </div>

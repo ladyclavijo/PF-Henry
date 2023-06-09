@@ -18,14 +18,19 @@ const Countries = ({ onSelectCountry }) => {
     };
 
     return (
-        <select name="country" onChange={(e) => onSelectCountry(e.target.value)}>
-            <option value="">Select a country</option>
-            {countries.map((country) => (
-                <option key={country.alpha2Code} value={country.name}>
-                    {country.name}
-                </option>
-            ))}
-        </select>
+        <div className='flex justify-center'>
+            <select className="flex justify-center rounded-md w-[200px]" style={{ maxWidth: '200px' }}>
+                name="country" onChange={(e) => onSelectCountry(e.target.value)}>
+                <option value="">Select a country</option>
+                {countries.map((country) => (
+                    <option className="flex justify-center rounded-md w-[200px]"
+                        key={country.alpha2Code}
+                        value={country.name}>
+                        {country.name}
+                    </option>
+                ))}
+            </select>
+        </div>
     );
 };
 

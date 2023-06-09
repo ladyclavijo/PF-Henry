@@ -29,6 +29,7 @@ export default function Landing() {
             <Link to="/home">
               <button className="explore-button">Explore books</button>
             </Link>
+            <FormLanding />
           </div>
         </div>
         <div className="image-container">

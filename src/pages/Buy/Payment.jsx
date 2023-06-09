@@ -26,8 +26,8 @@ export default function Payment() {
       if (!error) {
         const { id } = paymentMethod;
         try {
-          const { data } = await axios.post('/payments', 
-            [{id:2, qty:2}]
+          const { data } = await axios.post('/payments',
+            [{ id: 2, qty: 2 }]
           );
           console.log(data);
           elements.getElement(CardElement).clear();
@@ -47,9 +47,9 @@ export default function Payment() {
   };
 
   return (
-    <div className="bg-white text-black">
+    <div className="bg-white text-black text-center">
       Payment Method
-      <h2 className="text-white">
+      <h4 className="text-white">
         <Elements stripe={stripePromise}>
           {purchaseSuccess ? (
             <p>Compra realizada con éxito</p>
@@ -57,7 +57,7 @@ export default function Payment() {
             <CheckoutForm />
           )}
         </Elements>
-      </h2>
+      </h4>
       <form></form>
     </div>
   );
