@@ -7,6 +7,7 @@ const stripePromise = loadStripe("pk_test_51NG2ovEoyRXOeDm5vXpDfSqMqCTF1XPioMsQz
 
 export default function Payment() {
   const [products, setProducts] = useState([]);
+  const [purchaseSuccess, setPurchaseSuccess] = useState(false);
 
   const addToCart = (product) => {
     setProducts([...products, product]);
@@ -30,6 +31,7 @@ export default function Payment() {
           );
           console.log(data);
           elements.getElement(CardElement).clear();
+          setPurchaseSuccess(true);
         } catch (error) {
           console.log(error);
         }
@@ -39,7 +41,7 @@ export default function Payment() {
     return (
       <form onSubmit={handleSubmit}>
         <CardElement />
-        <button className="bg-white text-black">Buy</button>
+        <button className="bg-white text-black">Finalize Purchase</button>
       </form>
     );
   };
@@ -49,10 +51,14 @@ export default function Payment() {
       Payment Method
       <h2 className="text-white">
         <Elements stripe={stripePromise}>
-          <CheckoutForm />
+          {purchaseSuccess ? (
+            <p>Compra realizada con éxito</p>
+          ) : (
+            <CheckoutForm />
+          )}
         </Elements>
       </h2>
       <form></form>
     </div>
   );
-}
+};
