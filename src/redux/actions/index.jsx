@@ -13,6 +13,8 @@ import {
   GET_GENRES_BY_ID,
   GET_AUTHORS,
   GET_AUTHORS_BY_ID,
+  REGISTER_USER_SUCCESS,
+  REGISTER_USER_FAILURE,
 } from "./actionsTypes";
 
 export const getBooks = () => {
@@ -162,5 +164,23 @@ export const filterByLanguages = (payload) => {
   return {
     type: FILTER_BY_LANGUAGES,
     payload,
+  };
+};
+
+
+export const registerUser = (userData) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.post("/register", userData);
+      dispatch({
+        type: REGISTER_USER_SUCCESS,
+        payload: response.data,
+      });
+    } catch (error) {
+      dispatch({
+        type: REGISTER_USER_FAILURE,
+        payload: error.message,
+      });
+    }
   };
 };

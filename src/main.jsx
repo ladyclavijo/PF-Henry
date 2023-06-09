@@ -7,6 +7,7 @@ import store from "./redux/store";
 import axios from "axios";
 import 'tailwindcss/tailwind.css';
 
+
 // axios.defaults.baseURL = "http://localhost:3001/"
 axios.defaults.baseURL =
   "https://pf-henry-back-production-eda0.up.railway.app/";
