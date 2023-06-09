@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import NavBar from "../../components/NavBar/NavBar.jsx";
 import { getBookDetail } from "../../redux/actions/index.jsx";
 import Loader from "../../components/Loader/Loader.jsx";
@@ -63,14 +64,31 @@ export default function Details() {
                     </h2>
                     <h2 className="moreInfo">Pages: {book.pages}</h2>
                     <h2 className="moreInfo">Language: {book.language}</h2>
+
+                    {book.genres.length === 1 ? (
+                      <h2 className="moreInfo">Genre: {book.genres[0].name}</h2>
+                    ) : (
+                      <h2 className="moreInfo">
+                        Genres:{" "}
+                        {`${book.genres[0].name}, ${book.genres[1].name}`}
+                      </h2>
+                    )}
+                    <h2 className="moreInfo">Stock: {book.stock}</h2>
                   </div>
                 </div>
               )}
               <div className="price">
-                <h1>$ARS {book.price}</h1>
-                <span>
-                  <TbTruckDelivery className="icon" /> Free delivery on orders over 15 USD!
-                </span>
+                <h1>${book.price}</h1>
+                <div className="delivery-container">
+                  <span>
+                    <TbTruckDelivery className="icon" /> Free delivery on orders
+                    over $15!
+                  </span>
+                  <button className="Add-to-cart">Add to cart</button>
+                  <Link to={"/buy"}>
+                    <button className="Buy-it">Buy it</button>
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
