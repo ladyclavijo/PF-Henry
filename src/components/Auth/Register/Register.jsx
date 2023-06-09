@@ -56,7 +56,7 @@ export default function Register() {
   const handleGoogleSignin = async () => {
     try {
       await loginWithGoogle()
-      navigate("/welcome");     //si loggea OK redirige a HomeAuth
+      navigate("/Home");     //si loggea OK redirige a HomeAuth
     } catch (error) {
       setError(error.message)      
     }

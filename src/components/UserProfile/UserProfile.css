@@ -1,0 +1,158 @@
+/* .user-profile {
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .profile-picture {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+  
+  .user-card {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .card-profile-picture {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 10px;
+    
+  }
+  
+  .card-info {
+    flex-grow: 1;
+  }
+  
+  .user-name {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .user-email {
+    font-size: 14px;
+    color: #888;
+  }
+  
+  .logout-button {
+    border: none;
+    background-color: transparent;
+    color: #888;
+    cursor: pointer;
+  }
+  
+  .logout-button:hover {
+    text-decoration: underline;
+  }
+  
+  .profile-icon {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 33px;
+    height: 33px;
+    border-radius: 50%;
+    background-color: #ddd;
+    margin-right: 10px;
+    
+  }
+  
+  .profile-icon .icon {
+    font-size: 24px;
+    color: #342e8a;
+    
+  }
+   */
+
+
+   .user-profile {
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .profile-icon {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #ddd;
+    margin-right: 10px;
+    transition: background-color 0.3s ease; /* Transición de color de fondo */
+  }
+  
+  .profile-icon:hover {
+    background-color: #f5f5f5; /* Cambia el color de fondo al pasar el mouse */
+  }
+  
+  .profile-icon .icon {
+    font-size: 24px;
+    color: #342e8a;
+  }
+  
+  .user-card {
+    position: absolute;
+    top: calc(100% + 3px); /* Ajuste para que la tarjeta se superponga directamente al icono */
+    right: 0;
+    background-color: #d2e0e0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    opacity: 0; /* Inicialmente, la tarjeta está oculta */
+    visibility: hidden; /* La tarjeta está oculta, pero ocupa espacio */
+    transition: opacity 0.3s ease; /* Transición de opacidad */
+  }
+  
+  .user-profile:hover .user-card {
+    opacity: 1; /* Muestra la tarjeta al pasar el mouse sobre el perfil */
+    visibility: visible; /* Hace visible la tarjeta */
+  }
+  
+  .card-profile-picture {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .card-info {
+    flex-grow: 1;
+  }
+  
+  .user-name {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .user-email {
+    font-size: 14px;
+    color: #888;
+  }
+  
+  .logout-button {
+    border: none;
+    background-color: transparent;
+    color: #888;
+    cursor: pointer;
+  }
+  
+  .logout-button:hover {
+    text-decoration: underline;
+  }
+  

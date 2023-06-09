@@ -26,7 +26,7 @@ export default function Login() {
 
     try {
       await login(user.email, user.password);
-      navigate("/welcome");     
+      navigate("/Home");     
 
     } catch (error) {
       console.log(error.code)
