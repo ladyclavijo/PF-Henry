@@ -34,3 +34,45 @@
     font-size: 25px;
     color: white;
 }
+
+/*______*/
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+   
+  }
+  
+  .button-about {
+    color: white;
+    margin-right: 20px;
+  }
+  
+  .auth-buttons {
+    display: flex;
+    align-items: center;
+  }
+  
+  .button-signin,
+  .button-signup {
+    color: white;
+    margin-left: 30px;
+    /* background-color: #70769c; */
+    padding: 1px 9px;
+    border-radius: 4px;
+
+  }
+  
+  .button-signup {
+    margin-left: 19px;
+    margin-right: 19px;
+    /* background-color: #a76560; */
+  }
+  
+  .button-signin:hover,
+  .button-signup:hover {
+    cursor: pointer;
+    opacity: 0.8;
+  }
+  

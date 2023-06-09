@@ -10,9 +10,10 @@ import { getBooks } from "../../redux/actions/index.jsx";
 import SearchBar from "../../components/SearchBar/SearchBar.jsx";
 import logo from "../../assets/images/Logo.png";
 import Filters from "../../components/Filters/Filters";
+import { useAuth } from "../../context/authContext"
 
 export default function Home() {
-
+  const { user } = useAuth();
   const [cardsPerPage] = useState(6);
   const [loading, setLoading] = useState(false);
 
@@ -49,14 +50,16 @@ export default function Home() {
           <SearchBar />
         </div>
 
+        { user ? (
         <div className="div-form">
           <Link to="/form">
             <span>Publish Book</span>
           </Link>
-        </div>
-
+        </div>)
+        :(<></>)
+        }
       </div>
-
+        
       <div className="div-filters">
         <Filters />
       </div>
@@ -96,4 +99,4 @@ export default function Home() {
     </div>
 
   );
-};
+}
