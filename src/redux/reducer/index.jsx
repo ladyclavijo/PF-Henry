@@ -13,6 +13,8 @@ import {
   GET_GENRES_BY_ID,
   GET_AUTHORS,
   GET_AUTHORS_BY_ID,
+  REGISTER_USER_SUCCESS,
+  REGISTER_USER_FAILURE,
 } from "../actions/actionsTypes";
 
 const initialState = {
@@ -27,7 +29,10 @@ const initialState = {
   genresId: [],
   authors: [],
   authorsId: [],
-};
+  currentUser: null,
+  registrationError: null,
+  appliedFilters: { genre: null, language: null },
+  };
 
 export default function rootReducer(state = initialState, action) {
   switch (action.type) {
@@ -162,7 +167,19 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         authorsId: action.payload,
       };
+    case REGISTER_USER_SUCCESS:
+      return {
+        ...state,
+        currentUser: action.payload,
+        registrationError: null,
+      };
+    case REGISTER_USER_FAILURE:
+      return {
+        ...state,
+        currentUser: null,
+        registrationError: action.payload,
+      };
     default:
       return state;
   }
-}
+};
