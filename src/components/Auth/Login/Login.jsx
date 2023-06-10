@@ -51,7 +51,6 @@ export default function Login() {
   const handleGoogleSignin = async () => {
     try {
       const userAvaible = await loginWithGoogle();
-      console.log(userAvaible);
       if (userAvaible) {
         const userDB = allUsers.filter((u) => {
           return u.id === userAvaible.user.uid;
