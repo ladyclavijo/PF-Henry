@@ -20,7 +20,7 @@ export const useAuth = () => {
 
 export default function AuthProvider ({children}) {
 
-    const [user, setUser ]  = useState(null); //en user almacena el usuario que se loggeó
+    const [user, setUser ]  = useState(null);        //en user almacena el usuario que se loggeó
     const [loading, setLoading] = useState(true);
 
 

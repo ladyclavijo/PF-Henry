@@ -24,13 +24,18 @@
     margin-right: 20px;
 }
 
-.icon-button {
+.button-about:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.icon-home {
     display: flex;
     align-items: center;
     margin-left: 10px;
 }
 
-.icon-button svg {
+.icon-home svg {
     font-size: 25px;
     color: white;
 }
@@ -41,13 +46,8 @@
     display: flex;
     align-items: center;
     margin-left: auto;
-   
-  }
+}
   
-  .button-about {
-    color: white;
-    margin-right: 20px;
-  }
   
   .auth-buttons {
     display: flex;
@@ -76,3 +76,13 @@
     opacity: 0.8;
   }
   
+  .icon-cart {
+      display: flex;
+      align-items: center;
+      margin-right: 25px;
+  }
+  
+  .icon-cart svg {
+      font-size: 28px;
+      color: white;
+  } 
