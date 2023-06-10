@@ -58,10 +58,10 @@ export default function Address() {
 
     return (
         <div>
-            <div className='Container 1 bg-gray-400'>
+            <div className='Container 1 bg-gray-400 '>
                 {!expanded && (
                     <div>
-                        <h2>Shipping Address:</h2>
+                        <h2 className='text-center'>Shipping Address:</h2>
                         {selectedAddress && (
                             <p>
                                 {selectedAddress.fullName}, {selectedAddress.street},{' '}
@@ -72,7 +72,7 @@ export default function Address() {
                 )}
                 {expanded && (
                     <div>
-                        <h2>Your Addresses:</h2>
+                        <h2 className='text-center'>Your Addresses:</h2>
                         <ul>
                             {addresses.map((address, index) => (
                                 <li key={index}>
@@ -87,10 +87,10 @@ export default function Address() {
                                 </li>
                             ))}
                         </ul>
-                        <h3>Add New Address:</h3>
-                        <form>
+                        <h2 className='text-center mb-[10px]'>Add New Address:</h2>
+                        <form className='text-center  '>
                             <div>
-                                <h2>Country or Region:</h2>
+                                <h2 className='mb-[10px]'>Country or Region:</h2>
                                 <Countries onSelectCountry={handleSelectCountry} />
                             </div>
                             <Validaciones
@@ -98,15 +98,18 @@ export default function Address() {
                                 validationError={validationError}
                                 handleInputChange={handleInputChange}
                             />
-                            <button type="button" className='bg-black text-white' onClick={handleAddAddress}>
+                            <button type="button" className='bg-black text-white rounded-md w-[200px]' onClick={handleAddAddress}>
                                 Add Address
                             </button>
                         </form>
                     </div>
                 )}
-                <button onClick={handleToggleExpanded}>
-                    {expanded ? 'Close' : 'Change'}
-                </button>
+                <div className='flex justify-center'>
+
+                    <button onClick={handleToggleExpanded}>
+                        {expanded ? 'Close' : 'Change'}
+                    </button>
+                </div>
             </div>
         </div>
     );
