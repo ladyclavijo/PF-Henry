@@ -9,7 +9,7 @@ import Details from "./pages/Details/Details";
 import Form from "./pages/Form/Form";
 import About from "./pages/About/About";
 import Buy from "./pages/Buy/Buy";
-import Cart from "./pages/Cart/Cart"
+import Cart from "./pages/Cart/Cart";
 //------------------------- AUTH COMPONENTS ------------------------------//
 // // import HomeAuth from "./components/Auth/HomeAuth/HomeAuth";
 import Login from "./components/Auth/Login/Login";
@@ -27,11 +27,9 @@ function App() {
   const allBooks = useSelector((state) => state.allBooks);
   return (
     <div > {/*estilo tailwind*/}
-
       {/* <Elements stripe={stripePromise}>
         <CheckoutForm />
       </Elements> */}
-
       <AuthProvider> {/*el Provider es quien me dice de dónde vienen los datos*/}
         <Routes>
           <Route path="/" element={<Landing />} />
@@ -50,7 +48,6 @@ function App() {
           <Route path="/newuser" element={<NewUsersForm />} />
         </Routes>
       </AuthProvider>
-
     </div>
   );
 }

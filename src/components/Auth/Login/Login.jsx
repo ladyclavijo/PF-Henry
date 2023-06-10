@@ -1,40 +1,40 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../../../context/authContext";
 import { Link, useNavigate } from "react-router-dom";
 import Alert from "../Alert/Alert";
+import { getUsers, registerUser } from "../../../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Login() {
-
-  const [user, setUser] = useState({
+  const [users, setUsers] = useState({
     email: "",
     password: "",
   });
-
-  const { login, loginWithGoogle, resetPassword } = useAuth();
+  const { login, loginWithGoogle, resetPassword, user } = useAuth();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [error, setError] = useState();
-
-
+  useEffect(() => {
+    dispatch(getUsers());
+  }, [dispatch]);
+  const allUsers = useSelector((state) => state.allUsers);
   const handleChange = ({ target: { name, value } }) => {
-    setUser({ ...user, [name]: value });
+    setUsers({ ...users, [name]: value });
   };
-
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
 
     try {
-      await login(user.email, user.password);
+      await login(users.email, users.password);
       navigate("/Home");
-
     } catch (error) {
-      console.log(error.code)
+      console.log(error.code);
       if (error.code === "auth/user-not-found") {
-        setError("User Not Found!")
+        setError("User Not Found!");
       }
       if (error.code === "auth/wrong-password") {
-        setError("Wrong Password!")
+        setError("Wrong Password!");
       }
       if (error.code === "auth/invalid-email") {
         setError("Please fill in the empty boxes!")
@@ -48,11 +48,25 @@ export default function Login() {
   };
 
   //------------------------- GOOGLE ------------------------------//
-
   const handleGoogleSignin = async () => {
     try {
-      await loginWithGoogle()
-      navigate("/welcome");
+      const userAvaible = await loginWithGoogle();
+      if (userAvaible) {
+        const userDB = allUsers.filter((u) => {
+          return u.id === user.uid;
+        });
+        if (!userDB.length) {
+          const userGoogle = {
+            id: user.uid,
+            username: user.displayName,
+            email: user.email,
+          };
+          dispatch(registerUser(userGoogle));
+          navigate("/home");
+        } else {
+          navigate("/home");
+        }
+      }
     } catch (error) {
       setError(error.message)
     }
@@ -61,17 +75,14 @@ export default function Login() {
   //----------------- REESTABLECIMIENTO DE CONTRASEÑA --------------------//
 
   const handleResetPassword = async () => {
-    if (!user.email) return setError("Please enter your email");
+    if (!users.email) return setError("Please enter your email");
     try {
-      await resetPassword(user.email);
-      setError("We sent you an email with a link to reset your password!")
+      await resetPassword(users.email);
+      setError("We sent you an email with a link to reset your password!");
     } catch (error) {
       setError(error.message)
     }
   };
-
-
-
   return (
     <div className="bg-slate-300 h-screen text-black flex">
       <div className="w-full max-w-xs m-auto">
