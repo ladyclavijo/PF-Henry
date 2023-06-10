@@ -39,15 +39,15 @@ export default function Payment() {
     };
 
     return (
-      <form onSubmit={handleSubmit}>
+      <form className='bg-[#9DC8C5]' onSubmit={handleSubmit}>
         <CardElement />
-        <button className="bg-white text-black">Finalize Purchase</button>
+        <button className="bg-[#303079] text-white rounded-md w-32 hover:bg-[#7496b8]">Confirm</button>
       </form>
     );
   };
 
   return (
-    <div className="bg-white text-black text-center">
+    <div className="text-black text-center">
       Payment Method
       <h4 className="text-white">
         <Elements stripe={stripePromise}>

@@ -57,8 +57,8 @@ export default function Address() {
     };
 
     return (
-        <div>
-            <div className='Container 1 bg-gray-400 '>
+        <div className='Container 1   '>
+            <div >
                 {!expanded && (
                     <div>
                         <h2 className='text-center'>Shipping Address:</h2>
@@ -98,17 +98,18 @@ export default function Address() {
                                 validationError={validationError}
                                 handleInputChange={handleInputChange}
                             />
-                            <button type="button" className='bg-black text-white rounded-md w-[200px]' onClick={handleAddAddress}>
+                            <button type="button" className='bg-[#303079] w-32 mt-2 text-white hover:bg-[#7496b8] rounded-md ' onClick={handleAddAddress}>
                                 Add Address
                             </button>
                         </form>
                     </div>
                 )}
                 <div className='flex justify-center'>
-
-                    <button onClick={handleToggleExpanded}>
-                        {expanded ? 'Close' : 'Change'}
+                    <button className='mt-2 w-32 text-white rounded-md hover:text-blue-200 hover:underline' onClick={handleToggleExpanded}>
+                        {expanded ? 'Close X' : 'Change'}
                     </button>
+
+
                 </div>
             </div>
         </div>
