@@ -22,10 +22,10 @@ export default function Card({ id, title, author, cover, stock, genres, price })
                             <p className="mt-2">${price}</p>
                         </div>
                     </Link>
+                    <CartButton
+                        id={id}
+                    />
                 </div>
-                <CartButton
-                    id={id}
-                />
             </div>
         )
     } else {
