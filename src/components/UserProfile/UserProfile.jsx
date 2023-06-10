@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useAuth } from "../../context/authContext"
 
 const UserProfile = () => {
-  const [isCardOpen, setIsCardOpen] = useState(true);
+  const [isCardOpen, setIsCardOpen] = useState(false);
   const { user, logout } = useAuth(); 
   const handleCardToggle = () => {
     setIsCardOpen(!isCardOpen);

@@ -11,8 +11,8 @@ const NavBar = () => {
     <div className="navbar-home">
       <div className="backToLanding">
         <Link to="/home">
-          <div className="icon-button">
-            <AiOutlineHome className="icon" />
+          <div className="icon-home">
+            <AiOutlineHome />
           </div>
         </Link>
       </div>
@@ -39,8 +39,8 @@ const NavBar = () => {
       </div>
       <div className="nav-Cart">
         <Link to="/cart">
-          <div>
-            <AiOutlineShoppingCart className="icon"/>
+          <div className='icon-cart'>
+            <AiOutlineShoppingCart />
           </div>
         </Link>
       </div>
@@ -49,9 +49,6 @@ const NavBar = () => {
 };
 
 export default NavBar;
-
-
-
 
 
 
