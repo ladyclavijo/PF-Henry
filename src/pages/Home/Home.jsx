@@ -10,12 +10,13 @@ import { getBooks } from "../../redux/actions/index.jsx";
 import SearchBar from "../../components/SearchBar/SearchBar.jsx";
 import logo from "../../assets/images/Logo.png";
 import Filters from "../../components/Filters/Filters";
-import { useAuth } from "../../context/authContext"
+import { useAuth } from "../../context/authContext";
 
 export default function Home() {
   const { user } = useAuth();
   const [cardsPerPage] = useState(6);
   const [loading, setLoading] = useState(false);
+  const [noResults, setNoResults] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -27,7 +28,6 @@ export default function Home() {
   const firstCardIndex = lastCardIndex - cardsPerPage;
   const currentCards = bookSorted.slice(firstCardIndex, lastCardIndex);
 
-
   useEffect(() => {
     setLoading(true);
     dispatch(getBooks());
@@ -36,6 +36,9 @@ export default function Home() {
     }, 1000);
   }, [dispatch]);
 
+  useEffect(() => {
+    setNoResults(currentCards.length === 0);
+  }, [currentCards]);
 
   return (
     <div className="home-page">
@@ -50,16 +53,15 @@ export default function Home() {
           <SearchBar />
         </div>
 
-        { user ? (
-        <div className="div-form">
-          <Link to="/form">
-            <span>Publish Book</span>
-          </Link>
-        </div>)
-        :(<></>)
-        }
+        {user ? (
+          <div className="div-form">
+            <Link to="/form">
+              <span>Publish Book</span>
+            </Link>
+          </div>
+        ) : (<></>)}
       </div>
-        
+
       <div className="div-filters">
         <Filters />
       </div>
@@ -73,8 +75,8 @@ export default function Home() {
           {loading ? (
             <Loader />
           ) : (
-            currentCards?.map((book) => {
-              return (
+            currentCards.length > 0 ? (
+              currentCards.map((book) => (
                 <Card
                   key={book.id}
                   id={book.id}
@@ -85,8 +87,13 @@ export default function Home() {
                   genres={book.genres}
                   price={book.price}
                 />
-              )
-            })
+              ))
+            ) : (
+              <div className="no-results">
+                <h2 className="text-red-500 text-4xl mt-11 ml-12 whitespace-nowrap break-words">No books match your search.</h2>
+              </div>
+
+            )
           )}
         </div>
         {!error.length && (
@@ -97,6 +104,5 @@ export default function Home() {
       </div>
 
     </div>
-
   );
 }
