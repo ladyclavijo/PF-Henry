@@ -1,4 +1,4 @@
-import { AiOutlineHome } from 'react-icons/ai';
+import { AiOutlineHome, AiOutlineShoppingCart } from 'react-icons/ai';
 import "./NavBar.css";
 import UserProfile from '../UserProfile/UserProfile';
 import { Link } from "react-router-dom";
@@ -36,6 +36,13 @@ const NavBar = () => {
             <UserProfile user={user} handleLogout={logout} />
           </div>
         )}
+      </div>
+      <div className="nav-Cart">
+        <Link to="/cart">
+          <div>
+            <AiOutlineShoppingCart className="icon"/>
+          </div>
+        </Link>
       </div>
     </div>
   );

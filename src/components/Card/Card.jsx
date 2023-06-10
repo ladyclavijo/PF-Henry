@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import CartButton from "../CartButton/CartButton.jsx"
 import { Link } from "react-router-dom"
 
 
@@ -22,6 +23,9 @@ export default function Card({ id, title, author, cover, stock, genres, price })
                         </div>
                     </Link>
                 </div>
+                <CartButton
+                    id={id}
+                />
             </div>
         )
     } else {
