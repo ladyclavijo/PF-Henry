@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./Landing.css";
-import FormLanding from "../../components/FormLanding/FormLanding";
 import imagen from "../../assets/landing-image.png"
 import logo from "../../assets/Logo.png"
 
@@ -29,7 +28,6 @@ export default function Landing() {
             <Link to="/home">
               <button className="explore-button">Explore books</button>
             </Link>
-            <FormLanding />
           </div>
         </div>
         <div className="image-container">
