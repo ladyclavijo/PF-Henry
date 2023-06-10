@@ -1,10 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../../../context/authContext";
 import { Link, useNavigate } from "react-router-dom";
 import Alert from "../Alert/Alert";
+import { getUsers, registerUser } from "../../../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Register() {
-
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getUsers());
+  }, [dispatch]);
+  const allUsers = useSelector((state) => state.allUsers);
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -19,61 +25,74 @@ export default function Register() {
     setUser({ ...user, [name]: value });
   };
 
-
   // para ver finalmente lo que tiene el estado
   const handleSubmit = async (e) => {
-    e.preventDefault();                 //evita que se refresque la pág
+    e.preventDefault(); //evita que se refresque la pág
     setError("");
 
     try {
       await signup(user.email, user.password);
-      navigate("/newuser");            // si está todo OK, se dirige a NewUsersForm
+      navigate("/newuser"); // si está todo OK, se dirige a NewUsersForm
     } catch (error) {
-      console.log(error.code)
+      console.log(error.code);
       if (error.code === "auth/missing-password") {
-        setError("Missing Password!")
+        setError("Missing Password!");
       }
       if (error.code === "auth/weak-password") {
-        setError("Weak Password!")
+        setError("Weak Password!");
       }
       if (error.code === "auth/invalid-email") {
-        setError("Please fill in the empty boxes!")
+        setError("Please fill in the empty boxes!");
       }
       if (error.code === "auth/email-already-in-use") {
-        setError("Email already in use!")
+        setError("Email already in use!");
       }
       if (error.code === "auth/missing-email") {
-        setError("Missing email!")
+        setError("Missing email!");
       }
 
       // setError(error.message);
     }
   };
 
-
   //------------------------- GOOGLE ------------------------------//
 
   const handleGoogleSignin = async () => {
     try {
-      await loginWithGoogle()
-      navigate("/Home");     //si loggea OK redirige a HomeAuth
+      const userAvaible = await loginWithGoogle();
+      if (userAvaible) {
+        const userDB = allUsers.filter((u) => {
+          return u.id === userAvaible.user.uid;
+        });
+        if (!userDB.length) {
+          const userGoogle = {
+            id: userAvaible.user.uid,
+            username: userAvaible.user.displayName,
+            email: userAvaible.user.email,
+          };
+          dispatch(registerUser(userGoogle));
+          navigate("/home");
+        } else {
+          navigate("/home");
+        }
+      } //si loggea OK redirige a HomeAuth
     } catch (error) {
-      setError(error.message)
+      setError(error.message);
     }
   };
-
-
 
   return (
     <div className="bg-slate-300 h-screen text-black flex">
       <div className="contenedorRegister w-full max-w-xs m-auto">
-
         {error && <Alert message={error} />}
 
-        <form onSubmit={handleSubmit} className="correoRegistro bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-
+        <form
+          onSubmit={handleSubmit}
+          className="correoRegistro bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+        >
           <div className=" coso mb-4">
-            <label htmlFor="email"
+            <label
+              htmlFor="email"
               className="textoEmail block text-gray-700 text-sm font-bold my-2"
             >
               Email
@@ -88,7 +107,8 @@ export default function Register() {
           </div>
 
           <div className="ParaPassword mb-4">
-            <label htmlFor="password"
+            <label
+              htmlFor="password"
               className="block text-gray-700 text-sm font-bold my-2"
             >
               Password
@@ -104,19 +124,23 @@ export default function Register() {
           </div>
 
           <div className="flex justify-center">
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold text-sm py-2 px-4 rounded focus:outline-none focus:shadow-outline">Register</button>
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold text-sm py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+              Register
+            </button>
           </div>
-
         </form>
 
-        <p className="my-4 text-sm flex justify-between px-3">Already have an Account? <Link to="/login">Login</Link></p>
+        <p className="my-4 text-sm flex justify-between px-3">
+          Already have an Account? <Link to="/login">Login</Link>
+        </p>
 
-
-        <button onClick={handleGoogleSignin} className="bg-slate-50 hover:bg-slate-200 text-black shadow-md rounded border-2 border-gray-300 py-2 px-4 w-full" >
+        <button
+          onClick={handleGoogleSignin}
+          className="bg-slate-50 hover:bg-slate-200 text-black shadow-md rounded border-2 border-gray-300 py-2 px-4 w-full"
+        >
           Register with Google
         </button>
-
       </div>
     </div>
-  )
+  );
 }
