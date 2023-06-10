@@ -2,10 +2,11 @@ import './UserProfile.css';
 import { Link } from 'react-router-dom'
 import { FaUserCircle } from 'react-icons/fa';
 import { useState } from 'react';
+import { useAuth } from "../../context/authContext"
 
-const UserProfile = ({ user, handleLogout }) => {
+const UserProfile = () => {
   const [isCardOpen, setIsCardOpen] = useState(true);
-
+  const { user, logout } = useAuth(); 
   const handleCardToggle = () => {
     setIsCardOpen(!isCardOpen);
   };
@@ -22,11 +23,13 @@ const UserProfile = ({ user, handleLogout }) => {
               <FaUserCircle className="user-icon" />
             </div>
             <div className="card-info">
-              <h3 className="user-name">{user.name}</h3>
-              <p className="user-email">{user.email}</p>
+              <h3 className="user-name">
+                <Link  to="/myaccount">My Account</Link>
+              </h3>
+              <p className="user-email">{user?.email}</p>
             </div>
             <Link to='/home'>
-              <button onClick={handleLogout} className="logout-button">Logout</button>
+              <button onClick={logout} className="logout-button">Logout</button>
             </Link>
           </div>
         </div>

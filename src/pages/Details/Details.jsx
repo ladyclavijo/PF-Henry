@@ -6,10 +6,13 @@ import NavBar from "../../components/NavBar/NavBar.jsx";
 import { getBookDetail } from "../../redux/actions/index.jsx";
 import Loader from "../../components/Loader/Loader.jsx";
 import "./Details.css";
+import { useAuth } from "../../context/authContext"
 import { TbTruckDelivery } from "react-icons/tb";
+
 
 export default function Details() {
   const { id } = useParams();
+  const { user } = useAuth();
   const [loading, setLoading] = useState(false);
   const [showDescription, setShowDescription] = useState(true);
   const book = useSelector((state) => state.booksDetail);
@@ -84,10 +87,24 @@ export default function Details() {
                     <TbTruckDelivery className="icon" /> Free delivery on orders
                     over $15!
                   </span>
-                  <button className="Add-to-cart">Add to cart</button>
-                  <Link to={"/buy"}>
-                    <button className="Buy-it">Buy it</button>
-                  </Link>
+                  
+                  {user ? (
+                  <>
+                    <button className="Add-to-cart">Add to cart</button>
+                    <Link to={"/buy"}>
+                      <button className="Buy-it">Buy it</button>
+                    </Link> 
+                  </>)
+                  : (
+                  <> 
+                    <Link to={"/login"}>
+                      <button className="Add-to-cart">Add to cart</button>
+                    </Link> 
+                    <Link to={"/login"}>
+                      <button className="Buy-it">Buy it</button>
+                    </Link> 
+                  </> 
+                  )}
                 </div>
               </div>
             </div>
