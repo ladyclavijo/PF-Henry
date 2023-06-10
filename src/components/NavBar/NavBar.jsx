@@ -37,13 +37,23 @@ const NavBar = () => {
           </div>
         )}
       </div>
-      <div className="nav-Cart">
-        <Link to="/cart">
-          <div className='icon-cart'>
-            <AiOutlineShoppingCart />
-          </div>
-        </Link>
-      </div>
+      { user ? (
+        <div className="nav-Cart">
+          <Link to="/cart">
+            <div className='icon-cart'>
+              <AiOutlineShoppingCart />
+            </div>
+          </Link>
+        </div>)
+       : (
+        <div className="nav-Cart">
+          <Link to="/login">
+            <div className='icon-cart'>
+              <AiOutlineShoppingCart />
+            </div>
+          </Link>
+        </div>
+       )}
     </div>
   );
 };
