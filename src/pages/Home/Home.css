@@ -102,5 +102,25 @@
 .div-cards {
   flex-grow: 1;
   margin-left: 270px; /* Ancho de la sidebar + espacio de separación */
-  margin-top: 100px; /* Espacio de separación desde la navbar */
+  margin-top: 120px; /* Espacio de separación desde la navbar */
+}
+
+/* .no-results {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    color: red;
+}
+
+.no-results-text {
+    font-size: 20px;
+    text-align: center;
+    margin-left: 180%;
+} */
+
+.no-results img {
+    width: 200px;
+    height: 200px;
+    margin-bottom: 10px;
 }
