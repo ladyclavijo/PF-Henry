@@ -30,7 +30,7 @@ const Validaciones = ({ newAddress, validationError, handleInputChange }) => {
             <div>
                 <h2>Postal Code:</h2>
                 <input
-                    type="text"
+                    type="number"
                     name="postalCode"
                     value={newAddress.postalCode}
                     onChange={handleInputChange}
