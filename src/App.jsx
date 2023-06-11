@@ -17,7 +17,7 @@ import Register from "./components/Auth/Register/Register";
 import NewUsersForm from "./components/Auth/NewUsersForm/NewUsersForm";
 import AuthProvider from "./context/authContext";
 // import {ProtectedRoute} from "./components/Auth/ProtectedRoute/ProtectedRoute"
-
+import { ProtectedRoute } from "./components/Auth/ProtectedRoute/ProtectedRoute";
 
 function App() {
   const dispatch = useDispatch();
@@ -31,14 +31,15 @@ function App() {
         <CheckoutForm />
       </Elements> */}
       <AuthProvider> {/*el Provider es quien me dice de dónde vienen los datos*/}
+        
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/home" element={<Home />} />
           <Route path="/book/:id" element={<Details allBooks={allBooks} />} />
-          <Route path="/form" element={<Form />} />
+          <Route path="/form" element={<ProtectedRoute><Form /></ProtectedRoute>} />
           <Route path="/about" element={<About />} />
-          <Route path="/buy" element={<Buy />} />
-          <Route path="/cart" element={<Cart />} />
+          <Route path="/buy" element={<ProtectedRoute><Buy /></ProtectedRoute>} />
+          <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
           {/*---------------------- AUTH ROUTES ------------------------------- */}
           {/* <ProtectedRoute> */}
           {/* <Route path="/welcome" element={<HomeAuth />} /> */}
