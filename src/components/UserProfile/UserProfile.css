@@ -75,7 +75,6 @@
   }
    */
 
-
    .user-profile {
     position: relative;
     cursor: pointer;
@@ -86,11 +85,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
+    width: 33px;
+    height: 33px;
     border-radius: 50%;
-    background-color: #ddd;
-    margin-right: 10px;
+    background-color: #ffffff;
+    margin-right: 20px;
     transition: background-color 0.3s ease; /* Transición de color de fondo */
   }
   
@@ -99,7 +98,8 @@
   }
   
   .profile-icon .icon {
-    font-size: 24px;
+    width: 29px;
+    height: 29px;
     color: #342e8a;
   }
   

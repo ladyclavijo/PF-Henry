@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { loadStripe } from "@stripe/stripe-js";
@@ -12,6 +13,7 @@ const stripePromise = loadStripe(
   "pk_test_51NG2ovEoyRXOeDm5vXpDfSqMqCTF1XPioMsQz5ZZ6aFADDrZ9s4RKikHU0XLdF3dJtr55oTPdv31Sx2iflEysSDS004G9VQN5U"
 );
 
+
 export default function Payment() {
   const [user, setUser] = useState({
     items: [{ id: 6, qty: 2 },{ id: 7, qty: 1 }],
@@ -21,6 +23,8 @@ export default function Payment() {
   
   const [products, setProducts] = useState([]);
   const [purchaseSuccess, setPurchaseSuccess] = useState(false);
+  const location = useLocation();
+  const bookData = location.state; // bookData se usa cuando solo se compra 1 ID cantidades que quieras
 
   const addToCart = (product) => {
     setProducts([...products, product]);

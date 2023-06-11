@@ -11,8 +11,8 @@ const NavBar = () => {
     <div className="navbar-home">
       <div className="backToLanding">
         <Link to="/home">
-          <div className="icon-button">
-            <AiOutlineHome className="icon" />
+          <div className="icon-home">
+            <AiOutlineHome />
           </div>
         </Link>
       </div>
@@ -37,21 +37,28 @@ const NavBar = () => {
           </div>
         )}
       </div>
-      <div className="nav-Cart">
-        <Link to="/cart">
-          <div>
-            <AiOutlineShoppingCart className="icon"/>
-          </div>
-        </Link>
-      </div>
+      { user ? (
+        <div className="nav-Cart">
+          <Link to="/cart">
+            <div className='icon-cart'>
+              <AiOutlineShoppingCart />
+            </div>
+          </Link>
+        </div>)
+       : (
+        <div className="nav-Cart">
+          <Link to="/login">
+            <div className='icon-cart'>
+              <AiOutlineShoppingCart />
+            </div>
+          </Link>
+        </div>
+       )}
     </div>
   );
 };
 
 export default NavBar;
-
-
-
 
 
 

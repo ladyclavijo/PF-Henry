@@ -38,6 +38,14 @@
     margin-bottom: 40px;
     align-items: center;
 }
+.stock {
+    font-size: 25px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-family: serif;
+    height: 30px;
+    color: darkslategrey
+}
 .author{
     color: #130E6C;
     font-size: 22px;

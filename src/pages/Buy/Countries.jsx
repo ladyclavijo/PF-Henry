@@ -19,7 +19,8 @@ const Countries = ({ onSelectCountry }) => {
 
     return (
         <div className='flex justify-center'>
-            <select className="flex justify-center rounded-md w-[200px]" style={{ maxWidth: '200px' }} name="country" onChange={(e) => onSelectCountry(e.target.value)}>
+            <select className="flex justify-center rounded-md w-[200px]" style={{ maxWidth: '200px' }}
+                name="country" onChange={(e) => onSelectCountry(e.target.value)}>
                 <option value="">Select a country</option>
                 {countries.map((country) => (
                     <option
