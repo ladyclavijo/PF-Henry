@@ -7,6 +7,7 @@ import {
     GoogleAuthProvider,
     signInWithPopup,        //le permite al usuario elegir con cuál cuenta de gmail quiere hacer login
     sendPasswordResetEmail,
+    sendEmailVerification,
 } from "firebase/auth";
 import { auth } from "../firebase";
 
@@ -26,6 +27,10 @@ export default function AuthProvider ({children}) {
 
     const signup = async(email, password) => {
         await createUserWithEmailAndPassword(auth, email, password);
+
+//------------------ Verification email -----------------
+        const user = auth.currentUser;
+        await sendEmailVerification(user);
     }
     
     const login = async (email, password) => {
