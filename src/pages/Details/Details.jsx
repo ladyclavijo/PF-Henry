@@ -91,7 +91,6 @@ export default function Details() {
                         Genres: {`${book.genres[0].name}, ${book.genres[1].name}`}
                       </h2>
                     )}
-                    <h2 className="moreInfo">Stock: {book.stock}</h2>
                   </div>
                 </div>
               )}
@@ -115,7 +114,10 @@ export default function Details() {
                           ))}
                         </select>
                       </div>
-                      <button className="Add-to-cart">Add to cart</button>
+                      <Link to='/cart'>
+                      <button className="Add-to-cart">Add To Cart</button>
+                      </Link>
+                      <h4 className="stock">Stock: {book.stock}</h4>
                       <button className="Buy-it" onClick={handleBuyClick}>
                         Buy it
                       </button>
@@ -123,7 +125,7 @@ export default function Details() {
                   ) : (
                     <>
                       <Link to="/login">
-                        <button className="Add-to-cart">Add to cart</button>
+                        <button className="Add-to-cart">Add To Cart</button>
                       </Link>
                       <Link to="/login">
                         <button className="Buy-it">Buy it</button>
