@@ -14,13 +14,21 @@ export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [error, setError] = useState();
+
+
   useEffect(() => {
     dispatch(getUsers());
   }, [dispatch]);
+
+
   const allUsers = useSelector((state) => state.allUsers);
+
+
   const handleChange = ({ target: { name, value } }) => {
     setUsers({ ...users, [name]: value });
   };
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
@@ -83,6 +91,8 @@ export default function Login() {
       setError(error.message);
     }
   };
+
+  
   return (
     <div className="bg-slate-300 h-screen text-black flex">
       <div className="w-full max-w-xs m-auto">
