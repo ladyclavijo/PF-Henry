@@ -114,9 +114,8 @@ export default function Details() {
                           ))}
                         </select>
                       </div>
-                      <Link to='/cart'>
+                      {/* EL BOTON DE ABAJO DEBE ENVIAR COSAS AL CARRITO, NO MANDARTE A LA RUTA CART */}
                       <button className="Add-to-cart">Add To Cart</button>
-                      </Link>
                       <h4 className="stock">Stock: {book.stock}</h4>
                       <button className="Buy-it" onClick={handleBuyClick}>
                         Buy it

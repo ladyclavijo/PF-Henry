@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { loadStripe } from "@stripe/stripe-js";
+import { useLocation } from 'react-router-dom';
 import {
   Elements,
   CardElement,
@@ -16,11 +17,11 @@ const stripePromise = loadStripe(
 
 export default function Payment() {
   const [user, setUser] = useState({
-    items: [{ id: 6, qty: 2 },{ id: 7, qty: 1 }],
+    items: [{ id: 6, qty: 2 }, { id: 7, qty: 1 }],
     userId: null, // O cualquier valor predeterminado que desee
     email: ''
   });
-  
+
   const [products, setProducts] = useState([]);
   const [purchaseSuccess, setPurchaseSuccess] = useState(false);
   const location = useLocation();
@@ -32,13 +33,13 @@ export default function Payment() {
 
   const authUser = useAuth()?.user?.uid;
   const userEmail = useAuth()?.user?.email
-useEffect(() => {
-  setUser((prevUser) => ({
-    ...prevUser,
-    userId: authUser,
-    email: userEmail,
-  }));
-}, [authUser]);
+  useEffect(() => {
+    setUser((prevUser) => ({
+      ...prevUser,
+      userId: authUser,
+      email: userEmail,
+    }));
+  }, [authUser]);
 
   const CheckoutForm = () => {
     const stripe = useStripe();
