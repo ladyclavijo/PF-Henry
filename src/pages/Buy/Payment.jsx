@@ -26,7 +26,6 @@ export default function Payment() {
   const [purchaseSuccess, setPurchaseSuccess] = useState(false);
   const location = useLocation();
   const bookData = location.state; // bookData se usa cuando solo se compra 1 ID cantidades que quieras
-
   const addToCart = (product) => {
     setProducts([...products, product]);
   };
@@ -38,6 +37,7 @@ export default function Payment() {
       ...prevUser,
       userId: authUser,
       email: userEmail,
+      items: [{id: bookData?.id, qty: bookData?.quantity}]
     }));
   }, [authUser]);
 
@@ -53,14 +53,13 @@ export default function Payment() {
       });
       if (!error) {
         const { id } = paymentMethod;
-        console.log(id)
+        
         try {
           const { data } = await axios.post("/payments", {
             payment_method: id,
             receipt_email: user.email,
             items: user.items
           });
-          console.log(data);
           elements.getElement(CardElement).clear();
           setPurchaseSuccess(true);
         } catch (error) {
