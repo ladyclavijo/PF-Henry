@@ -16,6 +16,7 @@ import {
   REGISTER_USER_SUCCESS,
   REGISTER_USER_FAILURE,
   GET_USERS,
+  GET_BOOKS_BY_AUTHOR,
 } from "./actionsTypes";
 
 export const getBooks = () => {
@@ -38,6 +39,19 @@ export const getBooksByName = (name) => {
       const response = (await axios.get(`/books?title=${name}`)).data;
       return dispatch({
         type: GET_BOOKS_BY_NAME,
+        payload: response,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+};
+export const getBooksByAuthor = (name) => {
+  return async function (dispatch) {
+    try {
+      const response = (await axios.get(`/books/?author=${name}`)).data;
+      return dispatch({
+        type: GET_BOOKS_BY_AUTHOR,
         payload: response,
       });
     } catch (error) {
