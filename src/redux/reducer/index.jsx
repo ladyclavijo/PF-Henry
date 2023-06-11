@@ -16,6 +16,7 @@ import {
   REGISTER_USER_SUCCESS,
   REGISTER_USER_FAILURE,
   GET_USERS,
+  GET_BOOKS_BY_AUTHOR,
 } from "../actions/actionsTypes";
 
 const initialState = {
@@ -50,6 +51,11 @@ export default function rootReducer(state = initialState, action) {
         booksDetail: action.payload,
       };
     case GET_BOOKS_BY_NAME:
+      return {
+        ...state,
+        bookSorted: action.payload,
+      };
+    case GET_BOOKS_BY_AUTHOR:
       return {
         ...state,
         bookSorted: action.payload,
