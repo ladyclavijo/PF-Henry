@@ -1,61 +1,32 @@
-import React, { Fragment } from "react";
-import { Link } from "react-router-dom";
+import React, { Fragment, useEffect } from "react";
 import { useSelector } from "react-redux";
-import NavBar from "../../components/NavBar/NavBar.jsx"
+import NavBar from "../../components/NavBar/NavBar.jsx";
+import { Link } from "react-router-dom";
 
 export default function Cart() {
-    const books = useSelector((state) => state.allBooks);
-    const storedCartItems = localStorage.getItem('cartItems');
-    const cartItemIds = storedCartItems ? JSON.parse(storedCartItems) : [];
+    const cartItems = useSelector((state) => state.cart);
 
-    const cartBooks = books.filter((book) =>
-        cartItemIds.includes(book.id)
-    );
-
-    console.log(cartItemIds)
-
-    function sendData() {
-        
-    }
+    useEffect(() => {
+        console.log("Cart Items:", cartItems);
+    }, [cartItems]);
 
     return (
-        <Fragment>
-            <NavBar/>
-            <div className="bg-white text-black-500">
-                <h2 className="mt-4 font-bold p-4">Carrito de la compra</h2>
-                    {cartBooks.length > 0 ? (
-                    <ul>
-                        {cartBooks.map((item) => (
-                            <li key={item.id}>
-                                Name: {item.name}
-                                {/* {item.cover} */}
-                                Price: {item.price}
-                                Quantity: {item.quantity}
-                            </li>
-                    ))}
-                    </ul>
-                ) : (
-                    <Link to="/home">
-                        <p className="mb-3">There are no products here yet. Click to go home</p>
-                    </Link>
-                )}
-            </div>
+        <div>
+            <NavBar />
             <div>
-                <Link to="/buy"> // id & qty
-                    <buton onClick={()=> alert("Your product has been bought")} className="border-3 p-1 m-4">Buy</buton>
+                <h2 className="mt-11">Your Cart:</h2>
+                {cartItems.map((item) => (
+                    <div key={item.id} className="item-container">
+                        <h3>{item.title}</h3>
+                        <img src={item.cover} alt={`${item.title} cover`} />
+                        <p>Quantity: {item.quantity}</p>
+                        <p>Price: {item.price}</p>
+                    </div>
+                ))}
+                <Link to="/buy">
+                    <button>Complete Purchase</button>
                 </Link>
             </div>
-        </Fragment>
+        </div>
     );
 }
-
-
-
-
-
-// return (
-//     <Fragment>
-//         <NavBar/>
-        
-//     </Fragment>
-// )

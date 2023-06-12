@@ -17,6 +17,7 @@ import {
   REGISTER_USER_FAILURE,
   GET_USERS,
   GET_BOOKS_BY_AUTHOR,
+  ADD_TO_CART,
 } from "../actions/actionsTypes";
 
 const initialState = {
@@ -32,6 +33,7 @@ const initialState = {
   genresId: [],
   authors: [],
   authorsId: [],
+  cart: [],
   currentUser: null,
   registrationError: null,
   appliedFilters: { genre: null, language: null },
@@ -45,6 +47,41 @@ export default function rootReducer(state = initialState, action) {
         bookSorted: action.payload,
         allBooks: action.payload,
       };
+
+    case ADD_TO_CART: {
+      const { id, title, cover, price, quantity } = action.payload;
+      const existingItem = state.cart.find((item) => item.id === id);
+
+      if (existingItem) {
+        return {
+          ...state,
+          cart: state.cart.map((item) => {
+            if (item.id === id) {
+              return {
+                ...item,
+                quantity: item.quantity + quantity,
+              };
+            }
+            return item;
+          }),
+        };
+      } else {
+        const newItem = {
+          id,
+          title,
+          cover,
+          price,
+          quantity,
+        };
+
+        return {
+          ...state,
+          cart: [...state.cart, newItem],
+        };
+      }
+    }
+
+
     case GET_BOOK_DETAIL:
       return {
         ...state,
@@ -195,4 +232,5 @@ export default function rootReducer(state = initialState, action) {
     default:
       return state;
   }
+
 }
