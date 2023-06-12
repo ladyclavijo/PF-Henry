@@ -17,6 +17,7 @@ import {
   REGISTER_USER_FAILURE,
   GET_USERS,
   GET_BOOKS_BY_AUTHOR,
+  ADD_TO_CART,
 } from "./actionsTypes";
 
 export const getBooks = () => {
@@ -210,5 +211,14 @@ export const getUsers = () => {
     } catch (error) {
       console.log(error.message);
     }
+  };
+};
+
+// cartItems.js
+
+export const addToCart = (item) => {
+  return {
+    type: ADD_TO_CART,
+    payload: item,
   };
 };

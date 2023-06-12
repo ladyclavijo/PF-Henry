@@ -7,6 +7,7 @@ import Loader from '../../components/Loader/Loader.jsx';
 import './Details.css';
 import { useAuth } from '../../context/authContext';
 import { TbTruckDelivery } from 'react-icons/tb';
+import { addToCart } from '../../redux/actions/index.jsx';
 
 export default function Details() {
   const { id } = useParams();
@@ -17,6 +18,9 @@ export default function Details() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [quantity, setQuantity] = useState(1);
+  const [stock, setStock] = useState(book.stock);
+  const [selectedQuantity, setSelectedQuantity] = useState(quantity);
+  const cart = useSelector((state) => state.cart);
 
   useEffect(() => {
     setLoading(true);
@@ -46,6 +50,30 @@ export default function Details() {
     console.log(bookData)
     navigate('/buy', { state: bookData });
   };
+
+  const handleAddToCart = () => {
+    const cartData = {
+      id: book.id,
+      title: book.title,
+      cover: book.cover,
+      price: book.price,
+      quantity: quantity,
+    };
+
+    const itemInCart = cart.find((item) => item.id === book.id);
+    const quantityInCart = itemInCart ? itemInCart.quantity : 0;
+    const remainingStock = stock - quantityInCart;
+
+    if (remainingStock >= quantity) {
+      dispatch(addToCart(cartData));
+      alert('Successfully added to cart');
+    } else {
+      alert(`Cannot add ${quantity} items to cart. Only ${remainingStock} items available.
+      You already have ${quantityInCart} items in your cart.`);
+    }
+  };
+
+
 
 
   return (
@@ -115,7 +143,13 @@ export default function Details() {
                         </select>
                       </div>
                       {/* EL BOTON DE ABAJO DEBE ENVIAR COSAS AL CARRITO, NO MANDARTE A LA RUTA CART */}
-                      <button className="Add-to-cart">Add To Cart</button>
+                      <button
+                        className="Add-to-cart"
+                        onClick={handleAddToCart}
+                        disabled={stock === 0 || selectedQuantity > stock}
+                      >
+                        Add To Cart
+                      </button>
                       <h4 className="stock">Stock: {book.stock}</h4>
                       <button className="Buy-it" onClick={handleBuyClick}>
                         Buy it
