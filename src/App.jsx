@@ -10,6 +10,7 @@ import Form from "./pages/Form/Form";
 import About from "./pages/About/About";
 import Buy from "./pages/Buy/Buy";
 import Cart from "./pages/Cart/Cart";
+import MyAccount from "./pages/MyAccount/MyAccount";
 //------------------------- AUTH COMPONENTS ------------------------------//
 // // import HomeAuth from "./components/Auth/HomeAuth/HomeAuth";
 import Login from "./components/Auth/Login/Login";
@@ -40,6 +41,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/buy" element={<ProtectedRoute><Buy /></ProtectedRoute>} />
           <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
+          <Route path="/myaccount" element={<ProtectedRoute><MyAccount /></ProtectedRoute>} />
           {/*---------------------- AUTH ROUTES ------------------------------- */}
           {/* <ProtectedRoute> */}
           {/* <Route path="/welcome" element={<HomeAuth />} /> */}

@@ -1,0 +1,37 @@
+.my-account-container {
+    /* background-color: #f1f8ff;  */
+    padding: 20px;
+    border-radius: 5px;
+    margin-top: 50px;
+  }
+  
+  .user-info {
+    margin-top: 20px;
+  }
+  
+  .no-user {
+    color: #999999;
+  }
+  
+  .welcome-title {
+    color: #000000;
+    font-size: 34px;
+  }
+  
+  .name {
+    transition: color 0.3s ease;
+  }
+  
+  .name:hover {
+    color: #a9d5df;
+  }
+  
+  .user-info {
+    margin-top: 20px;
+  }
+  
+  .info-item {
+    margin-bottom: 10px;
+  }
+  
+
