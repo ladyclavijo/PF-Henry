@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import CartButton from "../CartButton/CartButton.jsx"
+// import CartButton from "../CartButton/CartButton.jsx"
 import { Link } from "react-router-dom"
 
 
@@ -22,9 +22,9 @@ export default function Card({ id, title, author, cover, stock, genres, price })
                             <p className="mt-2">${price}</p>
                         </div>
                     </Link>
-                    <CartButton
+                    {/* <CartButton
                         id={id}
-                    />
+                    /> */}
                 </div>
             </div>
         )
