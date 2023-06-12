@@ -201,12 +201,14 @@ export const registerUser = (userData) => {
   };
 };
 export const getUsers = () => {
+  console.log("HOLAA");
   return async function (dispatch) {
     try {
-      const allBooks = await axios.get("/users");
+      const allUsers = await axios.get("/users");
+      console.log(allUsers);
       return dispatch({
         type: GET_USERS,
-        payload: allBooks.data,
+        payload: allUsers.data,
       });
     } catch (error) {
       console.log(error.message);

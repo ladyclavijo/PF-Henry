@@ -2,7 +2,7 @@ import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getBooks } from "./redux/actions/index";
+import { getBooks, getUsers } from "./redux/actions/index";
 import Landing from "./pages/Landing/Landing";
 import Home from "./pages/Home/Home";
 import Details from "./pages/Details/Details";
@@ -24,24 +24,56 @@ function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getBooks());
+    dispatch(getUsers());
   }, [dispatch]);
   const allBooks = useSelector((state) => state.allBooks);
   return (
-    <div > {/*estilo tailwind*/}
+    <div>
+      {" "}
+      {/*estilo tailwind*/}
       {/* <Elements stripe={stripePromise}>
         <CheckoutForm />
       </Elements> */}
-      <AuthProvider> {/*el Provider es quien me dice de dónde vienen los datos*/}
-        
+      <AuthProvider>
+        {" "}
+        {/*el Provider es quien me dice de dónde vienen los datos*/}
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/home" element={<Home />} />
           <Route path="/book/:id" element={<Details allBooks={allBooks} />} />
-          <Route path="/form" element={<ProtectedRoute><Form /></ProtectedRoute>} />
+          <Route
+            path="/form"
+            element={
+              <ProtectedRoute>
+                <Form />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/about" element={<About />} />
-          <Route path="/buy" element={<ProtectedRoute><Buy /></ProtectedRoute>} />
-          <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
-          <Route path="/myaccount" element={<ProtectedRoute><MyAccount /></ProtectedRoute>} />
+          <Route
+            path="/buy"
+            element={
+              <ProtectedRoute>
+                <Buy />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/cart"
+            element={
+              <ProtectedRoute>
+                <Cart />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/myaccount"
+            element={
+              <ProtectedRoute>
+                <MyAccount />
+              </ProtectedRoute>
+            }
+          />
           {/*---------------------- AUTH ROUTES ------------------------------- */}
           {/* <ProtectedRoute> */}
           {/* <Route path="/welcome" element={<HomeAuth />} /> */}
