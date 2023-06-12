@@ -17,6 +17,7 @@ const stripePromise = loadStripe(
 
 export default function Payment() {
   const cartItems = useSelector((state) => state.cart);
+  const cart = cartItems.map(item => ({ id: item.id, qty: item.quantity }))
   useEffect(() => {
     console.log("Cart Items PAYMENT:", cartItems.map(item => ({ id: item.id, qty: item.quantity })));
   }, [cartItems]);
@@ -34,7 +35,7 @@ export default function Payment() {
     setProducts([...products, product]);
   };
   console.log(bookData)
-  console.log(cartItems)
+  console.log(cart)
 
   const authUser = useAuth()?.user?.uid;
   const userEmail = useAuth()?.user?.email
@@ -46,7 +47,7 @@ export default function Payment() {
       ...prevUser,
       userId: authUser,
       email: userEmail,
-      items: cartItems.length ? cartItems : [{ id: bookData?.id, qty: bookData?.quantity }]
+      items: cart.length ? cart : [{ id: bookData?.id, qty: bookData?.quantity }]
     }));
   }, [authUser]);
 
