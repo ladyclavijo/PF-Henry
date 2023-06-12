@@ -1,5 +1,5 @@
-
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import axios from "axios";
 import { loadStripe } from "@stripe/stripe-js";
 import { useLocation } from 'react-router-dom';
@@ -16,6 +16,10 @@ const stripePromise = loadStripe(
 
 
 export default function Payment() {
+  const cartItems = useSelector((state) => state.cart);
+  useEffect(() => {
+    console.log("Cart Items PAYMENT:", cartItems.map(item => ({ id: item.id, qty: item.quantity })));
+  }, [cartItems]);
   const [user, setUser] = useState({
     items: [{ id: 6, qty: 2 }, { id: 7, qty: 1 }],
     userId: null, // O cualquier valor predeterminado que desee
@@ -37,7 +41,7 @@ export default function Payment() {
       ...prevUser,
       userId: authUser,
       email: userEmail,
-      items: [{id: bookData?.id, qty: bookData?.quantity}]
+      items: [{ id: bookData?.id, qty: bookData?.quantity }]
     }));
   }, [authUser]);
 
@@ -53,7 +57,7 @@ export default function Payment() {
       });
       if (!error) {
         const { id } = paymentMethod;
-        
+
         try {
           const { data } = await axios.post("/payments", {
             payment_method: id,
