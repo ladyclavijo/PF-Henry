@@ -33,15 +33,20 @@ export default function Payment() {
   const addToCart = (product) => {
     setProducts([...products, product]);
   };
+  console.log(bookData)
+  console.log(cartItems)
 
   const authUser = useAuth()?.user?.uid;
   const userEmail = useAuth()?.user?.email
+
+  console.log(authUser)
+  console.log(userEmail)
   useEffect(() => {
     setUser((prevUser) => ({
       ...prevUser,
       userId: authUser,
       email: userEmail,
-      items: [{ id: bookData?.id, qty: bookData?.quantity }]
+      items: cartItems.length ? cartItems : [{ id: bookData?.id, qty: bookData?.quantity }]
     }));
   }, [authUser]);
 
@@ -57,7 +62,7 @@ export default function Payment() {
       });
       if (!error) {
         const { id } = paymentMethod;
-
+        console.log(id)
         try {
           const { data } = await axios.post("/payments", {
             payment_method: id,
@@ -70,7 +75,7 @@ export default function Payment() {
           console.log(error);
         }
         try {
-          await axios.post("/payments/order", user);
+          await axios.post("/payments/order", {userId : user?.userId, items: user?.items});
         } catch (error) {
           console.log(error);
         }
