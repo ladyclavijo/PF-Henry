@@ -20,6 +20,8 @@ import {
   ADD_TO_CART,
   UPDATE_USER,
   GET_USER_BY_ID,
+  DELETE_FROM_CART,
+  CLEAR_CART,
 } from "./actionsTypes";
 
 export const getBooks = () => {
@@ -254,4 +256,14 @@ export const getUserDetail = (id) => {
       console.log(error.message);
     }
   };
+export const deleteFromCart = (productId) => {
+  return {
+    type: DELETE_FROM_CART,
+    payload: productId
+  }
+};
+export const clearCart = () => {
+  return {
+    type: CLEAR_CART
+  }
 };
