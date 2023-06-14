@@ -13,6 +13,7 @@ import Cart from "./pages/Cart/Cart";
 import MyAccount from "./pages/MyAccount/MyAccount";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import User from "./pages/User/User";
+import Sales from "./pages/Sales/Sales";
 //------------------------- AUTH COMPONENTS ------------------------------//
 // // import HomeAuth from "./components/Auth/HomeAuth/HomeAuth";
 import Login from "./components/Auth/Login/Login";
@@ -43,6 +44,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/sales" element={<Sales />} />
           <Route path="/book/:id" element={<Details allBooks={allBooks} />} />
           <Route
             path="/form"
