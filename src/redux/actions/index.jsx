@@ -256,14 +256,15 @@ export const getUserDetail = (id) => {
       console.log(error.message);
     }
   };
+};
 export const deleteFromCart = (productId) => {
   return {
     type: DELETE_FROM_CART,
-    payload: productId
-  }
+    payload: productId,
+  };
 };
 export const clearCart = () => {
   return {
-    type: CLEAR_CART
-  }
+    type: CLEAR_CART,
+  };
 };
