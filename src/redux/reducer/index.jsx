@@ -18,11 +18,13 @@ import {
   GET_USERS,
   GET_BOOKS_BY_AUTHOR,
   ADD_TO_CART,
+  GET_USER_BY_ID,
 } from "../actions/actionsTypes";
 
 const initialState = {
   allBooks: [],
   allUsers: [],
+  userDetail: [],
   bookSorted: [],
   booksDetail: [],
   bookCreate: [],
@@ -80,7 +82,6 @@ export default function rootReducer(state = initialState, action) {
         };
       }
     }
-
 
     case GET_BOOK_DETAIL:
       return {
@@ -229,8 +230,12 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         allUsers: action.payload,
       };
+    case GET_USER_BY_ID:
+      return {
+        ...state,
+        userDetail: action.payload,
+      };
     default:
       return state;
   }
-
 }

@@ -18,6 +18,8 @@ import {
   GET_USERS,
   GET_BOOKS_BY_AUTHOR,
   ADD_TO_CART,
+  UPDATE_USER,
+  GET_USER_BY_ID,
 } from "./actionsTypes";
 
 export const getBooks = () => {
@@ -205,7 +207,6 @@ export const getUsers = () => {
   return async function (dispatch) {
     try {
       const allUsers = await axios.get("/users");
-      console.log(allUsers);
       return dispatch({
         type: GET_USERS,
         payload: allUsers.data,
@@ -222,5 +223,35 @@ export const addToCart = (item) => {
   return {
     type: ADD_TO_CART,
     payload: item,
+  };
+};
+
+export const updateUser = (payload) => {
+  return async (dispatch) => {
+    try {
+      let response = await axios.put("/users/update", payload);
+      return dispatch({
+        type: UPDATE_USER,
+        payload: response,
+      });
+    } catch (error) {
+      console.log(error);
+      alert(error.message);
+    }
+  };
+};
+
+export const getUserDetail = (id) => {
+  return async function (dispatch) {
+    try {
+      const response = (await axios.get(`/users/${id}`)).data;
+
+      return dispatch({
+        type: GET_USER_BY_ID,
+        payload: response,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 };

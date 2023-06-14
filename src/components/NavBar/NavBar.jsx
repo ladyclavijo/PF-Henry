@@ -1,12 +1,12 @@
-import { AiOutlineHome, AiOutlineShoppingCart } from 'react-icons/ai';
+import { AiOutlineHome, AiOutlineShoppingCart } from "react-icons/ai";
 import "./NavBar.css";
-import UserProfile from '../UserProfile/UserProfile';
+import UserProfile from "../UserProfile/UserProfile";
 import { Link } from "react-router-dom";
-import { useAuth } from "../../context/authContext";  // Importar el hook useAuth en lugar del contexto
+import { useAuth } from "../../context/authContext"; // Importar el hook useAuth en lugar del contexto
+import { ProtectedButtonAdmin } from "../../pages/Dashboard/ProtectedButtonAdmin";
 
-const NavBar = () => {
-  const { user, logout } = useAuth();  // Usar el hook useAuth para obtener la información de usuario y la función de logout
-
+const NavBar = ({ admin }) => {
+  const { user, logout } = useAuth(); // Usar el hook useAuth para obtener la información de usuario y la función de logout
   return (
     <div className="navbar-home">
       <div className="backToLanding">
@@ -21,6 +21,11 @@ const NavBar = () => {
         <Link to="/about">
           <div className="button-about">About Us</div>
         </Link>
+        <ProtectedButtonAdmin>
+          <Link to="/dashboard">
+            <div>Dashboard</div>
+          </Link>
+        </ProtectedButtonAdmin>
 
         {user == null || user === undefined ? (
           <div className="auth-buttons">
@@ -37,33 +42,28 @@ const NavBar = () => {
           </div>
         )}
       </div>
-      { user ? (
+      {user ? (
         <div className="nav-Cart">
           <Link to="/cart">
-            <div className='icon-cart'>
-              <AiOutlineShoppingCart />
-            </div>
-          </Link>
-        </div>)
-       : (
-        <div className="nav-Cart">
-          <Link to="/login">
-            <div className='icon-cart'>
+            <div className="icon-cart">
               <AiOutlineShoppingCart />
             </div>
           </Link>
         </div>
-       )}
+      ) : (
+        <div className="nav-Cart">
+          <Link to="/login">
+            <div className="icon-cart">
+              <AiOutlineShoppingCart />
+            </div>
+          </Link>
+        </div>
+      )}
     </div>
   );
 };
 
 export default NavBar;
-
-
-
-
-
 
 // import "./NavBar.css";
 // import { AiOutlineHome } from 'react-icons/ai';
