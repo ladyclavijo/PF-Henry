@@ -17,3 +17,5 @@ export const REGISTER_USER_FAILURE = "REGISTER_USER_FAILURE";
 export const GET_USERS = "GET_USERS";
 export const GET_BOOKS_BY_AUTHOR = "GET_BOOKS_BY_AUTHOR";
 export const ADD_TO_CART = "ADD_TO_CART";
+export const DELETE_FROM_CART = "DELETE_FROM_CART";
+export const CLEAR_CART = 'CLEAR_CART';
