@@ -18,6 +18,8 @@ import {
   GET_USERS,
   GET_BOOKS_BY_AUTHOR,
   ADD_TO_CART,
+  DELETE_FROM_CART,
+  CLEAR_CART,
 } from "./actionsTypes";
 
 export const getBooks = () => {
@@ -223,4 +225,17 @@ export const addToCart = (item) => {
     type: ADD_TO_CART,
     payload: item,
   };
+};
+
+export const deleteFromCart = (productId) => {
+  return {
+    type: DELETE_FROM_CART,
+    payload: productId
+  }
+};
+
+export const clearCart = () => {
+  return {
+    type: CLEAR_CART
+  }
 };

@@ -18,6 +18,8 @@ import {
   GET_USERS,
   GET_BOOKS_BY_AUTHOR,
   ADD_TO_CART,
+  DELETE_FROM_CART,
+  CLEAR_CART,
 } from "../actions/actionsTypes";
 
 const initialState = {
@@ -81,6 +83,18 @@ export default function rootReducer(state = initialState, action) {
       }
     }
 
+    case DELETE_FROM_CART:
+      const updatedCartItem = state.cart.filter((item) => item.id !== action.payload);
+      return {
+        ...state,
+        cart: updatedCartItem,
+      };
+
+    case CLEAR_CART:
+      return {
+        ...state,
+        cart: [],
+      };
 
     case GET_BOOK_DETAIL:
       return {
@@ -133,11 +147,9 @@ export default function rootReducer(state = initialState, action) {
           return b.genres.some((genres) => genres.name === genresAux);
         });
         console.log(filteredBooksByGenre);
-        const filteredBooksByGenreWithLanguage = filteredBooksByGenre.filter(
-          (b) => {
-            return b.language === language;
-          }
-        );
+        const filteredBooksByGenreWithLanguage = filteredBooksByGenre.filter((b) => {
+          return b.language === language;
+        });
         return {
           ...state,
           bookSorted: filteredBooksByGenreWithLanguage,
@@ -174,23 +186,17 @@ export default function rootReducer(state = initialState, action) {
       const genre = state.genre;
       let languageFilteredBooks = [...state.allBooks];
       if (genre.length !== 0) {
-        const filteredBooksByLanguage = languageFilteredBooks.filter(
-          (b) => b.language === selectedLanguage
-        );
-        const filteredBooksByLanguageWithGenre = filteredBooksByLanguage.filter(
-          (b) => {
-            return b.genres.some((genres) => genres.name === genre);
-          }
-        );
+        const filteredBooksByLanguage = languageFilteredBooks.filter((b) => b.language === selectedLanguage);
+        const filteredBooksByLanguageWithGenre = filteredBooksByLanguage.filter((b) => {
+          return b.genres.some((genres) => genres.name === genre);
+        });
         return {
           ...state,
           bookSorted: filteredBooksByLanguageWithGenre,
           language: selectedLanguage,
         };
       } else {
-        const filteredBooksByLanguage = languageFilteredBooks.filter(
-          (b) => b.language === selectedLanguage
-        );
+        const filteredBooksByLanguage = languageFilteredBooks.filter((b) => b.language === selectedLanguage);
         return {
           ...state,
           bookSorted: filteredBooksByLanguage,
@@ -232,5 +238,4 @@ export default function rootReducer(state = initialState, action) {
     default:
       return state;
   }
-
 }
