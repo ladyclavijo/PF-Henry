@@ -18,6 +18,7 @@ import {
   GET_USERS,
   GET_BOOKS_BY_AUTHOR,
   ADD_TO_CART,
+  GET_USER_BY_ID,
   DELETE_FROM_CART,
   CLEAR_CART,
 } from "../actions/actionsTypes";
@@ -25,6 +26,7 @@ import {
 const initialState = {
   allBooks: [],
   allUsers: [],
+  userDetail: [],
   bookSorted: [],
   booksDetail: [],
   bookCreate: [],
@@ -82,7 +84,6 @@ export default function rootReducer(state = initialState, action) {
         };
       }
     }
-
     case DELETE_FROM_CART:
       const updatedCartItem = state.cart.filter((item) => item.id !== action.payload);
       return {
@@ -95,7 +96,6 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         cart: [],
       };
-
     case GET_BOOK_DETAIL:
       return {
         ...state,
@@ -234,6 +234,11 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         allUsers: action.payload,
+      };
+    case GET_USER_BY_ID:
+      return {
+        ...state,
+        userDetail: action.payload,
       };
     default:
       return state;

@@ -11,6 +11,8 @@ import About from "./pages/About/About";
 import Buy from "./pages/Buy/Buy";
 import Cart from "./pages/Cart/Cart";
 import MyAccount from "./pages/MyAccount/MyAccount";
+import Dashboard from "./pages/Dashboard/Dashboard";
+import User from "./pages/User/User";
 //------------------------- AUTH COMPONENTS ------------------------------//
 // // import HomeAuth from "./components/Auth/HomeAuth/HomeAuth";
 import Login from "./components/Auth/Login/Login";
@@ -19,6 +21,7 @@ import NewUsersForm from "./components/Auth/NewUsersForm/NewUsersForm";
 import AuthProvider from "./context/authContext";
 // import {ProtectedRoute} from "./components/Auth/ProtectedRoute/ProtectedRoute"
 import { ProtectedRoute } from "./components/Auth/ProtectedRoute/ProtectedRoute";
+import { ProtectedRouteAdmin } from "./pages/Dashboard/ProtectedRouteAdmin";
 
 function App() {
   const dispatch = useDispatch();
@@ -81,6 +84,22 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/newuser" element={<NewUsersForm />} />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRouteAdmin>
+                <Dashboard />
+              </ProtectedRouteAdmin>
+            }
+          />
+          <Route
+            path="/user/:id"
+            element={
+              <ProtectedRouteAdmin>
+                <User />
+              </ProtectedRouteAdmin>
+            }
+          />
         </Routes>
       </AuthProvider>
     </div>
