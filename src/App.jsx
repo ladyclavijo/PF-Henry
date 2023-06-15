@@ -18,12 +18,8 @@ import TermsandConditions from "./components/Footer/Tac/TermsandConditions"
 import Privacy from "./components/Footer/Pp/Privacy";
 import ReturnPolicies from "./components/Footer/Rp/ReturnPolicies";
 import ReactGA from 'react-ga';
-
 ReactGA.initialize('G-P14D1VL6YW');
 ReactGA.pageview(window.location.pathname + window.location.search);
-
-
-
 //------------------------- AUTH COMPONENTS ------------------------------//
 // // import HomeAuth from "./components/Auth/HomeAuth/HomeAuth";
 import Login from "./components/Auth/Login/Login";
@@ -41,6 +37,11 @@ function App() {
     dispatch(getUsers());
   }, [dispatch]);
   const allBooks = useSelector((state) => state.allBooks);
+
+  useEffect(() => {
+    ReactGA.pageview(window.location.pathname + window.location.search);
+  }, []);
+
   return (
     <div>
       {" "}
