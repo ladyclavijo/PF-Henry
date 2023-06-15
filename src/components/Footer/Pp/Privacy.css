@@ -1,0 +1,30 @@
+.pp-container {
+    text-align: center;
+    margin: auto;
+    width: 100%;
+    color: rgb(46, 61, 78);
+  }
+  
+  .pp-title {
+    margin-top: 8%;
+    font-size: 34px;
+    color: rgb(46, 61, 78);
+    margin-bottom: 3%;
+  }
+  
+  .pp-content {
+    text-align: left;
+    margin-top: 20px;
+    font-size: 16px;
+    width: 90%;
+    margin-left: 3%;
+  }
+  
+  .pp-content h3 {
+    margin-top: 20px;
+    font-size: 18px;
+  }
+  
+  .pp-content p {
+    margin-top: 10px;
+  }
