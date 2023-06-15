@@ -13,6 +13,14 @@ import Cart from "./pages/Cart/Cart";
 import MyAccount from "./pages/MyAccount/MyAccount";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import User from "./pages/User/User";
+
+
+
+
+
+
+
+
 import TermsandConditions from "./components/Footer/Tac/TermsandConditions"
 import Privacy from "./components/Footer/Pp/Privacy";
 import ReturnPolicies from "./components/Footer/Rp/ReturnpPolicies";
