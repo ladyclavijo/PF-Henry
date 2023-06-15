@@ -2,6 +2,7 @@
 import NavBar from "../../components/NavBar/NavBar.jsx";
 import './about.css';
 import Faq from './Faq';
+import Footer from "../../components/Footer/Footer.jsx";
 
 
 export default function About() {
@@ -55,6 +56,7 @@ export default function About() {
               </div>
           </div>
         </div>
+        <Footer />
         </div> 
   )
 }

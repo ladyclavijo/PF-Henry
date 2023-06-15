@@ -14,6 +14,12 @@ import MyAccount from "./pages/MyAccount/MyAccount";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import User from "./pages/User/User";
 import Sales from "./pages/Sales/Sales";
+import TermsandConditions from "./components/Footer/Tac/TermsandConditions"
+import Privacy from "./components/Footer/Pp/Privacy";
+import ReturnPolicies from "./components/Footer/Rp/ReturnPolicies";
+
+
+
 //------------------------- AUTH COMPONENTS ------------------------------//
 // // import HomeAuth from "./components/Auth/HomeAuth/HomeAuth";
 import Login from "./components/Auth/Login/Login";
@@ -79,6 +85,9 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route path="/termsandconditions" element={<TermsandConditions />} />
+          <Route path="/privacypolicy" element={<Privacy />} />
+          <Route path="/returnpolicies" element={<ReturnPolicies />} />
           {/*---------------------- AUTH ROUTES ------------------------------- */}
           {/* <ProtectedRoute> */}
           {/* <Route path="/welcome" element={<HomeAuth />} /> */}
