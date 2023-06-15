@@ -83,7 +83,7 @@ export default function Filters() {
         <select onChange={filterBooksByGenres} value={selectGenre}>
           <option hidden>All</option>
           <option value="Ficción">Fiction</option>
-          <option value="No ficción">Non-fiction</option>
+          <option value="No Ficción">Non-fiction</option>
           <option value="Misterio">Mystery</option>
           <option value="Romance">Romance</option>
           <option value="Ciencia Ficción">Science fiction</option>
