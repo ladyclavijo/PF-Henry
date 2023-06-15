@@ -54,7 +54,7 @@ const Footer = () => {
 
       </div>
       <div className={styles.grupo2}>
-        <small>&copy; {new Date().getFullYear()} PF Henry Group 16. All Rights Reserved.</small>
+        <small>&copy; {new Date().getFullYear()} PF Henry Group 7. All Rights Reserved.</small>
       </div>
     </footer>
   );
