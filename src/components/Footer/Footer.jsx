@@ -31,7 +31,7 @@ const Footer = () => {
         <div className={styles.box}>
           <h2>Contact Information</h2>
           <p>Phone: 555-1234</p>
-          <p>Email: contact@bookbuster.com</p>
+          <p>Email: bookbuster29@gmail.com</p>
         </div>
 
         <div className={styles.box}>

@@ -9,10 +9,10 @@
 .grupo1 {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-around;
   width: 100%;
   margin: 0 auto;
-  max-width: 89%;
+  max-width: 93%;
   /* gap: 40px; */
 }
 
