@@ -17,6 +17,10 @@ import Sales from "./pages/Sales/Sales";
 import TermsandConditions from "./components/Footer/Tac/TermsandConditions"
 import Privacy from "./components/Footer/Pp/Privacy";
 import ReturnPolicies from "./components/Footer/Rp/ReturnPolicies";
+import ReactGA from 'react-ga';
+
+ReactGA.initialize('G-P14D1VL6YW');
+ReactGA.pageview(window.location.pathname + window.location.search);
 
 
 
