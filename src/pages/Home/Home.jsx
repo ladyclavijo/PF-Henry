@@ -6,7 +6,7 @@ import NavBar from "../../components/NavBar/NavBar.jsx";
 import Card from "../../components/Card/Card.jsx";
 import Loader from "../../components/Loader/Loader.jsx";
 import Pagination from "../../components/Pagination/Pagination.jsx";
-import { getBooks } from "../../redux/actions/index.jsx";
+import { addToCart, getBooks } from "../../redux/actions/index.jsx";
 import SearchBar from "../../components/SearchBar/SearchBar.jsx";
 import logo from "../../assets/images/Logo.png";
 import Filters from "../../components/Filters/Filters";
@@ -17,8 +17,28 @@ export default function Home() {
   const [cardsPerPage] = useState(6);
   const [loading, setLoading] = useState(false);
   const [noResults, setNoResults] = useState(false);
-
+  const allCarts = useSelector((state) => state.allCarts);
+  const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
+
+  if (allCarts.length > 0 && user) {
+    const findCartByUser = allCarts.filter((c) => c.userId === user.uid);
+    if (findCartByUser.length > 0) {
+      for (let i = 0; i < findCartByUser.length; i++) {
+        if (cart.length < 1) {
+          dispatch(
+            addToCart({
+              id: findCartByUser[i].bookId,
+              title: findCartByUser[i].title,
+              cover: findCartByUser[i].cover,
+              price: findCartByUser[i].price,
+              quantity: findCartByUser[i].quantity,
+            })
+          );
+        }
+      }
+    }
+  }
 
   const bookSorted = useSelector((state) => state.bookSorted);
   const currentPages = useSelector((state) => state.paginated);

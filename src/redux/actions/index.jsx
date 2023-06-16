@@ -22,6 +22,10 @@ import {
   GET_USER_BY_ID,
   DELETE_FROM_CART,
   CLEAR_CART,
+  GET_CARTS_DB,
+  POST_CARTS_DB,
+  UPDATE_CARTS_DB,
+  DELETE_CARTS_DB,
 } from "./actionsTypes";
 
 export const getBooks = () => {
@@ -205,7 +209,6 @@ export const registerUser = (userData) => {
   };
 };
 export const getUsers = () => {
-  console.log("HOLAA");
   return async function (dispatch) {
     try {
       const allUsers = await axios.get("/users");
@@ -266,5 +269,65 @@ export const deleteFromCart = (productId) => {
 export const clearCart = () => {
   return {
     type: CLEAR_CART,
+  };
+};
+
+export const getCartsDB = () => {
+  return async function (dispatch) {
+    try {
+      const allCarts = await axios.get("/carts");
+      return dispatch({
+        type: GET_CARTS_DB,
+        payload: allCarts.data,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+};
+export const postCarts = (payload) => {
+  console.log(payload);
+  return async (dispatch) => {
+    try {
+      let response = await axios.post("/carts", payload);
+      return dispatch({
+        type: POST_CARTS_DB,
+        payload: response,
+      });
+    } catch (error) {
+      console.log(error);
+      alert(error.message);
+    }
+  };
+};
+
+export const updateCarts = (payload) => {
+  return async (dispatch) => {
+    try {
+      let response = await axios.put("/carts", payload);
+      return dispatch({
+        type: UPDATE_CARTS_DB,
+        payload: response,
+      });
+    } catch (error) {
+      console.log(error);
+      alert(error.message);
+    }
+  };
+};
+
+export const deleteCarts = (payload) => {
+  console.log(payload);
+  return async (dispatch) => {
+    try {
+      let response = await axios.delete("/carts", { data: payload });
+      return dispatch({
+        type: DELETE_CARTS_DB,
+        payload: response,
+      });
+    } catch (error) {
+      console.log(error);
+      alert(error.message);
+    }
   };
 };
