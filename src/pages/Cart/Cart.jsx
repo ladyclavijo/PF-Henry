@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import NavBar from "../../components/NavBar/NavBar.jsx";
 import { Link } from "react-router-dom";
 import { deleteCarts, deleteFromCart } from "../../redux/actions/index.jsx";
-import { clearCart } from "../../redux/actions/index.jsx";
+import { clearCart, getCartsDB } from "../../redux/actions/index.jsx";
 import { FaTrash } from "react-icons/fa";
 import { useAuth } from "../../context/authContext.jsx";
 
@@ -12,6 +12,10 @@ export default function Cart() {
   const allCarts = useSelector((state) => state.allCarts);
   const { user } = useAuth();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getCartsDB());
+  }, [allCarts]);
 
   const findCartByUser = allCarts.filter((c) => c.userId === user.uid);
 
@@ -60,7 +64,7 @@ export default function Cart() {
           <div key={item.id} className="item-container">
             <h3>{item.title}</h3>
             <button onClick={() => handleRemoveCartFromCart(item.id)}>
-              <Basurero />
+              {/* <Basurero /> */}Eliminar
             </button>
             <img src={item.cover} alt={`${item.title} cover`} />
             <p>Quantity: {item.quantity}</p>
