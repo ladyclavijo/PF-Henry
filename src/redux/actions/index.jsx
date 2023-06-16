@@ -26,6 +26,7 @@ import {
   POST_CARTS_DB,
   UPDATE_CARTS_DB,
   DELETE_CARTS_DB,
+  CLEAR_DETAIL
 } from "./actionsTypes";
 
 export const getBooks = () => {
@@ -260,12 +261,14 @@ export const getUserDetail = (id) => {
     }
   };
 };
+
 export const deleteFromCart = (productId) => {
   return {
     type: DELETE_FROM_CART,
     payload: productId,
   };
 };
+
 export const clearCart = () => {
   return {
     type: CLEAR_CART,
@@ -329,5 +332,12 @@ export const deleteCarts = (payload) => {
       console.log(error);
       alert(error.message);
     }
+  };
+};
+export const clearDetail = () => {
+  return (dispatch) => {
+    return dispatch({
+      type: CLEAR_DETAIL,
+    })
   };
 };

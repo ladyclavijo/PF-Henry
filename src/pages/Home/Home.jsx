@@ -7,6 +7,7 @@ import Card from "../../components/Card/Card.jsx";
 import Loader from "../../components/Loader/Loader.jsx";
 import Pagination from "../../components/Pagination/Pagination.jsx";
 import { addToCart, getBooks } from "../../redux/actions/index.jsx";
+import { getBooks, clearDetail } from "../../redux/actions/index.jsx";
 import SearchBar from "../../components/SearchBar/SearchBar.jsx";
 import logo from "../../assets/images/Logo.png";
 import Filters from "../../components/Filters/Filters";
@@ -58,7 +59,8 @@ export default function Home() {
 
   useEffect(() => {
     setNoResults(currentCards.length === 0);
-  }, [currentCards]);
+    dispatch(clearDetail());
+  }, [currentCards, dispatch]);
 
   return (
     <div className="home-page">

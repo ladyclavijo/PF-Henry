@@ -5,7 +5,7 @@ import {
   CREATE_BOOK,
   CLEAR_FILTERS,
   PAGINATED,
-  CLEAR_DETAILS,
+  CLEAR_DETAIL,
   GET_ALL_GENRES,
   FILTER_BY_GENRES,
   SORT_BY,
@@ -127,7 +127,7 @@ export default function rootReducer(state = initialState, action) {
         genre: [],
         language: [],
       };
-    case CLEAR_DETAILS:
+    case CLEAR_DETAIL:
       return {
         ...state,
         booksDetail: [],
