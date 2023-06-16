@@ -4,23 +4,46 @@ import UserProfile from "../UserProfile/UserProfile";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/authContext"; // Importar el hook useAuth en lugar del contexto
 import { ProtectedButtonAdmin } from "../../pages/Dashboard/ProtectedButtonAdmin";
+import React, { useContext, useState } from "react";
+import { ThemeContext } from "../ThemeProvider/ThemeProvider";
 
 const NavBar = ({ admin }) => {
   const { user, logout } = useAuth(); // Usar el hook useAuth para obtener la información de usuario y la función de logout
+  const { theme, toggleTheme } = useContext(ThemeContext);
+
+  const handleToggleTheme = () => {
+    toggleTheme();
+  };
+
+
   return (
-    <div className="navbar-home">
-      <div className="backToLanding">
-        <Link to="/home">
-          <div className="icon-home">
-            <AiOutlineHome />
-          </div>
-        </Link>
+
+    // <ThemeContext.Provider value={theme}>
+      
+      <div className={`navbar-home ${theme}`}>
+        <div className="backToLanding">
+          <Link to="/home">
+            <div className="icon-home">
+              <AiOutlineHome />
+            </div>
+          </Link>
       </div>
 
       <div className="nav-links">
         <Link to="/about">
           <div className="button-about">About Us</div>
         </Link>
+
+{/* ------------ SWITCH DARKMODE ------------ */}
+
+      <label class="ui-switch">
+        <input type="checkbox" onChange={handleToggleTheme}/>
+        <div class="slider">
+          <div class="circle"></div>
+        </div>
+      </label>
+
+
         <ProtectedButtonAdmin>
           <Link to="/dashboard">
             <div>Dashboard</div>
@@ -60,6 +83,7 @@ const NavBar = ({ admin }) => {
         </div>
       )}
     </div>
+    // </ThemeContext.Provider>
   );
 };
 
