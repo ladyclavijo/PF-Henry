@@ -29,6 +29,8 @@ import AuthProvider from "./context/authContext";
 // import {ProtectedRoute} from "./components/Auth/ProtectedRoute/ProtectedRoute"
 import { ProtectedRoute } from "./components/Auth/ProtectedRoute/ProtectedRoute";
 import { ProtectedRouteAdmin } from "./pages/Dashboard/ProtectedRouteAdmin";
+// ------------------------ PARA EL DARKMODE --------------------------------- //
+import { ThemeProvider } from "./components/ThemeProvider/ThemeProvider";
 
 function App() {
   const dispatch = useDispatch();
@@ -43,7 +45,10 @@ function App() {
   }, []);
 
   return (
-    <div>
+
+    <ThemeProvider>
+
+     <div>
       {" "}
       {/*estilo tailwind*/}
       {/* <Elements stripe={stripePromise}>
@@ -119,6 +124,8 @@ function App() {
         </Routes>
       </AuthProvider>
     </div>
+
+    </ThemeProvider>
   );
 }
 
