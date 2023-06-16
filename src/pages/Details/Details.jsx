@@ -396,9 +396,9 @@ export default function Details() {
   const handleAddReview = () => {
     const reviewData = {
       bookId: book.id,
-      comment: comment,
+      reviewContent: comment,
       rating: rating,
-      userId: user.id,
+      userId: user.uid,
     };
 
     saveReview(reviewData)
@@ -417,7 +417,7 @@ export default function Details() {
 
   const saveReview = async (reviewData) => {
     try {
-      const response = await axios.post("/api/reviews", reviewData);
+      const response = await axios.post("/users/review", reviewData);
       if (response.status === 200) {
         return response.data;
       } else {
@@ -551,11 +551,15 @@ export default function Details() {
                         <br />
                         <button onClick={handleAddReview}>Submit</button>
                         <h2>Reviews</h2>
-                        {reviews.map((review) => (
-                          <div key={review.id}>
-                            <h3>User: {review.user}</h3>
-                            <p>Comment: {review.comment}</p>
-                            <p>Rating: {review.rating}</p>
+                        {reviews?.map((review) => (
+                          <div key={review?.id}>
+                            <h3>
+                              UserName:{" "}
+                              {review?.user?.username ||
+                                "Error user with no name"}
+                            </h3>
+                            <p>Comment: {review?.reviewContent}</p>
+                            <p>Rating: {review?.rating}</p>
                           </div>
                         ))}
                       </div>
