@@ -471,7 +471,6 @@ export default function Details() {
                     </h2>
                     <h2 className="moreInfo">Pages: {book.pages}</h2>
                     <h2 className="moreInfo">Language: {book.language}</h2>
-
                     {book.genres.length === 1 ? (
                       <h2 className="moreInfo">Genre: {book.genres[0].name}</h2>
                     ) : (
