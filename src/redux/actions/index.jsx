@@ -22,6 +22,7 @@ import {
   GET_USER_BY_ID,
   DELETE_FROM_CART,
   CLEAR_CART,
+  CLEAR_DETAIL,
 } from "./actionsTypes";
 
 export const getBooks = () => {
@@ -257,14 +258,24 @@ export const getUserDetail = (id) => {
     }
   };
 };
+
 export const deleteFromCart = (productId) => {
   return {
     type: DELETE_FROM_CART,
     payload: productId,
   };
 };
+
 export const clearCart = () => {
   return {
     type: CLEAR_CART,
+  };
+};
+
+export const clearDetail = () => {
+  return (dispatch) => {
+    return dispatch({
+      type: CLEAR_DETAIL,
+    })
   };
 };

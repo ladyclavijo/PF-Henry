@@ -4,7 +4,6 @@ export const GET_BOOK_DETAIL = "GET_BOOK_DETAIL";
 export const CREATE_BOOK = "CREATE_BOOK";
 export const CLEAR_FILTERS = "CLEAR_FILTERS";
 export const PAGINATED = "PAGINATED";
-export const CLEAR_DETAILS = "CLEAR_DETAILS";
 export const GET_ALL_GENRES = "GET_ALL_GENRES";
 export const FILTER_BY_GENRES = "FILTER_BY_GENRES";
 export const SORT_BY = "SORT_BY";
@@ -21,4 +20,4 @@ export const UPDATE_USER = "UPDATE_USER";
 export const GET_USER_BY_ID = "GET_USER_BY_ID";
 export const DELETE_FROM_CART = "DELETE_FROM_CART";
 export const CLEAR_CART = 'CLEAR_CART';
-
+export const CLEAR_DETAIL = "CLEAR_DETAIL";
