@@ -226,18 +226,22 @@
 //   );
 // }
 
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useParams, Link, useNavigate } from 'react-router-dom';
-import { getBookDetail } from '../../redux/actions/index.jsx';
-import { useAuth } from '../../context/authContext';
-import { addToCart } from '../../redux/actions/index.jsx';
-import NavBar from '../../components/NavBar/NavBar.jsx';
-import Loader from '../../components/Loader/Loader.jsx';
-import { TbTruckDelivery } from 'react-icons/tb';
-import { FaStar } from 'react-icons/fa';
-import './Details.css';
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams, Link, useNavigate } from "react-router-dom";
+import {
+  getBookDetail,
+  postCarts,
+  updateCarts,
+} from "../../redux/actions/index.jsx";
+import { useAuth } from "../../context/authContext";
+import { addToCart } from "../../redux/actions/index.jsx";
+import NavBar from "../../components/NavBar/NavBar.jsx";
+import Loader from "../../components/Loader/Loader.jsx";
+import { TbTruckDelivery } from "react-icons/tb";
+import { FaStar } from "react-icons/fa";
+import "./Details.css";
 
 export default function Details() {
   const { id } = useParams();
@@ -251,9 +255,10 @@ export default function Details() {
   const [stock, setStock] = useState(book.stock);
   const [selectedQuantity, setSelectedQuantity] = useState(quantity);
   const cart = useSelector((state) => state.cart);
-  const [comment, setComment] = useState('');
+  const [comment, setComment] = useState("");
   const [rating, setRating] = useState(0);
   const [reviews, setReviews] = useState([]);
+  const allCarts = useSelector((state) => state.allCarts);
 
   useEffect(() => {
     setLoading(true);
@@ -286,28 +291,105 @@ export default function Details() {
       quantity: quantity,
     };
     console.log(bookData);
-    navigate('/buy', { state: bookData });
+    navigate("/buy", { state: bookData });
   };
 
   const handleAddToCart = () => {
-    const cartData = {
-      id: book.id,
-      title: book.title,
-      cover: book.cover,
-      price: book.price,
-      quantity: quantity,
-    };
+    if (allCarts.length > 0) {
+      const findCartWithUserAndBook = allCarts.filter(
+        (c) => c.userId === user.uid && c.bookId === book.id
+      );
+      if (findCartWithUserAndBook.length > 0) {
+        console.log(findCartWithUserAndBook);
+        console.log(findCartWithUserAndBook[0].quantity);
+        console.log(quantity);
+        dispatch(
+          updateCarts({
+            quantity: quantity + findCartWithUserAndBook[0].quantity,
+            userId: user.uid,
+            bookId: book.id,
+          })
+        );
+        const cartData = {
+          id: book.id,
+          title: book.title,
+          cover: book.cover,
+          price: book.price,
+          quantity: quantity,
+        };
 
-    const itemInCart = cart.find((item) => item.id === book.id);
-    const quantityInCart = itemInCart ? itemInCart.quantity : 0;
-    const remainingStock = stock - quantityInCart;
+        const itemInCart = cart.find((item) => item.id === book.id);
+        const quantityInCart = itemInCart ? itemInCart.quantity : 0;
+        const remainingStock = stock - quantityInCart;
 
-    if (remainingStock >= quantity) {
-      dispatch(addToCart(cartData));
-      alert('Successfully added to cart');
+        if (remainingStock >= quantity) {
+          dispatch(addToCart(cartData));
+          alert("Successfully added to cart");
+        } else {
+          alert(`Cannot add ${quantity} items to cart. Only ${remainingStock} items available.
+          You already have ${quantityInCart} items in your cart.`);
+        }
+      } else {
+        dispatch(
+          postCarts({
+            title: book.title,
+            cover: book.cover,
+            price: book.price,
+            quantity: quantity,
+            userId: user.uid,
+            bookId: book.id,
+          })
+        );
+        const cartData = {
+          id: book.id,
+          title: book.title,
+          cover: book.cover,
+          price: book.price,
+          quantity: quantity,
+        };
+
+        const itemInCart = cart.find((item) => item.id === book.id);
+        const quantityInCart = itemInCart ? itemInCart.quantity : 0;
+        const remainingStock = stock - quantityInCart;
+
+        if (remainingStock >= quantity) {
+          dispatch(addToCart(cartData));
+          alert("Successfully added to cart");
+        } else {
+          alert(`Cannot add ${quantity} items to cart. Only ${remainingStock} items available.
+          You already have ${quantityInCart} items in your cart.`);
+        }
+      }
     } else {
-      alert(`Cannot add ${quantity} items to cart. Only ${remainingStock} items available.
-      You already have ${quantityInCart} items in your cart.`);
+      dispatch(
+        postCarts({
+          title: book.title,
+          cover: book.cover,
+          price: book.price,
+          quantity: quantity,
+          userId: user.uid,
+          bookId: book.id,
+        })
+      );
+      const cartData = {
+        id: book.id,
+        title: book.title,
+        cover: book.cover,
+        price: book.price,
+        quantity: quantity,
+      };
+
+      const itemInCart = cart.find((item) => item.id === book.id);
+      const quantityInCart = itemInCart ? itemInCart.quantity : 0;
+      const remainingStock = stock - quantityInCart;
+
+      if (remainingStock >= quantity) {
+        dispatch(addToCart(cartData));
+        alert("Successfully added to cart");
+      } else {
+        alert(`Cannot add ${quantity} items to cart. Only ${remainingStock} items available.
+        You already have ${quantityInCart} items in your cart.`);
+      }
     }
   };
 
@@ -324,7 +406,7 @@ export default function Details() {
         // Actualiza la lista de reseñas mostrada en el frontend si es necesario
         setReviews([...reviews, response.review]);
         // Limpia los campos de comentario y calificación
-        setComment('');
+        setComment("");
         setRating(0);
       })
       .catch((error) => {
@@ -335,11 +417,11 @@ export default function Details() {
 
   const saveReview = async (reviewData) => {
     try {
-      const response = await axios.post('/api/reviews', reviewData);
+      const response = await axios.post("/api/reviews", reviewData);
       if (response.status === 200) {
         return response.data;
       } else {
-        throw new Error('Error al guardar la reseña');
+        throw new Error("Error al guardar la reseña");
       }
     } catch (error) {
       throw error;
@@ -394,7 +476,8 @@ export default function Details() {
                       <h2 className="moreInfo">Genre: {book.genres[0].name}</h2>
                     ) : (
                       <h2 className="moreInfo">
-                        Genres: {`${book.genres[0].name}, ${book.genres[1].name}`}
+                        Genres:{" "}
+                        {`${book.genres[0].name}, ${book.genres[1].name}`}
                       </h2>
                     )}
                   </div>
@@ -404,7 +487,8 @@ export default function Details() {
                 <h1>${book.price}</h1>
                 <div className="delivery-container">
                   <span>
-                    <TbTruckDelivery className="icon" /> Free delivery on orders over $15!
+                    <TbTruckDelivery className="icon" /> Free delivery on orders
+                    over $15!
                   </span>
                   {user ? (
                     <>
@@ -413,10 +497,17 @@ export default function Details() {
                         <select
                           id="quantity"
                           value={quantity}
-                          onChange={(e) => setQuantity(parseInt(e.target.value))}
+                          onChange={(e) =>
+                            setQuantity(parseInt(e.target.value))
+                          }
                         >
-                          {Array.from({ length: book.stock }, (_, index) => index + 1).map((num) => (
-                            <option key={num} value={num}>{num}</option>
+                          {Array.from(
+                            { length: book.stock },
+                            (_, index) => index + 1
+                          ).map((num) => (
+                            <option key={num} value={num}>
+                              {num}
+                            </option>
                           ))}
                         </select>
                       </div>
@@ -432,31 +523,31 @@ export default function Details() {
                         Buy it
                       </button>
                       <div className="reviews">
-                      <h3>Add a Review:</h3>
-                         <textarea
-                            type="text"
-                            value={comment}
-                            onChange={(e) => setComment(e.target.value)}
-                            placeholder="Write your comment"
-                            className="comment"
-                          />
-                        
+                        <h3>Add a Review:</h3>
+                        <textarea
+                          type="text"
+                          value={comment}
+                          onChange={(e) => setComment(e.target.value)}
+                          placeholder="Write your comment"
+                          className="comment"
+                        />
+
                         <h2>Rating: {rating} estrellas</h2>
-                        <div
-                          className="rating-container"
-                        >
+                        <div className="rating-container">
                           {[...Array(5)].map((_, index) => {
-                           const starValue = index + 1;
-                           return (
-                             <FaStar
+                            const starValue = index + 1;
+                            return (
+                              <FaStar
                                 key={index}
                                 className="star"
-                                color={starValue <= rating ? '#ffc107' : '#e4e5e9'}
+                                color={
+                                  starValue <= rating ? "#ffc107" : "#e4e5e9"
+                                }
                                 onMouseEnter={() => handleMouseEnter(starValue)}
                                 onClick={() => handleClick(starValue)}
                               />
-                           );
-                         })}
+                            );
+                          })}
                         </div>
                         <br />
                         <button onClick={handleAddReview}>Submit</button>
@@ -468,7 +559,6 @@ export default function Details() {
                             <p>Rating: {review.rating}</p>
                           </div>
                         ))}
-                        
                       </div>
                     </>
                   ) : (
@@ -490,4 +580,3 @@ export default function Details() {
     </div>
   );
 }
-

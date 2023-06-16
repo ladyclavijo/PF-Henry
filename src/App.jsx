@@ -2,7 +2,7 @@ import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getBooks, getUsers } from "./redux/actions/index";
+import { getBooks, getCartsDB, getUsers } from "./redux/actions/index";
 import Landing from "./pages/Landing/Landing";
 import Home from "./pages/Home/Home";
 import Details from "./pages/Details/Details";
@@ -14,11 +14,11 @@ import MyAccount from "./pages/MyAccount/MyAccount";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import User from "./pages/User/User";
 import Sales from "./pages/Sales/Sales";
-import TermsandConditions from "./components/Footer/Tac/TermsandConditions"
+import TermsandConditions from "./components/Footer/Tac/TermsandConditions";
 import Privacy from "./components/Footer/Pp/Privacy";
 import ReturnPolicies from "./components/Footer/Rp/ReturnPolicies";
-import ReactGA from 'react-ga';
-ReactGA.initialize('G-P14D1VL6YW');
+import ReactGA from "react-ga";
+ReactGA.initialize("G-P14D1VL6YW");
 ReactGA.pageview(window.location.pathname + window.location.search);
 //------------------------- AUTH COMPONENTS ------------------------------//
 // // import HomeAuth from "./components/Auth/HomeAuth/HomeAuth";
@@ -35,6 +35,7 @@ function App() {
   useEffect(() => {
     dispatch(getBooks());
     dispatch(getUsers());
+    dispatch(getCartsDB());
   }, [dispatch]);
   const allBooks = useSelector((state) => state.allBooks);
 
