@@ -6,7 +6,6 @@ import {
   getPages,
   sortBy,
   getAllGenres,
-  getBooks,
   filterByLanguages,
   clearFilters,
 } from "../../redux/actions";
