@@ -24,7 +24,7 @@ export default function Landing() {
       <div className="content">
         <div className="text-container">
           <div className="blue-box">
-            <h2>Find the book you are looking for easier to read.</h2>
+            <h2>Explore a world of books at your fingertips.</h2>
             <Link to="/home">
               <button className="explore-button">Explore books</button>
             </Link>
