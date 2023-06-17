@@ -11,7 +11,11 @@ const UserProfile = () => {
 
   useEffect(() => {
     const handleOutsideClick = (event) => {
-      if (cardRef.current && !cardRef.current.contains(event.target)) {
+      if (
+        cardRef.current &&
+        !cardRef.current.contains(event.target) &&
+        !event.target.classList.contains("icon")
+      ) {
         setIsCardOpen(false);
       }
     };
