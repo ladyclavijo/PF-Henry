@@ -9,27 +9,22 @@ import "../../Styles/colors.css"
 
 
 export default function Buy() {
-
-    const { theme } = useContext(ThemeContext);
-
-    const backgroundColor = "var(--color-background)";
-    const textColor = "var(--color-text)";
-
+    
     return (
-        <div className={`bg-slate-300 h-screen w-screen`} style={{backgroundColor, textColor}}>
+        <div className="content-center"> {/* bg-slate-300 h-screen w-screen */}
             <NavBar />
 
-            <div className={`Container-3 max-w-lg mt-11 ml-4 border border-gray-300`} style={{ backgroundColor, textColor}}>
+            <div className="Container-3 max-w-lg mt-11 ml-4 ">
                 <ContainerAddress />
             </div>
 
 
-            <div className={`Container-3 max-w-lg mt-11 ml-4 border border-gray-300`} style={{ backgroundColor, textColor}}>
+            <div className="Container-3 max-w-lg mt-11 ml-4 ">
                 <Payment />
             </div>
 
 
-            <div className={`Container-3 max-w-lg mt-11 ml-4 border border-gray-300`} style={{ backgroundColor, textColor}}>
+            <div className="Container-3 max-w-lg mt-11 ml-4 ">
                 <Articles />
             </div>
             
