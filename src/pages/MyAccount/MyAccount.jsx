@@ -21,13 +21,13 @@ const MyAccount = () => {
   const currentUser = users.find((u) => u.email === user?.email);
 
   return (
-    <>
+    <div className="bg-slate-300 h-screen w-screen">
       <NavBar />
       <div className="my-account-container">
         <h2 className="welcome-title">
           WELCOME{" "}
           <span className="name" style={{ color: "#266386" }}>
-            {currentUser ? currentUser.username.toUpperCase() : user.username }
+            {currentUser ? currentUser.username.toUpperCase() : user.username}
           </span>
         </h2>
 
@@ -61,7 +61,7 @@ const MyAccount = () => {
           </>
         )}
       </div>
-    </>
+    </div>
   );
 };
 
