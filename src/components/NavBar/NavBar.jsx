@@ -30,9 +30,7 @@ const NavBar = ({ admin }) => {
       </div>
 
       <div className="nav-links">
-        <Link to="/about">
-          <div className="button-about">About Us</div>
-        </Link>
+        
 
 {/* ------------ SWITCH DARKMODE ------------ */}
 
@@ -43,10 +41,14 @@ const NavBar = ({ admin }) => {
         </div>
       </label>
 
+        <Link to="/about">
+          <div className="button-about">About Us</div>
+        </Link>
+
 
         <ProtectedButtonAdmin>
           <Link to="/dashboard">
-            <div>Dashboard</div>
+            <div className="mr-5">Dashboard</div>
           </Link>
         </ProtectedButtonAdmin>
 
