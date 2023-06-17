@@ -50,7 +50,7 @@ export default function Cart() {
   //   }, [cartItems]);
 
   return (
-    <div className="bg-slate-300 h-screen w-screen">
+    <div className="bg-slate-300 min-h-screen flex flex-col">
       <NavBar />
       <div className="m-6 ">
         <div className="flex items-center justify-between">
