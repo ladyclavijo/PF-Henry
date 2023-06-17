@@ -9,9 +9,9 @@ import "../../Styles/colors.css"
 
 
 export default function Buy() {
-    
+
     return (
-        <div className="content-center"> {/* bg-slate-300 h-screen w-screen */}
+        <div className="content-center bg-slate-300 h-screen w-screen"> {/* bg-slate-300 h-screen w-screen */}
             <NavBar />
 
             <div className="Container-3 max-w-lg mt-11 ml-4 ">
@@ -27,7 +27,7 @@ export default function Buy() {
             <div className="Container-3 max-w-lg mt-11 ml-4 ">
                 <Articles />
             </div>
-            
+
         </div>
     );
 }
