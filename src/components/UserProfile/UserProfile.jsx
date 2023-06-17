@@ -1,19 +1,16 @@
 import './UserProfile.css';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import { FaUserCircle } from 'react-icons/fa';
-import { useState } from 'react';
 import { useAuth } from "../../context/authContext"
+import React, { useState } from 'react';
 
 const UserProfile = () => {
+  const { user, logout } = useAuth();
   const [isCardOpen, setIsCardOpen] = useState(false);
-  const { user, logout } = useAuth(); 
-  const handleCardToggle = () => {
-    setIsCardOpen(!isCardOpen);
-  };
 
   return (
     <div className="user-profile">
-      <div className="profile-icon" onClick={handleCardToggle}>
+      <div className="profile-icon" onClick={() => setIsCardOpen(!isCardOpen)}>
         <FaUserCircle className="icon" />
       </div>
       {isCardOpen && (
@@ -24,7 +21,7 @@ const UserProfile = () => {
             </div>
             <div className="card-info">
               <h3 className="user-name">
-                <Link  to="/myaccount">My Account</Link>
+                <Link to="/myaccount">My Account</Link>
               </h3>
               <p className="user-email">{user?.email}</p>
             </div>
