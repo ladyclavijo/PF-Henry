@@ -2,10 +2,12 @@
 /*  ----- Colores para el tema light -----*/
 
     --color-background: #9DC8C5;
+    --color-text: black;
   }
   
   [data-theme="dark"] {
 /*  ----- Colores para el tema dark ----- */
 
     --color-background: #333333;
+    --color-text: rgb(255, 255, 255);
   }

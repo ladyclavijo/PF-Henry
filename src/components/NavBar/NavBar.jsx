@@ -36,8 +36,8 @@ const NavBar = ({ admin }) => {
 
 {/* ------------ SWITCH DARKMODE ------------ */}
 
-      <label class="ui-switch">
-        <input type="checkbox" onChange={handleToggleTheme}/>
+      <label class={`ui-switch ${theme === 'dark' ? 'dark' : ''}`}>
+        <input type="checkbox" onChange={handleToggleTheme} checked={theme === 'dark'}/>
         <div class="slider">
           <div class="circle"></div>
         </div>
@@ -88,56 +88,3 @@ const NavBar = ({ admin }) => {
 };
 
 export default NavBar;
-
-// import "./NavBar.css";
-// import { AiOutlineHome } from 'react-icons/ai';
-// import React from "react";
-// import { Link, useLocation } from 'react-router-dom';
-
-// import Filters from "../Filters/Filters";
-// import SearchBar from "../SearchBar/SearchBar.jsx";
-// export default function NavBar({ setCurrentPage, setLoading }) {
-//   return (
-//     <div>
-//       <Link to='/'>Landing</Link>
-//       <div>
-//         <SearchBar setCurrentPage={setCurrentPage} setLoading={setLoading} />
-//       </div>
-//       <div>
-//         <Link to="/form">
-//           <span>Publish Book</span>
-//         </Link>
-//       </div>
-//       <div>
-//         <Filters />
-//       </div>
-//     </div>
-//   );
-// };
-
-// const NavBar = () => {
-//   const location = useLocation();
-//   return (
-//     <div className="navbar-home">
-
-//       <div className="backToLanding">
-//         {location.pathname !== '/home' && (
-//           <Link to="/home">
-//             <div className="icon-button">
-//               <AiOutlineHome className="icon" />
-//             </div>
-//           </Link>
-//         )}
-//       </div>
-
-//       <div className="nav-aboutUs">
-//         <Link to="/about">
-//           <div className="button-about">About Us</div>
-//         </Link>
-//       </div>
-
-//     </div>
-//   )
-// }
-
-// export default NavBar;
