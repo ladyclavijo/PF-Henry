@@ -55,7 +55,7 @@ export default function Cart() {
     </div>
   );
   return (
-    <div>
+    <div className="bg-slate-300 min-h-screen w-screen">
       <NavBar />
       <div>
         <h2 className="mt-11">Your Cart:</h2>

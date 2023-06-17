@@ -213,7 +213,7 @@ export default function Details() {
   };
 
   return (
-    <div>
+    <div className="bg-slate-300 min-h-screen w-screen">
       <NavBar />
       {!book.author ? (
         <Loader />

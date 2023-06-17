@@ -66,7 +66,7 @@ export default function Home() {
   }, [currentCards, dispatch]);
 
   return (
-    <div className="home-page">
+    <div className="home-page bg-slate-300 min-h-screen w-screen">
       <div className="home-navbar">
         <div className="div-logo">
           <img src={logo} alt="logo" />

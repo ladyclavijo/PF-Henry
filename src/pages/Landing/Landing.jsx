@@ -6,7 +6,7 @@ import logo from "../../assets/Logo.png"
 
 export default function Landing() {
   return (
-    <div className="landing-page">
+    <div className="landing-page bg-slate-300 min-h-screen w-screen">
       <nav className="navbar">
         <div className="logo">
           <img
