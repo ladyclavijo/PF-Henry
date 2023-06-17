@@ -19,27 +19,27 @@ const NavBar = ({ admin }) => {
   return (
 
     // <ThemeContext.Provider value={theme}>
-      
-      <div className={`navbar-home ${theme}`}>
-        <div className="backToLanding">
-          <Link to="/home">
-            <div className="icon-home">
-              <AiOutlineHome />
-            </div>
-          </Link>
+
+    <div className={`navbar-home ${theme}`}>
+      <div className="backToLanding">
+        <Link to="/home">
+          <div className="icon-home">
+            <AiOutlineHome />
+          </div>
+        </Link>
       </div>
 
       <div className="nav-links">
-        
 
-{/* ------------ SWITCH DARKMODE ------------ */}
 
-      <label class={`ui-switch ${theme === 'dark' ? 'dark' : ''}`}>
-        <input type="checkbox" onChange={handleToggleTheme} checked={theme === 'dark'}/>
-        <div class="slider">
-          <div class="circle"></div>
-        </div>
-      </label>
+        {/* ------------ SWITCH DARKMODE ------------ */}
+
+        <label className={`ui-switch ${theme === 'dark' ? 'dark' : ''}`}>
+          <input type="checkbox" onChange={handleToggleTheme} checked={theme === 'dark'} />
+          <div className="slider">
+            <div className="circle"></div>
+          </div>
+        </label>
 
         <Link to="/about">
           <div className="button-about">About Us</div>
