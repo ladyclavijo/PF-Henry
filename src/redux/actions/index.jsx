@@ -26,7 +26,9 @@ import {
   POST_CARTS_DB,
   UPDATE_CARTS_DB,
   DELETE_CARTS_DB,
-  CLEAR_DETAIL
+  CLEAR_DETAIL,
+  UPDATE_BOOK,
+  QUANTITY,
 } from "./actionsTypes";
 
 export const getBooks = () => {
@@ -338,6 +340,30 @@ export const clearDetail = () => {
   return (dispatch) => {
     return dispatch({
       type: CLEAR_DETAIL,
-    })
+    });
+  };
+};
+
+export const updateBook = (id, payload) => {
+  return async function (dispatch) {
+    try {
+      const response = await axios.put(`/books/${id}`, payload);
+      console.log(response);
+      return dispatch({
+        type: UPDATE_BOOK,
+        payload: response,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+};
+
+export const setQuantity = (number) => {
+  return (dispatch) => {
+    return dispatch({
+      type: QUANTITY,
+      payload: number,
+    });
   };
 };

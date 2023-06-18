@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import NavBar from "../../components/NavBar/NavBar.jsx";
 import { Link } from "react-router-dom";
@@ -9,40 +9,41 @@ import { useAuth } from "../../context/authContext.jsx";
 
 export default function Cart() {
   const cartItems = useSelector((state) => state.cart);
-  const allCarts = useSelector((state) => state.allCarts);
   const { user } = useAuth();
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getCartsDB());
-  }, [allCarts]);
+  }, [cartItems]);
+
+  const allCarts = useSelector((state) => state.allCarts);
 
   const findCartByUser = allCarts.filter((c) => c.userId === user.uid);
 
-  const handleRemoveCartFromCart = (productId) => {
-    dispatch(deleteFromCart(productId));
-    dispatch(
+  const handleRemoveCartFromCart = async (productId) => {
+    await dispatch(
       deleteCarts({
         userId: user.uid,
         bookId: productId,
       })
     );
+    await dispatch(deleteFromCart(productId));
   };
 
-  const handleClearAllCart = () => {
+  const handleClearAllCart = async () => {
     if (
       !window.confirm("All products in the cart will be removed. Are you sure?")
     )
       return;
-    dispatch(clearCart());
     for (let i = 0; i < findCartByUser.length; i++) {
-      dispatch(
+      await dispatch(
         deleteCarts({
           userId: findCartByUser[i].userId,
           bookId: findCartByUser[i].bookId,
         })
       );
     }
+    await dispatch(clearCart());
   };
 
   //   useEffect(() => {

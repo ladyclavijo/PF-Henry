@@ -25,3 +25,5 @@ export const POST_CARTS_DB = "POST_CARTS_DB";
 export const UPDATE_CARTS_DB = "UPDATE_CARTS_DB";
 export const DELETE_CARTS_DB = "DELETE_CARTS_DB";
 export const CLEAR_DETAIL = "CLEAR_DETAIL";
+export const UPDATE_BOOK = "UPDATE_BOOK";
+export const QUANTITY = "QUANTITY";

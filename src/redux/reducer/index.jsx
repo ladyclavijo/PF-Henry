@@ -22,6 +22,7 @@ import {
   DELETE_FROM_CART,
   CLEAR_CART,
   GET_CARTS_DB,
+  QUANTITY,
 } from "../actions/actionsTypes";
 
 const initialState = {
@@ -43,6 +44,7 @@ const initialState = {
   currentUser: null,
   registrationError: null,
   appliedFilters: { genre: null, language: null },
+  quantity: 1,
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -256,6 +258,11 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         allCarts: action.payload,
+      };
+    case QUANTITY:
+      return {
+        ...state,
+        quantity: action.payload,
       };
 
     default:
