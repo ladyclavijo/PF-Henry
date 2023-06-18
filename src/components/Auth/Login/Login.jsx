@@ -4,17 +4,18 @@ import { Link, useNavigate } from "react-router-dom";
 import Alert from "../Alert/Alert";
 import { getUsers, registerUser } from "../../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
+import Swal from 'sweetalert2'
 
 export default function Login() {
   const [users, setUsers] = useState({
     email: "",
     password: "",
   });
-  const { login, loginWithGoogle, resetPassword } = useAuth();
+  const { user, login, loginWithGoogle, resetPassword } = useAuth();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [error, setError] = useState();
-
+  console.log('user firebase:', user?.email)
 
   useEffect(() => {
     dispatch(getUsers());
@@ -22,7 +23,7 @@ export default function Login() {
 
 
   const allUsers = useSelector((state) => state.allUsers);
-
+  console.log('userDb:' , allUsers)
 
   const handleChange = ({ target: { name, value } }) => {
     setUsers({ ...users, [name]: value });
@@ -33,10 +34,38 @@ export default function Login() {
     e.preventDefault();
     setError("");
 
-    try {
-      await login(users.email, users.password);
-      navigate("/Home");
-    } catch (error) {
+    try{
+      if (allUsers && allUsers.length > 0) {
+        // Resto del código
+        const isBanned =  allUsers.find((userData) => {
+          console.log('isBan:', userData.isBan )
+
+          return userData.email ===  users.email && userData.isBan === true
+           
+          });
+          // const nameUser = allUsers.map((e) => e.email === users.email ? e.username : e.username )
+        
+
+          if(!isBanned){
+            await login(users.email, users.password)
+            navigate('/home')
+            
+          }else{
+            const email = 'bookbuster@gmail.com';
+            const subject = 'Banned Account';
+            const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(subject)}`;
+             // Reemplaza 'exampleuser@gmail.com' con el correo electrónico real del usuario
+          
+            const message = `The email user <span style="font-weight: bold; color:#5D5D69;">${users.email}</span> has been banned. Please contact <a href="${mailtoLink}" style="color: #8e6cff;">bookbuster@gmail.com</a> customer support for more information.`;
+          
+            Swal.fire({
+              title: 'Banned!',
+              html: message,
+              confirmButtonText: 'Ok'
+            });
+            }
+          }
+    } catch (error) { 
       console.log(error.code);
       if (error.code === "auth/user-not-found") {
         setError("User Not Found!");
@@ -53,17 +82,41 @@ export default function Login() {
 
       // setError(error.message);
     }
-  };
 
+  }
   //------------------------- GOOGLE ------------------------------//
   const handleGoogleSignin = async () => {
     try {
       const userAvaible = await loginWithGoogle();
+      // console.log('AvilableUser:', userAvaible.UserCredentialImpl.user.email)
       if (userAvaible) {
+        
         const userDB = allUsers.filter((u) => {
           return u.id === userAvaible.user.uid;
         });
-        if (!userDB.length) {
+
+        const banedUserDb =  allUsers.find((u) => {
+          // console.log('user1:', u.email)
+          // console.log('user2:',userAvaible.user.email)
+          // console.log('user3:',u.isBan )
+          return u.email === userAvaible.user.email && u.isBan === true;
+        });
+
+        if(banedUserDb){
+          if (banedUserDb) {
+            const email = 'bookbuster@gmail.com';
+            const subject = 'Banned Account';
+            const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(subject)}`;
+            const message = `The email user <span style="font-weight: bold; color:#5D5D69;">${userAvaible.user.email}</span> has been banned. Please contact <a href="${mailtoLink}" style="color: #8e6cff;">bookbuster@gmail.com</a> customer support for more information.`;
+            
+            Swal.fire({
+              title: 'Banned!',
+              html: message,
+              confirmButtonText: 'Ok'
+            });
+          }
+          
+      }else if (!userDB.length) {
           const userGoogle = {
             id: userAvaible.user.uid,
             username: userAvaible.user.displayName,
@@ -75,6 +128,7 @@ export default function Login() {
           navigate("/home");
         }
       }
+      
     } catch (error) {
       setError(error.message);
     }
