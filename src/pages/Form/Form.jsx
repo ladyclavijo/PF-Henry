@@ -197,7 +197,7 @@ export default function Form() {
     dispatch(getAllGenres());
   }, [dispatch, input]);
   return (
-    <Fragment>
+    <div className="bg-slate-300 h-screen w-screen">
       <NavBar />
       <div className="mt-5 bg-[#52e6c3] border-2 border-[#52e6c3] w-5/12 h-9/12 rounded-1 mx-auto p-2">
         <div>
@@ -426,6 +426,6 @@ export default function Form() {
           </form>
         </div>
       </div>
-    </Fragment>
+    </div>
   );
 }

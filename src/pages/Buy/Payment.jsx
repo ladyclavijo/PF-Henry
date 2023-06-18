@@ -135,9 +135,9 @@ export default function Payment() {
     };
 
     return (
-      <form className="bg-[#9DC8C5]" onSubmit={handleSubmit}>
+      <form className="bg-[#bbf7d0]" onSubmit={handleSubmit}>
         <CardElement />
-        <button className="bg-[#303079] text-white rounded-md w-32 hover:bg-[#7496b8]">
+        <button className="mt-2 w-32 bg-[#9dc8c5] text-base hover:bg-[#7496b8] rounded-md w-full">
           Confirm
         </button>
       </form>
@@ -145,12 +145,14 @@ export default function Payment() {
   };
 
   return (
-    <div className="text-black text-center">
-      Payment Method
-      <h4 className="text-white">
+    <div className="bg-[#bbf7d0] p-6 rounded-md shadow">
+      <p className="text-black text-left mb-3 font-bold">
+        Payment method
+      </p>
+      <h4 className="text-black font-light">
         <Elements stripe={stripePromise}>
           {purchaseSuccess ? (
-            <p>Compra realizada con éxito</p>
+            <p>Your books have been bought successfully!</p>
           ) : (
             <CheckoutForm />
           )}
