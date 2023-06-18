@@ -10,6 +10,7 @@ import {
   addToCart,
   getBooks,
   clearDetail,
+  getCartsDB,
 } from "../../redux/actions/index.jsx";
 import SearchBar from "../../components/SearchBar/SearchBar.jsx";
 import logo from "../../assets/images/Logo.png";
@@ -21,26 +22,29 @@ export default function Home() {
   const [cardsPerPage] = useState(6);
   const [loading, setLoading] = useState(false);
   const [noResults, setNoResults] = useState(false);
-  const allCarts = useSelector((state) => state.allCarts);
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
-  if (allCarts.length > 0 && user) {
+  useEffect(() => {
+    dispatch(getCartsDB());
+  }, [dispatch]);
+
+  const allCarts = useSelector((state) => state.allCarts);
+
+  if (allCarts.length > 0 && user && cart.length === 0) {
     const findCartByUser = allCarts.filter((c) => c.userId === user.uid);
     if (findCartByUser.length > 0) {
-      for (let i = 0; i < findCartByUser.length; i++) {
-        if (cart.length < 1) {
-          dispatch(
-            addToCart({
-              id: findCartByUser[i].bookId,
-              title: findCartByUser[i].title,
-              cover: findCartByUser[i].cover,
-              price: findCartByUser[i].price,
-              quantity: findCartByUser[i].quantity,
-            })
-          );
-        }
-      }
+      findCartByUser.forEach((cartItem) => {
+        dispatch(
+          addToCart({
+            id: cartItem.bookId,
+            title: cartItem.title,
+            cover: cartItem.cover,
+            price: cartItem.price,
+            quantity: cartItem.quantity,
+          })
+        );
+      });
     }
   }
 

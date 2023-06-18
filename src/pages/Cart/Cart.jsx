@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import NavBar from "../../components/NavBar/NavBar.jsx";
 import { Link } from "react-router-dom";
@@ -9,51 +9,47 @@ import { useAuth } from "../../context/authContext.jsx";
 
 export default function Cart() {
   const cartItems = useSelector((state) => state.cart);
-  const allCarts = useSelector((state) => state.allCarts);
   const { user } = useAuth();
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getCartsDB());
-  }, [allCarts]);
+  }, [cartItems]);
+
+  const allCarts = useSelector((state) => state.allCarts);
 
   const findCartByUser = allCarts.filter((c) => c.userId === user.uid);
 
-  const handleRemoveCartFromCart = (productId) => {
-    dispatch(deleteFromCart(productId));
-    dispatch(
+  const handleRemoveCartFromCart = async (productId) => {
+    await dispatch(
       deleteCarts({
         userId: user.uid,
         bookId: productId,
       })
     );
+    await dispatch(deleteFromCart(productId));
   };
 
-  const handleClearAllCart = () => {
+  const handleClearAllCart = async () => {
     if (
       !window.confirm("All products in the cart will be removed. Are you sure?")
     )
       return;
-    dispatch(clearCart());
     for (let i = 0; i < findCartByUser.length; i++) {
-      dispatch(
+      await dispatch(
         deleteCarts({
           userId: findCartByUser[i].userId,
           bookId: findCartByUser[i].bookId,
         })
       );
     }
+    await dispatch(clearCart());
   };
 
   useEffect(() => {
     console.log("Cart Items:", cartItems);
   }, [cartItems]);
 
-  const Basurero = () => (
-    <div>
-      <FaTrash size={17} />
-    </div>
-  );
   return (
     <div className="bg-slate-300 min-h-screen w-screen">
       <NavBar />
@@ -64,7 +60,7 @@ export default function Cart() {
           <div key={item.id} className="item-container">
             <h3>{item.title}</h3>
             <button onClick={() => handleRemoveCartFromCart(item.id)}>
-              {/* <Basurero /> */}Eliminar
+              <FaTrash size={17} />
             </button>
             <img src={item.cover} alt={`${item.title} cover`} />
             <p>Quantity: {item.quantity}</p>
