@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useMemo } from "react";
+import React, { Fragment, useEffect, useMemo, useContext } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import NavBar from "../../components/NavBar/NavBar.jsx";
 import { Link } from "react-router-dom";
@@ -6,8 +6,12 @@ import { deleteCarts, deleteFromCart } from "../../redux/actions/index.jsx";
 import { clearCart, getCartsDB } from "../../redux/actions/index.jsx";
 import { FaTrash } from "react-icons/fa";
 import { useAuth } from "../../context/authContext.jsx";
+import "../Cart/Cart.css";
+import { ThemeContext } from "../../components/ThemeProvider/ThemeProvider.jsx";
+import "../../Styles/colors.css";
 
 export default function Cart() {
+
   const cartItems = useSelector((state) => state.cart);
   const { user } = useAuth();
   const dispatch = useDispatch();
@@ -50,22 +54,34 @@ export default function Cart() {
   //     console.log("Cart Items:", cartItems);
   //   }, [cartItems]);
 
+  const { theme } = useContext(ThemeContext);
+
+    const styles = {
+        container: {
+            backgroundColor: "var(--color-background)",
+            color: "var(--color-text)",
+        },
+        container2: {
+          color: "var(--color-text)",
+      },
+    };
+
   return (
-    <div className="bg-slate-300 min-h-screen flex flex-col">
+    <div className={`bg-slate-300 min-h-screen flex flex-col`} style={styles.container}>
       <NavBar />
       <div className="m-6 ">
         <div className="flex items-center justify-between">
           <h1 className="mt-16 font-bold text-3xl ml-10">Your Cart</h1>
           <div>
-            <button className="mt-2 mt-5 mr-10 px-4 py-2 text-white bg-red-600 rounded" onClick={handleClearAllCart}>Clean Cart</button>
+            <button className="mt-2 mt-5 mr-10 px-4 py-2 text-white bg-red-700 rounded hover:bg-red-500" onClick={handleClearAllCart}>Clean Cart</button>
           </div>
         </div>
         {cartItems.map((item) => (
-          <div key={item.id} className="mt-5 flex items-start bg-green-200 m-10 p-3 relative">
+          <div key={item.id} className="mt-5 flex items-start bg-green-200 m-10 p-3 relative card-background">
             <img className="w-32" src={item.cover} alt={`${item.title} cover`} />
             <div className="ml-2 flex flex-col flex-grow self-start">
               <h3 className="self-start font-bold text-xl">{item.title}</h3>
-              <p className="self-start text-gray-500">Quantity: {item.quantity}</p>
+              <p className={`self-start text-gray-500`} style={styles.container2}>Quantity: {item.quantity}</p>
               <div className="flex flex-col items-start">
                 <p className="mt-2 text-green-600 font-bold self-start">Price: {item.price}</p>
                 <button className="mt-2 text-red-600" onClick={() => handleRemoveCartFromCart(item.id)}><FaTrash size={17} /></button>
@@ -75,7 +91,7 @@ export default function Cart() {
         ))}
         <div className="flex justify-center mt-6">
           <Link to="/buy">
-            <button className="px-4 py-2 text-white bg-blue-600 rounded">Complete Purchase</button>
+            <button className="px-4 py-2 text-white bg-blue-900 rounded hover:bg-blue-600">Complete Purchase</button>
           </Link>
         </div>
       </div>

@@ -1,4 +1,5 @@
-import { AiOutlineHome, AiOutlineShoppingCart } from "react-icons/ai";
+import { BsCart4 } from 'react-icons/bs';
+import { FaHome } from 'react-icons/fa';
 import "./NavBar.css";
 import UserProfile from "../UserProfile/UserProfile";
 import { Link } from "react-router-dom";
@@ -24,7 +25,7 @@ const NavBar = ({ admin }) => {
       <div className="nav-links-left">
         <Link to="/home">
           <div className="icon-home">
-            <AiOutlineHome />
+            <FaHome />
           </div>
         </Link>
 
@@ -71,7 +72,7 @@ const NavBar = ({ admin }) => {
         <div className="nav-Cart">
           <Link to="/cart">
             <div className="icon-cart">
-              <AiOutlineShoppingCart />
+              <BsCart4 />
             </div>
           </Link>
         </div>
@@ -79,7 +80,7 @@ const NavBar = ({ admin }) => {
         <div className="nav-Cart">
           <Link to="/login">
             <div className="icon-cart">
-              <AiOutlineShoppingCart />
+              <BsCart4 />
             </div>
           </Link>
         </div>
