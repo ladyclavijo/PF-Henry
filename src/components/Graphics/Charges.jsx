@@ -20,7 +20,6 @@ export default function Charges() {
         <div>
             <h2>Total transaction amount</h2>
             <BarChart width={600} height={500} data={data}>
-                <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="date" />
                 <YAxis />
                 <Tooltip />

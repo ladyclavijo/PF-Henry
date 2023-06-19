@@ -36,7 +36,7 @@ export default function Graphic() {
     return (
         <div>
             <h2>Item Sales</h2>
-            <BarChart width={600} height={500} data={salesData} isAnimationActive={false}>
+            <BarChart width={600} height={500} data={salesData}>
                 <XAxis dataKey="day" />
                 <YAxis />
                 <Tooltip />
