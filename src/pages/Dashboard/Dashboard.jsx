@@ -2,6 +2,8 @@ import React from "react";
 import { useAuth } from "../../context/authContext";
 import { useSelector } from "react-redux";
 import DashboardUsers from "../../components/DashboardUsers/DashboardUsers";
+import Graphic from "../../components/Graphics/ItemSold";
+import Charges from "../../components/Graphics/Charges";
 
 export default function Dashboard() {
   const { user } = useAuth();
@@ -24,6 +26,8 @@ export default function Dashboard() {
             />
           );
         })}
+        <Graphic />
+        <Charges />
       </div>
     );
   }
