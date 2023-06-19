@@ -57,61 +57,61 @@ export default function Address() {
     };
 
     return (
-        <div className='Container 1   '>
-            <div >
+        <div className="bg-[#bbf7d0] p-6 rounded shadow mt-16">
+            <div className="">
                 {!expanded && (
-                    <div>
-                        <h2 className='text-center'>Shipping Address:</h2>
-                        {selectedAddress && (
-                            <p>
-                                {selectedAddress.fullName}, {selectedAddress.street},{' '}
-                                {selectedAddress.postalCode}, {selectedAddress.phoneNumber}
-                            </p>
-                        )}
-                    </div>
+                <div>
+                    <h2 className="text-left font-bold mb-3">Shipping address:</h2>
+                    {selectedAddress && (
+                    <p className="text-left">
+                        {selectedAddress.fullName}, {selectedAddress.street}, {selectedAddress.postalCode}, {selectedAddress.phoneNumber}
+                    </p>
+                    )}
+                </div>
                 )}
                 {expanded && (
-                    <div>
-                        <h2 className='text-center'>Your Addresses:</h2>
-                        <ul>
-                            {addresses.map((address, index) => (
-                                <li key={index}>
-                                    <input
-                                        type="radio"
-                                        name="selectedAddress"
-                                        value={address.fullName}
-                                        onChange={() => setSelectedAddress(address)}
-                                    />
-                                    {address.fullName}, {address.street}, {address.postalCode},{' '}
-                                    {address.phoneNumber}
-                                </li>
-                            ))}
-                        </ul>
-                        <h2 className='text-center mb-[10px]'>Add New Address:</h2>
-                        <form className='text-center  '>
-                            <div>
-                                <h2 className='mb-[10px]'>Country or Region:</h2>
-                                <Countries onSelectCountry={handleSelectCountry} />
-                            </div>
-                            <Validaciones
-                                newAddress={newAddress}
-                                validationError={validationError}
-                                handleInputChange={handleInputChange}
-                            />
-                            <button type="button" className='bg-[#303079] w-32 mt-2 text-white hover:bg-[#7496b8] rounded-md ' onClick={handleAddAddress}>
-                                Add Address
-                            </button>
-                        </form>
-                    </div>
+                <div>
+                    <h2 className="text-left">Your addresses:</h2>
+                    <ul>
+                    {addresses.map((address, index) => (
+                        <li key={index}>
+                        <input
+                            type="radio"
+                            name="selectedAddress"
+                            value={address.fullName}
+                            onChange={() => setSelectedAddress(address)}
+                            className="w-full"
+                        />
+                        {address.fullName}, {address.street}, {address.postalCode}, {address.phoneNumber}
+                        </li>
+                    ))}
+                    </ul>
+                    <h2 className="text-left mb-1">Add new address:</h2>
+                    <form className="text-left">
+                        <div>
+                            <h2 className="mb-1 mt-3">Country or Region:</h2>
+                            <Countries onSelectCountry={handleSelectCountry} />
+                        </div>
+                        <Validaciones newAddress={newAddress} validationError={validationError} handleInputChange={handleInputChange} />
+                        <button
+                            type="button"
+                            className="bg-[#9dc8c5] w-32 mt-4 text-black hover:bg-[#7496b8] rounded-md w-full"
+                            onClick={handleAddAddress}
+                        >
+                            Add address
+                        </button>
+                    </form>
+                </div>
                 )}
-                <div className='flex justify-center'>
-                    <button className='mt-2 w-32 text-white rounded-md hover:text-blue-200 hover:underline' onClick={handleToggleExpanded}>
-                        {expanded ? 'Close X' : 'Change'}
+                <div className="flex justify-center">
+                    <button className="mt-2 w-32 bg-[#9dc8c5] hover:bg-[#7496b8] rounded-md w-full" onClick={handleToggleExpanded}>
+                        {expanded ? 'Close' : 'Change'}
                     </button>
-
-
                 </div>
             </div>
         </div>
-    );
+      );
+      
+      
+      
 }

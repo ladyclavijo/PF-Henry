@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useMemo, useContext } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import NavBar from "../../components/NavBar/NavBar.jsx";
 import { Link } from "react-router-dom";
@@ -6,75 +6,96 @@ import { deleteCarts, deleteFromCart } from "../../redux/actions/index.jsx";
 import { clearCart, getCartsDB } from "../../redux/actions/index.jsx";
 import { FaTrash } from "react-icons/fa";
 import { useAuth } from "../../context/authContext.jsx";
+import "../Cart/Cart.css";
+import { ThemeContext } from "../../components/ThemeProvider/ThemeProvider.jsx";
+import "../../Styles/colors.css";
 
 export default function Cart() {
+
   const cartItems = useSelector((state) => state.cart);
-  const allCarts = useSelector((state) => state.allCarts);
   const { user } = useAuth();
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getCartsDB());
-  }, [allCarts]);
+  }, [cartItems]);
+
+  const allCarts = useSelector((state) => state.allCarts);
 
   const findCartByUser = allCarts.filter((c) => c.userId === user.uid);
 
-  const handleRemoveCartFromCart = (productId) => {
-    dispatch(deleteFromCart(productId));
-    dispatch(
+  const handleRemoveCartFromCart = async (productId) => {
+    await dispatch(
       deleteCarts({
         userId: user.uid,
         bookId: productId,
       })
     );
+    await dispatch(deleteFromCart(productId));
   };
 
-  const handleClearAllCart = () => {
+  const handleClearAllCart = async () => {
     if (
       !window.confirm("All products in the cart will be removed. Are you sure?")
     )
       return;
-    dispatch(clearCart());
     for (let i = 0; i < findCartByUser.length; i++) {
-      dispatch(
+      await dispatch(
         deleteCarts({
           userId: findCartByUser[i].userId,
           bookId: findCartByUser[i].bookId,
         })
       );
     }
+    await dispatch(clearCart());
   };
 
-  useEffect(() => {
-    console.log("Cart Items:", cartItems);
-  }, [cartItems]);
+  //   useEffect(() => {
+  //     console.log("Cart Items:", cartItems);
+  //   }, [cartItems]);
 
-  const Basurero = () => (
-    <div>
-      <FaTrash size={17} />
-    </div>
-  );
+  const { theme } = useContext(ThemeContext);
+
+    const styles = {
+        container: {
+            backgroundColor: "var(--color-background)",
+            color: "var(--color-text)",
+        },
+        container2: {
+          color: "var(--color-text)",
+      },
+    };
+
   return (
-    <div>
+    <div className={`bg-slate-300 min-h-screen flex flex-col`} style={styles.container}>
       <NavBar />
-      <div>
-        <h2 className="mt-11">Your Cart:</h2>
-        <button onClick={handleClearAllCart}>Clean Cart</button> <br />
+      <div className="m-6 ">
+        <div className="flex items-center justify-between">
+          <h1 className="mt-16 font-bold text-3xl ml-10">Your Cart</h1>
+          <div>
+            <button className="mt-2 mt-5 mr-10 px-4 py-2 text-white bg-red-700 rounded hover:bg-red-500" onClick={handleClearAllCart}>Clean Cart</button>
+          </div>
+        </div>
         {cartItems.map((item) => (
-          <div key={item.id} className="item-container">
-            <h3>{item.title}</h3>
-            <button onClick={() => handleRemoveCartFromCart(item.id)}>
-              {/* <Basurero /> */}Eliminar
-            </button>
-            <img src={item.cover} alt={`${item.title} cover`} />
-            <p>Quantity: {item.quantity}</p>
-            <p>Price: {item.price}</p>
+          <div key={item.id} className="mt-5 flex items-start bg-green-200 m-10 p-3 relative card-background">
+            <img className="w-32" src={item.cover} alt={`${item.title} cover`} />
+            <div className="ml-2 flex flex-col flex-grow self-start">
+              <h3 className="self-start font-bold text-xl">{item.title}</h3>
+              <p className={`self-start text-gray-500`} style={styles.container2}>Quantity: {item.quantity}</p>
+              <div className="flex flex-col items-start">
+                <p className="mt-2 text-green-600 font-bold self-start">Price: {item.price}</p>
+                <button className="mt-2 text-red-600" onClick={() => handleRemoveCartFromCart(item.id)}><FaTrash size={17} /></button>
+              </div>
+            </div>
           </div>
         ))}
-        <Link to="/buy">
-          <button>Complete Purchase</button>
-        </Link>
+        <div className="flex justify-center mt-6">
+          <Link to="/buy">
+            <button className="px-4 py-2 text-white bg-blue-900 rounded hover:bg-blue-600">Complete Purchase</button>
+          </Link>
+        </div>
       </div>
     </div>
   );
+
 }

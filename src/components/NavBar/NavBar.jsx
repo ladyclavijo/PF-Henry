@@ -1,4 +1,5 @@
-import { AiOutlineHome, AiOutlineShoppingCart } from "react-icons/ai";
+import { BsCart4 } from 'react-icons/bs';
+import { FaHome } from 'react-icons/fa';
 import "./NavBar.css";
 import UserProfile from "../UserProfile/UserProfile";
 import { Link } from "react-router-dom";
@@ -9,8 +10,8 @@ import { ThemeContext } from "../ThemeProvider/ThemeProvider";
 
 const NavBar = ({ admin }) => {
   const { user, logout } = useAuth(); // Usar el hook useAuth para obtener la información de usuario y la función de logout
+  
   const { theme, toggleTheme } = useContext(ThemeContext);
-
   const handleToggleTheme = () => {
     toggleTheme();
   };
@@ -19,35 +20,37 @@ const NavBar = ({ admin }) => {
   return (
 
     // <ThemeContext.Provider value={theme}>
-      
-      <div className={`navbar-home ${theme}`}>
-        <div className="backToLanding">
-          <Link to="/home">
-            <div className="icon-home">
-              <AiOutlineHome />
-            </div>
-          </Link>
-      </div>
 
-      <div className="nav-links">
+    <div className={`navbar-home ${theme}`}>
+      <div className="nav-links-left">
+        <Link to="/home">
+          <div className="icon-home">
+            <FaHome />
+          </div>
+        </Link>
+
         <Link to="/about">
           <div className="button-about">About Us</div>
         </Link>
+      </div>
+      
 
-{/* ------------ SWITCH DARKMODE ------------ */}
+    <div className="nav-links-right">
+        {/* ------------ SWITCH DARKMODE ------------ */}
+        <label className={`ui-switch ${theme === 'dark' ? 'dark' : ''}`}>
+          <input type="checkbox" onChange={handleToggleTheme} checked={theme === 'dark'} />
+          <div className="slider">
+            <div className="circle"></div>
+          </div>
+        </label>
 
-      <label class="ui-switch">
-        <input type="checkbox" onChange={handleToggleTheme}/>
-        <div class="slider">
-          <div class="circle"></div>
-        </div>
-      </label>
-
-
+        
         <ProtectedButtonAdmin>
+        <div className="dashboard-button">
           <Link to="/dashboard">
-            <div>Dashboard</div>
+            <div className="mr-5">Dashboard</div>
           </Link>
+          </div>
         </ProtectedButtonAdmin>
 
         {user == null || user === undefined ? (
@@ -64,12 +67,12 @@ const NavBar = ({ admin }) => {
             <UserProfile user={user} handleLogout={logout} />
           </div>
         )}
-      </div>
+      
       {user ? (
         <div className="nav-Cart">
           <Link to="/cart">
             <div className="icon-cart">
-              <AiOutlineShoppingCart />
+              <BsCart4 />
             </div>
           </Link>
         </div>
@@ -77,67 +80,16 @@ const NavBar = ({ admin }) => {
         <div className="nav-Cart">
           <Link to="/login">
             <div className="icon-cart">
-              <AiOutlineShoppingCart />
+              <BsCart4 />
             </div>
           </Link>
         </div>
       )}
+
+    </div>
     </div>
     // </ThemeContext.Provider>
   );
 };
 
 export default NavBar;
-
-// import "./NavBar.css";
-// import { AiOutlineHome } from 'react-icons/ai';
-// import React from "react";
-// import { Link, useLocation } from 'react-router-dom';
-
-// import Filters from "../Filters/Filters";
-// import SearchBar from "../SearchBar/SearchBar.jsx";
-// export default function NavBar({ setCurrentPage, setLoading }) {
-//   return (
-//     <div>
-//       <Link to='/'>Landing</Link>
-//       <div>
-//         <SearchBar setCurrentPage={setCurrentPage} setLoading={setLoading} />
-//       </div>
-//       <div>
-//         <Link to="/form">
-//           <span>Publish Book</span>
-//         </Link>
-//       </div>
-//       <div>
-//         <Filters />
-//       </div>
-//     </div>
-//   );
-// };
-
-// const NavBar = () => {
-//   const location = useLocation();
-//   return (
-//     <div className="navbar-home">
-
-//       <div className="backToLanding">
-//         {location.pathname !== '/home' && (
-//           <Link to="/home">
-//             <div className="icon-button">
-//               <AiOutlineHome className="icon" />
-//             </div>
-//           </Link>
-//         )}
-//       </div>
-
-//       <div className="nav-aboutUs">
-//         <Link to="/about">
-//           <div className="button-about">About Us</div>
-//         </Link>
-//       </div>
-
-//     </div>
-//   )
-// }
-
-// export default NavBar;

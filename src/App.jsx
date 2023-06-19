@@ -1,7 +1,7 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { getBooks, getCartsDB, getUsers } from "./redux/actions/index";
 import Landing from "./pages/Landing/Landing";
 import Home from "./pages/Home/Home";
@@ -21,111 +21,107 @@ import ReactGA from "react-ga";
 ReactGA.initialize("G-P14D1VL6YW");
 ReactGA.pageview(window.location.pathname + window.location.search);
 //------------------------- AUTH COMPONENTS ------------------------------//
-// // import HomeAuth from "./components/Auth/HomeAuth/HomeAuth";
 import Login from "./components/Auth/Login/Login";
 import Register from "./components/Auth/Register/Register";
 import NewUsersForm from "./components/Auth/NewUsersForm/NewUsersForm";
 import AuthProvider from "./context/authContext";
-// import {ProtectedRoute} from "./components/Auth/ProtectedRoute/ProtectedRoute"
 import { ProtectedRoute } from "./components/Auth/ProtectedRoute/ProtectedRoute";
 import { ProtectedRouteAdmin } from "./pages/Dashboard/ProtectedRouteAdmin";
-// ------------------------ PARA EL DARKMODE --------------------------------- //
-import { ThemeProvider } from "./components/ThemeProvider/ThemeProvider";
+import { ThemeProvider } from "./components/ThemeProvider/ThemeProvider"; // <--- para el darkMode
 
 function App() {
+  console.log("Hello World!!");
   const dispatch = useDispatch();
+  const allBooks = useSelector((state) => state.allBooks);
   useEffect(() => {
     dispatch(getBooks());
     dispatch(getUsers());
     dispatch(getCartsDB());
   }, [dispatch]);
-  const allBooks = useSelector((state) => state.allBooks);
 
   useEffect(() => {
     ReactGA.pageview(window.location.pathname + window.location.search);
   }, []);
 
   return (
-
     <ThemeProvider>
-
-     <div>
-      {" "}
-      {/*estilo tailwind*/}
-      {/* <Elements stripe={stripePromise}>
+      <div>
+        {" "}
+        {/*estilo tailwind*/}
+        {/* <Elements stripe={stripePromise}>
         <CheckoutForm />
       </Elements> */}
-      <AuthProvider>
-        {" "}
-        {/*el Provider es quien me dice de dónde vienen los datos*/}
-        <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/sales" element={<Sales />} />
-          <Route path="/book/:id" element={<Details allBooks={allBooks} />} />
-          <Route
-            path="/form"
-            element={
-              <ProtectedRoute>
-                <Form />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="/about" element={<About />} />
-          <Route
-            path="/buy"
-            element={
-              <ProtectedRoute>
-                <Buy />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/cart"
-            element={
-              <ProtectedRoute>
-                <Cart />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/myaccount"
-            element={
-              <ProtectedRoute>
-                <MyAccount />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="/termsandconditions" element={<TermsandConditions />} />
-          <Route path="/privacypolicy" element={<Privacy />} />
-          <Route path="/returnpolicies" element={<ReturnPolicies />} />
-          {/*---------------------- AUTH ROUTES ------------------------------- */}
-          {/* <ProtectedRoute> */}
-          {/* <Route path="/welcome" element={<HomeAuth />} /> */}
-          {/* </ProtectedRoute> */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/newuser" element={<NewUsersForm />} />
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRouteAdmin>
-                <Dashboard />
-              </ProtectedRouteAdmin>
-            }
-          />
-          <Route
-            path="/user/:id"
-            element={
-              <ProtectedRouteAdmin>
-                <User />
-              </ProtectedRouteAdmin>
-            }
-          />
-        </Routes>
-      </AuthProvider>
-    </div>
+        <AuthProvider>
+          {" "}
+          {/*el Provider es quien me dice de dónde vienen los datos*/}
+          <Routes>
+            <Route path="/" element={<Landing />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/sales" element={<Sales />} />
+            <Route path="/book/:id" element={<Details allBooks={allBooks} />} />
+            <Route
+              path="/form"
+              element={
+                <ProtectedRoute>
+                  <Form />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="/about" element={<About />} />
+            <Route
+              path="/buy"
+              element={
+                <ProtectedRoute>
+                  <Buy />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/cart"
+              element={
+                <ProtectedRoute>
+                  <Cart />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/myaccount"
+              element={
+                <ProtectedRoute>
+                  <MyAccount />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/termsandconditions"
+              element={<TermsandConditions />}
+            />
+            <Route path="/privacypolicy" element={<Privacy />} />
+            <Route path="/returnpolicies" element={<ReturnPolicies />} />
+            {/*---------------------- AUTH ROUTES ------------------------------- */}
 
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/newuser" element={<NewUsersForm />} />
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRouteAdmin>
+                  <Dashboard />
+                </ProtectedRouteAdmin>
+              }
+            />
+            <Route
+              path="/user/:id"
+              element={
+                <ProtectedRouteAdmin>
+                  <User />
+                </ProtectedRouteAdmin>
+              }
+            />
+          </Routes>
+        </AuthProvider>
+      </div>
     </ThemeProvider>
   );
 }

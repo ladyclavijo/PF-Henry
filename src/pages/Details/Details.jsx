@@ -1,11 +1,13 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import {
+  clearDetail,
   getBookDetail,
   getCartsDB,
   postCarts,
+  setQuantity,
   updateCarts,
 } from "../../redux/actions/index.jsx";
 import { useAuth } from "../../context/authContext";
@@ -15,6 +17,7 @@ import Loader from "../../components/Loader/Loader.jsx";
 import { TbTruckDelivery } from "react-icons/tb";
 import { FaStar } from "react-icons/fa";
 import "./Details.css";
+import Stock from "../../components/Stock/Stock.jsx";
 
 export default function Details() {
   const { id } = useParams();
@@ -24,23 +27,34 @@ export default function Details() {
   const book = useSelector((state) => state.booksDetail);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [quantity, setQuantity] = useState(1);
+  const quantity = useSelector((state) => state.quantity);
   const [stock, setStock] = useState(book.stock);
-  const [selectedQuantity, setSelectedQuantity] = useState(quantity);
   const cart = useSelector((state) => state.cart);
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState(0);
   const [reviews, setReviews] = useState([]);
+
+  useEffect(() => {
+    dispatch(getCartsDB());
+  }, [cart]);
+
   const allCarts = useSelector((state) => state.allCarts);
 
   useEffect(() => {
     setLoading(true);
     dispatch(getBookDetail(id));
-    dispatch(getCartsDB());
     setTimeout(() => {
       setLoading(false);
     }, 1000);
-  }, [dispatch, id, allCarts]);
+    return () => {
+      dispatch(clearDetail());
+      dispatch(setQuantity(1));
+    };
+  }, [dispatch, id]);
+
+  useEffect(() => {
+    console.log(quantity);
+  }, [quantity]);
 
   useEffect(() => {
     if (book.reviews) {
@@ -74,34 +88,32 @@ export default function Details() {
         (c) => c.userId === user.uid && c.bookId === book.id
       );
       if (findCartWithUserAndBook.length > 0) {
-        dispatch(
-          updateCarts({
-            quantity: quantity + findCartWithUserAndBook[0].quantity,
-            userId: user.uid,
-            bookId: book.id,
-          })
-        );
-        const cartData = {
-          id: book.id,
-          title: book.title,
-          cover: book.cover,
-          price: book.price,
-          quantity: quantity,
-        };
+        const qty = quantity + findCartWithUserAndBook[0].quantity;
+        console.log(qty);
+        if (qty <= book.stock) {
+          dispatch(
+            updateCarts({
+              quantity: qty,
+              userId: user.uid,
+              bookId: book.id,
+            })
+          );
+          const cartData = {
+            id: book.id,
+            title: book.title,
+            cover: book.cover,
+            price: book.price,
+            quantity: quantity,
+          };
 
-        dispatch(addToCart(cartData));
-        alert("Successfully added to cart");
-
-        // const itemInCart = cart.find((item) => item.id === book.id);
-        // const quantityInCart = itemInCart.quantity
-        // const remainingStock = stock - quantityInCart;
-
-        // if (remainingStock >= quantity) {
-        //   alert("Successfully added to cart");
-        // } else {
-        //   alert(`Cannot add ${quantity} items to cart. Only ${remainingStock} items available.
-        //   You already have ${quantityInCart} items in your cart.`);
-        // }
+          dispatch(addToCart(cartData));
+          dispatch(getCartsDB());
+          alert("Successfully added to cart");
+        } else {
+          alert(
+            `ERROR: You have reached the limit of available stock. Remember that you already have ${findCartWithUserAndBook[0].quantity} units of this book in your cart. Please reduce the quantity and try again.`
+          );
+        }
       } else {
         dispatch(
           postCarts({
@@ -121,18 +133,8 @@ export default function Details() {
           quantity: quantity,
         };
         dispatch(addToCart(cartData));
+        dispatch(getCartsDB());
         alert("Successfully added to cart");
-
-        // const itemInCart = cart.find((item) => item.id === book.id);
-        // const quantityInCart = itemInCart.quantity
-        // const remainingStock = stock - quantityInCart;
-
-        // if (remainingStock >= quantity) {
-        //   alert("Successfully added to cart");
-        // } else {
-        //   alert(`Cannot add ${quantity} items to cart. Only ${remainingStock} items available.
-        //   You already have ${quantityInCart} items in your cart.`);
-        // }
       }
     } else {
       dispatch(
@@ -154,18 +156,8 @@ export default function Details() {
       };
 
       dispatch(addToCart(cartData));
+      dispatch(getCartsDB());
       alert("Successfully added to cart");
-
-      // const itemInCart = cart.find((item) => item.id === book.id);
-      // const quantityInCart = itemInCart ? itemInCart.quantity : 0;
-      // const remainingStock = stock - quantityInCart;
-
-      // if (remainingStock >= quantity) {
-      //   alert("Successfully added to cart");
-      // } else {
-      //   alert(`Cannot add ${quantity} items to cart. Only ${remainingStock} items available.
-      //   You already have ${quantityInCart} items in your cart.`);
-      // }
     }
   };
 
@@ -242,7 +234,7 @@ export default function Details() {
 
 
   return (
-    <div>
+    <div className="bg-slate-300 min-h-screen w-screen">
       <NavBar />
       {!book.author ? (
         <Loader />
@@ -296,90 +288,148 @@ export default function Details() {
                   </span>
                   {user ? (
                     <>
-                      <div className="quantity-select">
-                        <label htmlFor="quantity">Quantity:</label>
-                        <select
-                          id="quantity"
-                          value={quantity}
-                          onChange={(e) =>
-                            setQuantity(parseInt(e.target.value))
-                          }
-                        >
-                          {Array.from(
-                            { length: book.stock },
-                            (_, index) => index + 1
-                          ).map((num) => (
-                            <option key={num} value={num}>
-                              {num}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                      <button
-                        className="Add-to-cart"
-                        onClick={handleAddToCart}
-                        disabled={stock === 0 || selectedQuantity > stock}
-                      >
-                        Add To Cart
-                      </button>
-                      <h4 className="stock">Stock: {book.stock}</h4>
-                      <button className="Buy-it" onClick={handleBuyClick}>
-                        Buy it
-                      </button>
-                      <div className="reviews">
-                        <h3>Add a Review:</h3>
-                        <textarea
-                          type="text"
-                          value={comment}
-                          onChange={(e) => setComment(e.target.value)}
-                          placeholder="Write your comment"
-                          className="comment"
-                        />
+                      {book.stock > 0 ? (
+                        <>
+                          <Stock stock={book.stock}></Stock>
+                          <button
+                            className="Add-to-cart"
+                            onClick={handleAddToCart}
+                          >
+                            Add To Cart
+                          </button>
+                          <h4 className="stock">Stock: {book.stock}</h4>
+                          <button className="Buy-it" onClick={handleBuyClick}>
+                            Buy it
+                          </button>
+                          <div className="reviews">
+                            <h3>Add a Review:</h3>
+                            <textarea
+                              type="text"
+                              value={comment}
+                              onChange={(e) => setComment(e.target.value)}
+                              placeholder="Write your comment"
+                              className="comment"
+                            />
 
-                        <h2>Rating: {rating} estrellas</h2>
-                        <div className="rating-container">
-                          {[...Array(5)].map((_, index) => {
-                            const starValue = index + 1;
-                            return (
-                              <FaStar
-                                key={index}
-                                className="star"
-                                color={
-                                  starValue <= rating ? "#ffc107" : "#e4e5e9"
-                                }
-                                onClick={() => handleClick(starValue)}
-                              />
-                            );
-                          })}
-                        </div>
-                        <br />
-                        <button onClick={handleAddReview}>Submit</button>
-                        <h2>Reviews</h2>
-                        {reviews?.map((review) => (
-                          <div key={review?.id}>
-                            <h3>
-                              UserName:{" "}
-                              {review?.user?.username ||
-                                "Error user with no name"}
-                            </h3>
-                            <p>Comment: {review?.reviewContent}</p>
-                            <p>Rating: {review?.rating}</p>
-                            {user && (user.uid === review?.user?.id || user.isAdmin) && (
-                              <button onClick={() => handleDeleteReview(review.id)}>Eliminar</button>
-                            )}
+                            <h2>Rating: {rating} estrellas</h2>
+                            <div className="rating-container">
+                              {[...Array(5)].map((_, index) => {
+                                const starValue = index + 1;
+                                return (
+                                  <FaStar
+                                    key={index}
+                                    className="star"
+                                    color={
+                                      starValue <= rating
+                                        ? "#ffc107"
+                                        : "#e4e5e9"
+                                    }
+                                    onClick={() => handleClick(starValue)}
+                                  />
+                                );
+                              })}
+                            </div>
+                            <br />
+                            <button onClick={handleAddReview}>Submit</button>
+                            <h2>Reviews</h2>
+                            {reviews?.map((review) => (
+                              <div key={review?.id}>
+                                <h3>
+                                  UserName:{" "}
+                                  {review?.user?.username ||
+                                    "Error user with no name"}
+                                </h3>
+                                <p>Comment: {review?.reviewContent}</p>
+                                <p>Rating: {review?.rating}</p>
+                              </div>
+                            ))}
                           </div>
-                        ))}
-                        
-                      </div>
+                        </>
+                      ) : (
+                        <>
+                          <button
+                            className="Add-to-cart"
+                            onClick={handleAddToCart}
+                            disabled={book.stock <= 0}
+                          >
+                            Add To Cart
+                          </button>
+                          <h4 className="stock">Stock: Out of stock</h4>
+                          <button
+                            className="Buy-it"
+                            onClick={handleBuyClick}
+                            disabled={book.stock <= 0}
+                          >
+                            Buy it
+                          </button>
+                          <div className="reviews">
+                            <h3>Add a Review:</h3>
+                            <textarea
+                              type="text"
+                              value={comment}
+                              onChange={(e) => setComment(e.target.value)}
+                              placeholder="Write your comment"
+                              className="comment"
+                            />
+                            <h2>Rating: {rating} estrellas</h2>
+                            <div className="rating-container">
+                              {[...Array(5)].map((_, index) => {
+                                const starValue = index + 1;
+                                return (
+                                  <FaStar
+                                    key={index}
+                                    className="star"
+                                    color={
+                                      starValue <= rating
+                                        ? "#ffc107"
+                                        : "#e4e5e9"
+                                    }
+                                    onClick={() => handleClick(starValue)}
+                                  />
+                                );
+                              })}
+                            </div>
+                            <br />
+                            <button onClick={handleAddReview}>Submit</button>
+                            <h2>Reviews</h2>
+                            {reviews?.map((review) => (
+                              <div key={review?.id}>
+                                <h3>
+                                  UserName:{" "}
+                                  {review?.user?.username ||
+                                    "Error user with no name"}
+                                </h3>
+                                <p>Comment: {review?.reviewContent}</p>
+                                <p>Rating: {review?.rating}</p>
+                              </div>
+                            ))}
+                          </div>
+                        </>
+                      )}
                     </>
                   ) : (
                     <>
-                      <Link to="/login">
-                        <button className="Add-to-cart">Add To Cart</button>
-                      </Link>
-                      <Link to="/login">
-                        <button className="Buy-it">Buy it</button>
-                      </Link>
+                      {book.stock > 0 ? (
+                        <>
+                          <h4 className="stock">Stock: {book.stock}</h4>
+                          <Link to="/login">
+                            <button className="Add-to-cart">Add To Cart</button>
+                          </Link>
+                          <Link to="/login">
+                            <button className="Buy-it">Buy it</button>
+                          </Link>
+                        </>
+                      ) : (
+                        <>
+                          <h4 className="stock">Stock: No hay stock</h4>
+                          <Link to="/login">
+                            <button className="Add-to-cart">Add To Cart</button>
+                          </Link>
+                          <Link to="/login">
+                            <button className="Buy-it">Buy it</button>
+                          </Link>
+                        </>
+                      )}
                     </>
                   )}
                 </div>

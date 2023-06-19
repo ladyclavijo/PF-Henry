@@ -2,10 +2,20 @@
 /*  ----- Colores para el tema light -----*/
 
     --color-background: #9DC8C5;
+    --color-text: black;
+    --color-container: rgb(187, 247, 208);
+    --color-cards: #bbf7d0;
+    --color-pagination: #02355e; 
+    --color-arrows: black;
   }
   
   [data-theme="dark"] {
 /*  ----- Colores para el tema dark ----- */
 
-    --color-background: #333333;
+    --color-background: #292929;
+    --color-text: rgb(255, 255, 255);
+    --color-container: rgb(83, 122, 129);
+    --color-cards: #3a3e3f;
+    --color-pagination: #5e6b71; 
+    --color-arrows: white;
   }

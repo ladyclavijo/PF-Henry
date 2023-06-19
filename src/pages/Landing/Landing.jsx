@@ -1,12 +1,27 @@
-import React from "react";
+import React, { useContext} from "react";
 import { Link } from "react-router-dom";
 import "./Landing.css";
 import imagen from "../../assets/landing-image.png"
 import logo from "../../assets/Logo.png"
+import { ThemeContext } from "../../components/ThemeProvider/ThemeProvider";
+import "../../Styles/colors.css";
+
 
 export default function Landing() {
+
+  const { theme, toggleTheme } = useContext(ThemeContext);
+  const handleToggleTheme = () => {
+    toggleTheme();
+  };
+  const styles = {
+    container: {
+        backgroundColor: "var(--color-background)",
+    },
+  };
+
+
   return (
-    <div className="landing-page">
+    <div className={`landing-page bg-slate-300 min-h-screen w-screen`} style={styles.container}>
       <nav className="navbar">
         <div className="logo">
           <img
@@ -15,6 +30,17 @@ export default function Landing() {
             style={{ width: '200px', height: 'auto' }}
           />
         </div>
+
+        {/* ------------ SWITCH DARKMODE ------------ */}
+
+        <label className={`ui-switch ${theme === 'dark' ? 'dark' : ''} landing-switch`}>
+          <input type="checkbox" onChange={handleToggleTheme} checked={theme === 'dark'} />
+          <div className="slider">
+            <div className="circle"></div>
+          </div>
+        </label>
+
+
         <div className="buttons">
           {/* <button className="buttonLog">Log In</button>
           <button className="buttonSign">Sign Up</button> */}

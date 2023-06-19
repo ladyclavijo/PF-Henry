@@ -20,7 +20,7 @@ export default function Pagination({ bookSorted, cardsPerPage }) {
       <div>
         <span>
           <button
-            className={`${style.prevNext}`}
+            className={`${style.prevNext} ${style.arrowButton}`}
             onClick={() => dispatch(getPages(currentPage - 1))}
             disabled={!hasPreviousPage}
             style={{ visibility: hasPreviousPage ? "visible" : "hidden" }}
@@ -34,7 +34,7 @@ export default function Pagination({ bookSorted, cardsPerPage }) {
         {pageRange.map((page) => (
           <button
             key={page}
-            className={`${style.button} ${currentPage === page && style.active}`}
+            className={`${style.button} ${style.pageButton} ${currentPage === page && style.active}`}
             onClick={() => dispatch(getPages(page))}
           >
             {page}
@@ -44,7 +44,7 @@ export default function Pagination({ bookSorted, cardsPerPage }) {
       <div>
         <span>
           <button
-            className={`${style.prevNext}`}
+            className={`${style.prevNext} ${style.arrowButton}`}
             onClick={() => dispatch(getPages(currentPage + 1))}
             disabled={!hasNextPage}
             style={{ visibility: hasNextPage ? "visible" : "hidden" }}
