@@ -196,13 +196,42 @@ export default function Details() {
     }
   };
 
-  const handleMouseEnter = (value) => {
-    setRating(value);
+  const handleClick = (value) => {
+    if (value === rating) {
+      setRating(0);
+    } else {
+      setRating(value);
+    }
   };
 
-  const handleClick = (value) => {
-    setRating(value);
+  const handleDeleteReview = (id) => {
+    if (user && (user.uid === id || user.isAdmin)) {
+      deleteReview(id)
+        .then(() => {
+          // Actualiza la lista de reseñas mostrada en el frontend si es necesario
+          const updatedReviews = reviews.filter((review) => review.id !== id);
+          setReviews(updatedReviews);
+        })
+        .catch((error) => {
+          console.error(error);
+          // Maneja el error en caso de fallo en la solicitud
+        });
+    }
   };
+
+  const deleteReview = async (id) => {
+    try {
+      const response = await axios.delete(`/users/review/delete/${id}`);
+      if (response.status === 200) {
+        return response.data;
+      } else {
+        throw new Error("Error al eliminar la reseña");
+      }
+    } catch (error) {
+      throw error;
+    }
+  };
+
 
   return (
     <div className="bg-slate-300 min-h-screen w-screen">
@@ -295,9 +324,6 @@ export default function Details() {
                                         ? "#ffc107"
                                         : "#e4e5e9"
                                     }
-                                    onMouseEnter={() =>
-                                      handleMouseEnter(starValue)
-                                    }
                                     onClick={() => handleClick(starValue)}
                                   />
                                 );
@@ -345,7 +371,6 @@ export default function Details() {
                               placeholder="Write your comment"
                               className="comment"
                             />
-
                             <h2>Rating: {rating} estrellas</h2>
                             <div className="rating-container">
                               {[...Array(5)].map((_, index) => {
@@ -358,9 +383,6 @@ export default function Details() {
                                       starValue <= rating
                                         ? "#ffc107"
                                         : "#e4e5e9"
-                                    }
-                                    onMouseEnter={() =>
-                                      handleMouseEnter(starValue)
                                     }
                                     onClick={() => handleClick(starValue)}
                                   />
