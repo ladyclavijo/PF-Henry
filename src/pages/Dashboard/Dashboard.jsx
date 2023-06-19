@@ -3,7 +3,7 @@ import { useAuth } from "../../context/authContext";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import DashboardUsers from "../../components/DashboardUsers/DashboardUsers";
-import Graphic from "../../components/Graphics/ItemSold";
+// import Graphic from "../../components/Graphics/ItemSold";
 // import Charges from "../../components/Graphics/Charges";
 import { FaUsers, FaChartBar, FaHome } from "react-icons/fa";
 import NavBar from "../../components/NavBar/NavBar";
