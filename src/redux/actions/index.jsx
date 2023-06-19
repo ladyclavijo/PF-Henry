@@ -372,19 +372,19 @@ export const setQuantity = (number) => {
   };
 };
 
-export const getOrders = () => {
-  return async function (dispatch) {
-    try {
-      const orders = await axios.get("/payments/orders");
-      return dispatch({
-        type: TOTAL_ITEMS,
-        payload: orders.data,
-      });
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-};
+// export const getOrders = () => {
+//   return async function (dispatch) {
+//     try {
+//       const orders = await axios.get("/payments/orders");
+//       return dispatch({
+//         type: TOTAL_ITEMS,
+//         payload: orders.data,
+//       });
+//     } catch (error) {
+//       console.log(error.message);
+//     }
+//   };
+// };
 
 // export const getTotalCharges = () => {
 //   return async (dispatch) => {
