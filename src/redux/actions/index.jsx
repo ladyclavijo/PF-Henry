@@ -397,10 +397,6 @@ export const getOrders = () => {
 //       orders.forEach((order) => {
 //         const createdAt = new Date(order.createdAt).toISOString().split("T")[0]; // Formato ISO 8601
 //         const totalCharge = order.items.find((item) => item.total)?.total;
-
-//         // console.log("createdAt:", createdAt);
-//         // console.log("totalCharge:", totalCharge);
-
 //         if (createdAt && totalCharge) {
 //           const parsedTotalCharge = new Decimal(totalCharge).toFixed(2);
 
@@ -412,8 +408,6 @@ export const getOrders = () => {
 //         }
 //       });
 
-//       // console.log("dailyCharges:", dailyCharges);
-
 //       dispatch({
 //         type: GET_TOTAL_CHARGES,
 //         payload: dailyCharges,
@@ -424,16 +418,16 @@ export const getOrders = () => {
 //   };
 // };
 
-// export const getBestSellers = () => {
-//   return async function (dispatch) {
-//     try {
-//       const response = await axios.get("/payments/sales");
-//       return dispatch({
-//         type: GET_BEST_SELLERS,
-//         payload: response.data.bestSellers,
-//       });
-//     } catch (error) {
-//       console.log(error.message);
-//     }
-//   };
-// };
+export const getBestSellers = () => {
+  return async function (dispatch) {
+    try {
+      const response = await axios.get("/payments/sales");
+      return dispatch({
+        type: GET_BEST_SELLERS,
+        payload: response.data.bestSellers,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+};
