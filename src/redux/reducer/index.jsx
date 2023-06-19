@@ -23,6 +23,8 @@ import {
   CLEAR_CART,
   GET_CARTS_DB,
   QUANTITY,
+  TOTAL_ITEMS,
+  GET_TOTAL_CHARGES,
 } from "../actions/actionsTypes";
 
 const initialState = {
@@ -45,9 +47,13 @@ const initialState = {
   registrationError: null,
   appliedFilters: { genre: null, language: null },
   quantity: 1,
+  dailySales: [],
+  totalItemsSold: 0,
+  totalCharges: [],
 };
 
 export default function rootReducer(state = initialState, action) {
+  let totalItemsSold;
   switch (action.type) {
     case GET_BOOKS:
       return {
@@ -217,6 +223,32 @@ export default function rootReducer(state = initialState, action) {
           language: selectedLanguage,
         };
       }
+
+    case TOTAL_ITEMS:
+      totalItemsSold = action.payload.reduce((total, order) => {
+        const itemsSold = order.items.reduce((acc, item) => {
+          if (item.qty) {
+            return acc + item.qty;
+          }
+          return acc;
+        }, 0);
+
+        return total + itemsSold;
+      }, 0);
+
+      return {
+        ...state,
+        dailySales: action.payload,
+        totalItemsSold: totalItemsSold,
+      };
+
+    case GET_TOTAL_CHARGES:
+      return {
+        ...state,
+        totalCharges: action.payload,
+      };
+
+
     case GET_GENRES_BY_ID:
       return {
         ...state,
@@ -268,4 +300,5 @@ export default function rootReducer(state = initialState, action) {
     default:
       return state;
   }
+
 }

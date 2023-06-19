@@ -27,3 +27,5 @@ export const DELETE_CARTS_DB = "DELETE_CARTS_DB";
 export const CLEAR_DETAIL = "CLEAR_DETAIL";
 export const UPDATE_BOOK = "UPDATE_BOOK";
 export const QUANTITY = "QUANTITY";
+export const TOTAL_ITEMS = "TOTAL_ITEMS";
+export const GET_TOTAL_CHARGES = "TOTAL_CHARGES";
