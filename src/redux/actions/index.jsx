@@ -32,6 +32,7 @@ import {
   QUANTITY,
   TOTAL_ITEMS,
   GET_TOTAL_CHARGES,
+  GET_BEST_SELLERS,
 } from "./actionsTypes";
 
 export const getBooks = () => {
@@ -416,6 +417,20 @@ export const getTotalCharges = () => {
       dispatch({
         type: GET_TOTAL_CHARGES,
         payload: dailyCharges,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+};
+
+export const getBestSellers = () => {
+  return async function (dispatch) {
+    try {
+      const response = await axios.get('/payments/sales');
+      return dispatch({
+        type: GET_BEST_SELLERS,
+        payload: response.data.bestSellers,
       });
     } catch (error) {
       console.log(error.message);

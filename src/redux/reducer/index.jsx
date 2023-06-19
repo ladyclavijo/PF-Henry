@@ -25,6 +25,7 @@ import {
   QUANTITY,
   TOTAL_ITEMS,
   GET_TOTAL_CHARGES,
+  GET_BEST_SELLERS,
 } from "../actions/actionsTypes";
 
 const initialState = {
@@ -50,6 +51,7 @@ const initialState = {
   dailySales: [],
   totalItemsSold: 0,
   totalCharges: [],
+  bestSellers: [],
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -295,6 +297,12 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         quantity: action.payload,
+      };
+
+    case GET_BEST_SELLERS:
+      return {
+        ...state,
+        bestSellers: action.payload,
       };
 
     default:
