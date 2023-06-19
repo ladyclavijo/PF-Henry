@@ -30,6 +30,7 @@ import { ProtectedRouteAdmin } from "./pages/Dashboard/ProtectedRouteAdmin";
 import { ThemeProvider } from "./components/ThemeProvider/ThemeProvider"; // <--- para el darkMode
 
 function App() {
+  console.log("Hello World!!");
   const dispatch = useDispatch();
   const allBooks = useSelector((state) => state.allBooks);
   useEffect(() => {
