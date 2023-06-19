@@ -1,5 +1,5 @@
 import axios from "axios";
-import Decimal from 'decimal.js';
+// import Decimal from 'decimal.js';
 import {
   GET_BOOKS,
   GET_BOOKS_BY_NAME,
@@ -386,54 +386,54 @@ export const getOrders = () => {
   };
 };
 
-export const getTotalCharges = () => {
-  return async (dispatch) => {
-    try {
-      const response = await axios.get("/payments/orders");
-      const orders = response.data;
+// export const getTotalCharges = () => {
+//   return async (dispatch) => {
+//     try {
+//       const response = await axios.get("/payments/orders");
+//       const orders = response.data;
 
-      const dailyCharges = {};
+//       const dailyCharges = {};
 
-      orders.forEach((order) => {
-        const createdAt = new Date(order.createdAt).toISOString().split("T")[0]; // Formato ISO 8601
-        const totalCharge = order.items.find((item) => item.total)?.total;
+//       orders.forEach((order) => {
+//         const createdAt = new Date(order.createdAt).toISOString().split("T")[0]; // Formato ISO 8601
+//         const totalCharge = order.items.find((item) => item.total)?.total;
 
-        // console.log("createdAt:", createdAt);
-        // console.log("totalCharge:", totalCharge);
+//         // console.log("createdAt:", createdAt);
+//         // console.log("totalCharge:", totalCharge);
 
-        if (createdAt && totalCharge) {
-          const parsedTotalCharge = new Decimal(totalCharge).toFixed(2);
+//         if (createdAt && totalCharge) {
+//           const parsedTotalCharge = new Decimal(totalCharge).toFixed(2);
 
-          if (dailyCharges[createdAt]) {
-            dailyCharges[createdAt] = new Decimal(dailyCharges[createdAt]).plus(parsedTotalCharge).toNumber();
-          } else {
-            dailyCharges[createdAt] = new Decimal(parsedTotalCharge).toNumber();
-          }
-        }
-      });
+//           if (dailyCharges[createdAt]) {
+//             dailyCharges[createdAt] = new Decimal(dailyCharges[createdAt]).plus(parsedTotalCharge).toNumber();
+//           } else {
+//             dailyCharges[createdAt] = new Decimal(parsedTotalCharge).toNumber();
+//           }
+//         }
+//       });
 
-      // console.log("dailyCharges:", dailyCharges);
+//       // console.log("dailyCharges:", dailyCharges);
 
-      dispatch({
-        type: GET_TOTAL_CHARGES,
-        payload: dailyCharges,
-      });
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-};
+//       dispatch({
+//         type: GET_TOTAL_CHARGES,
+//         payload: dailyCharges,
+//       });
+//     } catch (error) {
+//       console.log(error.message);
+//     }
+//   };
+// };
 
-export const getBestSellers = () => {
-  return async function (dispatch) {
-    try {
-      const response = await axios.get('/payments/sales');
-      return dispatch({
-        type: GET_BEST_SELLERS,
-        payload: response.data.bestSellers,
-      });
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-};
+// export const getBestSellers = () => {
+//   return async function (dispatch) {
+//     try {
+//       const response = await axios.get("/payments/sales");
+//       return dispatch({
+//         type: GET_BEST_SELLERS,
+//         payload: response.data.bestSellers,
+//       });
+//     } catch (error) {
+//       console.log(error.message);
+//     }
+//   };
+// };
