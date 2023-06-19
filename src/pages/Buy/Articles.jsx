@@ -8,10 +8,10 @@ export default function Articles() {
   const bookData = location.state;
 
   return (
-    <div className="bg-[#bbf7d0] p-6 rounded shadow">
+    <div className="bg-[#bbf7d0] p-6 rounded shadow mt-20 mb-5">
       <h2 className="text-2xl font-semibold mb-4">Order Summary</h2>
       {bookData ? (
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center ">
           <img className="w-20 h-28 object-contain" src={bookData.cover} alt="Book cover" />
           <div>
             <h2 className="text-lg font-semibold">{bookData.title}</h2>

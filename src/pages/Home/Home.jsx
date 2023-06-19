@@ -1,5 +1,5 @@
 import "./Home.css";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import NavBar from "../../components/NavBar/NavBar.jsx";
@@ -16,6 +16,9 @@ import SearchBar from "../../components/SearchBar/SearchBar.jsx";
 import logo from "../../assets/images/Logo.png";
 import Filters from "../../components/Filters/Filters";
 import { useAuth } from "../../context/authContext";
+import { ThemeContext } from "../../components/ThemeProvider/ThemeProvider";
+import Swal from "sweetalert2";
+import "../../Styles/colors.css";
 
 export default function Home() {
   const { user } = useAuth();
@@ -24,6 +27,7 @@ export default function Home() {
   const [noResults, setNoResults] = useState(false);
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
+  const [booksLoaded, setBooksLoaded] = useState(false); // Variable de estado para controlar la carga de libros
 
   useEffect(() => {
     dispatch(getCartsDB());
@@ -46,7 +50,7 @@ export default function Home() {
         );
       });
     }
-  }
+  };
 
   const bookSorted = useSelector((state) => state.bookSorted);
   const currentPages = useSelector((state) => state.paginated);
@@ -61,16 +65,41 @@ export default function Home() {
     dispatch(getBooks());
     setTimeout(() => {
       setLoading(false);
+      setBooksLoaded(true); //Marca que la carga de libros terminó
     }, 1000);
   }, [dispatch]);
 
   useEffect(() => {
     setNoResults(currentCards.length === 0);
     dispatch(clearDetail());
-  }, [currentCards, dispatch]);
+    if (currentCards.length === 0 && !loading && booksLoaded) {
+      handleNoResultsAlert();
+    }
+  }, [currentCards, dispatch, loading, booksLoaded]);
 
+
+  const { theme } = useContext(ThemeContext); // <--- darkMode
+
+    const styles = {
+        container: {
+            backgroundColor: "var(--color-background)",
+        },
+    };
+
+  const handleNoResultsAlert = () => { // <--- sweetAlert
+    Swal.fire({
+      title: 'Opss!',
+      text: 'No books match your search.',
+      imageUrl: 'https://i.pinimg.com/564x/7c/a4/2e/7ca42e4ff366cf7e8ce6b150bfb7b2d9.jpg',
+      imageWidth: 300,
+      imageHeight: 150,
+      imageAlt: 'Custom image',
+    })
+  };
+
+  
   return (
-    <div className="home-page bg-slate-300 min-h-screen w-screen">
+    <div className={"home-page bg-slate-300 min-h-screen"} style={styles.container} >
       <div className="home-navbar">
         <div className="div-logo">
           <img src={logo} alt="logo" />
@@ -114,15 +143,11 @@ export default function Home() {
                 stock={book.stock}
                 genres={book.genres}
                 price={book.price}
+                
               />
             ))
-          ) : (
-            <div className="no-results">
-              <h2 className="text-red-500 text-4xl mt-11 ml-12 whitespace-nowrap break-words">
-                No books match your search.
-              </h2>
-            </div>
-          )}
+          ) : null}
+
         </div>
         {!error.length && (
           <Pagination
