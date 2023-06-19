@@ -7,7 +7,7 @@ import Graphic from "../../components/Graphics/ItemSold";
 // import Charges from "../../components/Graphics/Charges";
 import { FaUsers, FaChartBar, FaHome } from "react-icons/fa";
 import NavBar from "../../components/NavBar/NavBar";
-import BestSellers from "../../components/Graphics/BestSellers";
+// import BestSellers from "../../components/Graphics/BestSellers";
 import "./sidebar.css";
 
 export default function Dashboard() {
@@ -78,7 +78,7 @@ export default function Dashboard() {
             <div className="my-8">
               <Graphic />
               {/* <Charges /> */}
-              <BestSellers />
+              {/* <BestSellers /> */}
             </div>
           )}
         </div>

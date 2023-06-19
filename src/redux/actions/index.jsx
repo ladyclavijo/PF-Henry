@@ -418,16 +418,16 @@ export const getOrders = () => {
 //   };
 // };
 
-export const getBestSellers = () => {
-  return async function (dispatch) {
-    try {
-      const response = await axios.get("/payments/sales");
-      return dispatch({
-        type: GET_BEST_SELLERS,
-        payload: response.data.bestSellers,
-      });
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-};
+// export const getBestSellers = () => {
+//   return async function (dispatch) {
+//     try {
+//       const response = await axios.get("/payments/sales");
+//       return dispatch({
+//         type: GET_BEST_SELLERS,
+//         payload: response.data.bestSellers,
+//       });
+//     } catch (error) {
+//       console.log(error.message);
+//     }
+//   };
+// };
