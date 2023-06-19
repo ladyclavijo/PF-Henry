@@ -1,6 +1,8 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useContext } from "react";
 // import CartButton from "../CartButton/CartButton.jsx"
 import { Link } from "react-router-dom";
+import { ThemeContext } from "../ThemeProvider/ThemeProvider";
+import "../../Styles/colors.css";
 
 export default function Card({
   id,
@@ -11,6 +13,15 @@ export default function Card({
   genres,
   price,
 }) {
+
+  const { theme } = useContext(ThemeContext);
+
+    const styles = {
+        container: {
+            backgroundColor: "var(--color-cards)",
+            color: "var(--color-text)",
+        },
+    };
   // Props basadas en la API
 
   // function handleAddCart() { // Acá iría toda la lógica de añadir el libro a la lista de la compra
@@ -19,18 +30,18 @@ export default function Card({
   if (stock) {
     // Este "if()" es para saber si el libro está en stock o no
     return (
-      <div className="bg-[#9DC8C5] border-2 border-[#9DC8C5] w-64 h-128 rounded-md hover:opacity-75 transition duration-500 mx-auto">
+      <div className={`bg-[#bbf7d0] w-64 h-125 rounded-md hover:opacity-75 hover:text-white transition duration-500 mx-auto`} style={styles.container}>
         <div className="p-4 flex flex-col justify-between h-full ">
           <Link to={"/book/" + id} className="text-black ">
-            <div className="bg-[#9DC8C5]">
-              <h3 className="text-xl font-semibold h-20 overflow-hidden mb-2">
+            <div className={`bg-[#bbf7d0]`} style={styles.container}>
+              <h3 className="text-xl font-medium h-20 overflow-hidden mb-2 text-center hover:text-white">
                 {title}
               </h3>
               <div className="mt-1 flex-grow">
                 <img src={cover} alt={title} className="w-full h-auto" />
               </div>
-              <p className="mt-2">{author}</p>
-              <p className="mt-2">${price}</p>
+              <p className="mt-2 text-center font-light hover:text-white">{author}</p>
+              <p className="mt-2 text-center font-bold text-xl hover:text-black">${price}</p>
             </div>
           </Link>
           {/* <CartButton
@@ -41,18 +52,18 @@ export default function Card({
     );
   } else {
     return (
-      <div className="bg-[#9DC8C5] border-2 border-[#9DC8C5] w-64 h-128 rounded-md hover:opacity-75 transition duration-500 mx-auto">
+      <div className={`bg-[#bbf7d0] w-64 h-125 rounded-md hover:opacity-75 hover:text-white transition duration-500 mx-auto`} style={styles.container}>
         <div className="p-4 flex flex-col justify-between h-full ">
           <Link to={"/book/" + id} className="text-black ">
-            <div className="bg-[#9DC8C5]">
-              <h3 className="text-xl font-semibold h-20 overflow-hidden mb-2">
+            <div className={`bg-[#bbf7d0]`} style={styles.container}>
+              <h3 className="text-xl font-medium h-20 overflow-hidden mb-2 text-center hover:text-white">
                 {title}
               </h3>
               <div className="mt-1 flex-grow">
                 <img src={cover} alt={title} className="w-full h-auto" />
               </div>
-              <p className="mt-2">{author}</p>
-              <p className="mt-2">Out of stock</p>
+              <p className="mt-2 text-center font-light hover:text-white">{author}</p>
+              <p className="mt-2 text-center font-extrabold text-lg hover:text-black">Out of stock</p>
             </div>
           </Link>
           {/* <CartButton

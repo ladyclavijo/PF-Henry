@@ -1,6 +1,6 @@
 /* Landing.css */
 .landing-page {
-  color: rgb(225, 14, 14);
+  color: rgb(141, 151, 150);
 }
 
 .navbar {
@@ -102,7 +102,7 @@
 }
 
 .explore-button {
-  background-color: rgb(89, 92, 186);
+  background-color: rgb(69, 70, 119);
   color: rgb(255, 255, 255);
   border: none;
   padding: 10px 20px;
@@ -112,7 +112,13 @@
   border-radius: 5px;
 }
 .explore-button:hover{
-  background-color: rgb(25, 29, 168);
+  background-color: rgb(51, 55, 163);
   color: rgb(255, 255, 255);
   transition: .8s;
+}
+
+.landing-switch {
+  display: flex;
+  margin-left: auto;
+  margin-right: 60px; 
 }

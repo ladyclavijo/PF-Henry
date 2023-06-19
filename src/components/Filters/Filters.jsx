@@ -59,24 +59,8 @@ export default function Filters() {
 
   return (
     <div className="filters-container">
-      <div className="filter-section">
-        <label>Sort By:</label>
-        <select onChange={handleSort} value={selectSort}>
-          <option hidden>All</option>
-          <option value="ASC">A-Z</option>
-          <option value="DES">Z-A</option>
-        </select>
-      </div>
 
-      <div className="filter-section">
-        <label>Price:</label>
-        <select onChange={handlePrice} value={selectPrice}>
-          <option hidden>All</option>
-          <option value="PRI+">HIGHER PRICES</option>
-          <option value="PRI-">LESSER PRICES</option>
-        </select>
-      </div>
-
+      
       <div className="filter-section">
         <label>Genres:</label>
         <select onChange={filterBooksByGenres} value={selectGenre}>
@@ -96,6 +80,7 @@ export default function Filters() {
         </select>
       </div>
 
+
       <div className="filter-section">
         <label>Language:</label>
         <select onChange={filterBooksByLanguages} value={selectLanguage}>
@@ -104,6 +89,27 @@ export default function Filters() {
           <option value="en">English</option>
         </select>
       </div>
+
+
+      <div className="filter-section">
+        <label>Sort By:</label>
+        <select onChange={handleSort} value={selectSort}>
+          <option hidden>All</option>
+          <option value="ASC">A-Z</option>
+          <option value="DES">Z-A</option>
+        </select>
+      </div>
+
+
+      <div className="filter-section">
+        <label>Price:</label>
+        <select onChange={handlePrice} value={selectPrice}>
+          <option hidden>All</option>
+          <option value="PRI+">HIGHER PRICES</option>
+          <option value="PRI-">LESSER PRICES</option>
+        </select>
+      </div>
+
 
       <div className="clean-div">
         {/* {Object.values(appliedFilters).some((filter) => filter !== null) && ( -------OCULTA EL BOTON AL LIMPIAR LOS FILTROS-------*/}

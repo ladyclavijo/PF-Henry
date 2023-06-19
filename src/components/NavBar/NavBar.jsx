@@ -9,8 +9,8 @@ import { ThemeContext } from "../ThemeProvider/ThemeProvider";
 
 const NavBar = ({ admin }) => {
   const { user, logout } = useAuth(); // Usar el hook useAuth para obtener la información de usuario y la función de logout
+  
   const { theme, toggleTheme } = useContext(ThemeContext);
-
   const handleToggleTheme = () => {
     toggleTheme();
   };
@@ -21,19 +21,21 @@ const NavBar = ({ admin }) => {
     // <ThemeContext.Provider value={theme}>
 
     <div className={`navbar-home ${theme}`}>
-      <div className="backToLanding">
+      <div className="nav-links-left">
         <Link to="/home">
           <div className="icon-home">
             <AiOutlineHome />
           </div>
         </Link>
+
+        <Link to="/about">
+          <div className="button-about">About Us</div>
+        </Link>
       </div>
+      
 
-      <div className="nav-links">
-
-
+    <div className="nav-links-right">
         {/* ------------ SWITCH DARKMODE ------------ */}
-
         <label className={`ui-switch ${theme === 'dark' ? 'dark' : ''}`}>
           <input type="checkbox" onChange={handleToggleTheme} checked={theme === 'dark'} />
           <div className="slider">
@@ -41,15 +43,13 @@ const NavBar = ({ admin }) => {
           </div>
         </label>
 
-        <Link to="/about">
-          <div className="button-about">About Us</div>
-        </Link>
-
-
+        
         <ProtectedButtonAdmin>
+        <div className="dashboard-button">
           <Link to="/dashboard">
             <div className="mr-5">Dashboard</div>
           </Link>
+          </div>
         </ProtectedButtonAdmin>
 
         {user == null || user === undefined ? (
@@ -66,7 +66,7 @@ const NavBar = ({ admin }) => {
             <UserProfile user={user} handleLogout={logout} />
           </div>
         )}
-      </div>
+      
       {user ? (
         <div className="nav-Cart">
           <Link to="/cart">
@@ -84,6 +84,8 @@ const NavBar = ({ admin }) => {
           </Link>
         </div>
       )}
+
+    </div>
     </div>
     // </ThemeContext.Provider>
   );

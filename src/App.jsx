@@ -21,16 +21,13 @@ import ReactGA from "react-ga";
 ReactGA.initialize("G-P14D1VL6YW");
 ReactGA.pageview(window.location.pathname + window.location.search);
 //------------------------- AUTH COMPONENTS ------------------------------//
-// // import HomeAuth from "./components/Auth/HomeAuth/HomeAuth";
 import Login from "./components/Auth/Login/Login";
 import Register from "./components/Auth/Register/Register";
 import NewUsersForm from "./components/Auth/NewUsersForm/NewUsersForm";
 import AuthProvider from "./context/authContext";
-// import {ProtectedRoute} from "./components/Auth/ProtectedRoute/ProtectedRoute"
 import { ProtectedRoute } from "./components/Auth/ProtectedRoute/ProtectedRoute";
 import { ProtectedRouteAdmin } from "./pages/Dashboard/ProtectedRouteAdmin";
-// ------------------------ PARA EL DARKMODE --------------------------------- //
-import { ThemeProvider } from "./components/ThemeProvider/ThemeProvider";
+import { ThemeProvider } from "./components/ThemeProvider/ThemeProvider"; // <--- para el darkMode
 
 function App() {
   const dispatch = useDispatch();
@@ -101,9 +98,7 @@ function App() {
             <Route path="/privacypolicy" element={<Privacy />} />
             <Route path="/returnpolicies" element={<ReturnPolicies />} />
             {/*---------------------- AUTH ROUTES ------------------------------- */}
-            {/* <ProtectedRoute> */}
-            {/* <Route path="/welcome" element={<HomeAuth />} /> */}
-            {/* </ProtectedRoute> */}
+
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/newuser" element={<NewUsersForm />} />
