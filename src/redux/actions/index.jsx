@@ -1,5 +1,4 @@
 import axios from "axios";
-// import Decimal from 'decimal.js';
 import {
   GET_BOOKS,
   GET_BOOKS_BY_NAME,
@@ -372,62 +371,68 @@ export const setQuantity = (number) => {
   };
 };
 
-// export const getOrders = () => {
-//   return async function (dispatch) {
-//     try {
-//       const orders = await axios.get("/payments/orders");
-//       return dispatch({
-//         type: TOTAL_ITEMS,
-//         payload: orders.data,
-//       });
-//     } catch (error) {
-//       console.log(error.message);
-//     }
-//   };
-// };
+export const getOrders = () => {
+  return async function (dispatch) {
+    try {
+      const orders = await axios.get("/payments/orders");
+      return dispatch({
+        type: TOTAL_ITEMS,
+        payload: orders.data,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+};
 
-// export const getTotalCharges = () => {
-//   return async (dispatch) => {
-//     try {
-//       const response = await axios.get("/payments/orders");
-//       const orders = response.data;
+export const getTotalCharges = () => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get("/payments/orders");
+      const orders = response.data;
 
-//       const dailyCharges = {};
+      const dailyCharges = {};
 
-//       orders.forEach((order) => {
-//         const createdAt = new Date(order.createdAt).toISOString().split("T")[0]; // Formato ISO 8601
-//         const totalCharge = order.items.find((item) => item.total)?.total;
-//         if (createdAt && totalCharge) {
-//           const parsedTotalCharge = new Decimal(totalCharge).toFixed(2);
+      orders.forEach((order) => {
+        const createdAt = new Date(order.createdAt).toISOString().split("T")[0]; // Formato ISO 8601
+        const totalCharge = order.items.find((item) => item.total)?.total;
+        if (createdAt && totalCharge) {
+          const parsedTotalCharge = parseFloat(totalCharge).toFixed(2);
 
-//           if (dailyCharges[createdAt]) {
-//             dailyCharges[createdAt] = new Decimal(dailyCharges[createdAt]).plus(parsedTotalCharge).toNumber();
-//           } else {
-//             dailyCharges[createdAt] = new Decimal(parsedTotalCharge).toNumber();
-//           }
-//         }
-//       });
+          if (dailyCharges[createdAt]) {
+            dailyCharges[createdAt] = parseFloat(dailyCharges[createdAt]) + parseFloat(parsedTotalCharge);
+          } else {
+            dailyCharges[createdAt] = parseFloat(parsedTotalCharge);
+          }
+        }
+      });
 
-//       dispatch({
-//         type: GET_TOTAL_CHARGES,
-//         payload: dailyCharges,
-//       });
-//     } catch (error) {
-//       console.log(error.message);
-//     }
-//   };
-// };
+      // Redondear los valores a 2 decimales
+      for (const date in dailyCharges) {
+        dailyCharges[date] = parseFloat(dailyCharges[date]).toFixed(2);
+      }
 
-// export const getBestSellers = () => {
-//   return async function (dispatch) {
-//     try {
-//       const response = await axios.get("/payments/sales");
-//       return dispatch({
-//         type: GET_BEST_SELLERS,
-//         payload: response.data.bestSellers,
-//       });
-//     } catch (error) {
-//       console.log(error.message);
-//     }
-//   };
-// };
+      dispatch({
+        type: GET_TOTAL_CHARGES,
+        payload: dailyCharges,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+};
+
+
+export const getBestSellers = () => {
+  return async function (dispatch) {
+    try {
+      const response = await axios.get("/payments/sales");
+      return dispatch({
+        type: GET_BEST_SELLERS,
+        payload: response.data.bestSellers,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+};
