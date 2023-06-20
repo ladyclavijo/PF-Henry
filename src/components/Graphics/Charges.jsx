@@ -1,47 +1,31 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { VictoryBar, VictoryChart, VictoryAxis, VictoryTooltip, VictoryLegend } from 'victory';
-import { getTotalCharges } from '../../redux/actions';
+// import React, { useEffect } from 'react';
+// import { useSelector, useDispatch } from 'react-redux';
+// import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+// import { getTotalCharges } from '../../redux/actions';
 
-export default function Charges() {
-    const dispatch = useDispatch();
-    const totalCharges = useSelector((state) => state.totalCharges);
+// export default function Charges() {
+//     const dispatch = useDispatch();
+//     const totalCharges = useSelector((state) => state.totalCharges);
 
-    useEffect(() => {
-        dispatch(getTotalCharges());
-    }, [dispatch]);
+//     useEffect(() => {
+//         dispatch(getTotalCharges());
+//     }, [dispatch]);
 
-    const data = Object.keys(totalCharges).map((date) => ({
-        date,
-        Amount: totalCharges[date],
-    }));
+//     const data = Object.keys(totalCharges).map((date) => ({
+//         date,
+//         Amount: totalCharges[date],
+//     }));
 
-    return (
-        <div className=''>
-            <h2>Total transaction amount</h2>
-            <VictoryChart width={700} height={500}>
-                <VictoryAxis
-                    dependentAxis
-                    tickFormat={(tick) => `$${tick}`}
-                />
-                <VictoryAxis />
-                <VictoryLegend x={280} y={20}
-                    orientation="horizontal"
-                    data={[{ name: "Amount", symbol: { fill: "#8884d8" } }]}
-                />
-                <VictoryBar
-                    data={data}
-                    x="date"
-                    y="Amount"
-                    labelComponent={<VictoryTooltip />}
-                    style={{
-                        data: { fill: "#8884d8" },
-                        labels: { fontSize: 10, angle: -45 }
-                    }}
-                    barWidth={50}
-                    alignment="start"
-                />
-            </VictoryChart>
-        </div>
-    );
-}
+//     return (
+//         <div>
+//             <h2>Total transaction amount</h2>
+//             <BarChart width={600} height={500} data={data}>
+//                 <XAxis dataKey="date" />
+//                 <YAxis />
+//                 <Tooltip />
+//                 <Legend />
+//                 <Bar dataKey="Amount" fill="#8884d8" barSize={150} />
+//             </BarChart>
+//         </div>
+//     );
+// }
