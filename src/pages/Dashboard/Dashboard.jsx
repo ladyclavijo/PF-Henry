@@ -3,7 +3,6 @@ import { useAuth } from "../../context/authContext";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import DashboardUsers from "../../components/DashboardUsers/DashboardUsers";
-import MyResponsivePie from "../../components/Graph/ReponsivePie";
 import { FaUsers, FaChartBar, FaHome } from "react-icons/fa";
 import NavBar from "../../components/NavBar/NavBar";
 import "./sidebar.css";
@@ -107,9 +106,6 @@ export default function Dashboard() {
 
           {selectedTab === "graphics" && (
             <div className="border border-red-500">
-              <MyResponsivePie
-              data={data}
-              />
               HOLAAA
             </div>
           )}
