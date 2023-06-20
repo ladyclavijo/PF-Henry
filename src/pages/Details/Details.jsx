@@ -170,19 +170,11 @@ export default function Details() {
       rating: rating,
       userId: user.uid,
     };
-    const userDB = allUsers.find((u) => u.id === user.uid);
     saveReview(reviewData)
       .then((response) => {
         // Actualiza la lista de reseñas mostrada en el frontend si es necesario
-        setReviews([
-          ...reviews,
-          {
-            id: book.id,
-            rating: rating,
-            reviewContent: comment,
-            user: { username: userDB.username },
-          },
-        ]);
+        dispatch(getBookDetail(id));
+        setReviews(book.reviews);
         // Limpia los campos de comentario y calificación
         setComment("");
         setRating(0);
@@ -192,7 +184,6 @@ export default function Details() {
         // Maneja el error en caso de fallo en la solicitud
       });
   };
-  console.log(reviews);
   const saveReview = async (reviewData) => {
     try {
       const response = await axios.post("/users/review", reviewData);
@@ -215,21 +206,22 @@ export default function Details() {
   };
 
   const handleDeleteReview = (id, userId) => {
-    const userDB = allUsers.find((u) => u.id === user.uid);
-    if (user && (user.uid === userId || userDB.isAdmin)) {
-      deleteReview(id)
-        .then(() => {
-          // Actualiza la lista de reseñas mostrada en el frontend si es necesario
-          const updatedReviews = reviews.filter((review) => review.id !== id);
-          setReviews(updatedReviews);
-        })
-        .catch((error) => {
-          console.error(error);
-          // Maneja el error en caso de fallo en la solicitud
-        });
+    if (user) {
+      const userDB = allUsers.find((u) => u.id === user.uid);
+      if (user.uid === userId || userDB.isAdmin) {
+        deleteReview(id)
+          .then(() => {
+            // Actualiza la lista de reseñas mostrada en el frontend si es necesario
+            const updatedReviews = reviews.filter((review) => review.id !== id);
+            setReviews(updatedReviews);
+          })
+          .catch((error) => {
+            console.error(error);
+            // Maneja el error en caso de fallo en la solicitud
+          });
+      }
     }
   };
-
   const deleteReview = async (id) => {
     try {
       const response = await axios.delete(`/users/review/delete/${id}`);
@@ -347,7 +339,10 @@ export default function Details() {
                                 <button
                                   className="mt-2 text-red-600"
                                   onClick={() =>
-                                    handleDeleteReview(review.id, review.userId)
+                                    handleDeleteReview(
+                                      review?.id,
+                                      review?.userId
+                                    )
                                   }
                                 >
                                   <FaTrash size={17} />
@@ -411,11 +406,14 @@ export default function Details() {
                             <button onClick={handleAddReview}>Submit</button>
                             <h2>Reviews</h2>
                             {reviews?.map((review) => (
-                              <div key={review?.id}>
+                              <div key={review.id}>
                                 <button
                                   className="mt-2 text-red-600"
                                   onClick={() =>
-                                    handleDeleteReview(review.id, review.userId)
+                                    handleDeleteReview(
+                                      review?.id,
+                                      review?.userId
+                                    )
                                   }
                                 >
                                   <FaTrash size={17} />
