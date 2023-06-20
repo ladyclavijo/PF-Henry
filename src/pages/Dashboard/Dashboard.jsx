@@ -32,27 +32,23 @@ export default function Dashboard() {
                 <FaHome />
               </Link>
               <div
-                className={`sidebar-icon mt-4 ${
-                  selectedTab === "users" ? "active" : ""
-                } text-2xl mb-4 cursor-pointer`}
+                className={`sidebar-icon mt-4 ${selectedTab === "users" ? "active" : ""
+                  } text-2xl mb-4 cursor-pointer`}
                 onClick={() => handleTabChange("users")}
               >
                 <FaUsers
-                  className={`${
-                    selectedTab === "users" ? "text-white" : "text-black"
-                  } transition-colors duration-300`}
+                  className={`${selectedTab === "users" ? "text-white" : "text-black"
+                    } transition-colors duration-300`}
                 />
               </div>
               <div
-                className={`sidebar-icon ${
-                  selectedTab === "graphics" ? "active" : ""
-                } text-2xl cursor-pointer`}
+                className={`sidebar-icon ${selectedTab === "graphics" ? "active" : ""
+                  } text-2xl cursor-pointer`}
                 onClick={() => handleTabChange("graphics")}
               >
                 <FaChartBar
-                  className={`${
-                    selectedTab === "graphics" ? "text-white" : "text-black"
-                  } transition-colors duration-300`}
+                  className={`${selectedTab === "graphics" ? "text-white" : "text-black"
+                    } transition-colors duration-300`}
                 />
               </div>
             </div>
