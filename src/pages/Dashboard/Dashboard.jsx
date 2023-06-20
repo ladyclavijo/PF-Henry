@@ -70,13 +70,13 @@ export default function Dashboard() {
             </div>
           )}
 
-          {selectedTab === "graphics" && (
+          {/* {selectedTab === "graphics" && (
             <div className="my-8">
-              {/* <Graphic />
-              <BestSellers /> */}
+              <Graphic />
               <Charges />
+              <BestSellers />
             </div>
-          )}
+          )} */}
         </div>
       </div>
     );

@@ -31,7 +31,6 @@
     "redux-thunk": "^2.4.2",
     "sweetalert": "^2.1.2",
     "sweetalert2": "^11.7.12",
-    "victory": "^36.6.11"
   },
   "devDependencies": {
     "@types/react": "^18.0.37",
