@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import DashboardUsers from "../../components/DashboardUsers/DashboardUsers";
 // import Graphic from "../../components/Graphics/ItemSold";
-// import Charges from "../../components/Graphics/Charges";
+import Charges from "../../components/Graphics/Charges";
 import { FaUsers, FaChartBar, FaHome } from "react-icons/fa";
 import NavBar from "../../components/NavBar/NavBar";
 // import BestSellers from "../../components/Graphics/BestSellers";
@@ -32,27 +32,23 @@ export default function Dashboard() {
                 <FaHome />
               </Link>
               <div
-                className={`sidebar-icon mt-4 ${
-                  selectedTab === "users" ? "active" : ""
-                } text-2xl mb-4 cursor-pointer`}
+                className={`sidebar-icon mt-4 ${selectedTab === "users" ? "active" : ""
+                  } text-2xl mb-4 cursor-pointer`}
                 onClick={() => handleTabChange("users")}
               >
                 <FaUsers
-                  className={`${
-                    selectedTab === "users" ? "text-white" : "text-black"
-                  } transition-colors duration-300`}
+                  className={`${selectedTab === "users" ? "text-white" : "text-black"
+                    } transition-colors duration-300`}
                 />
               </div>
               <div
-                className={`sidebar-icon ${
-                  selectedTab === "graphics" ? "active" : ""
-                } text-2xl cursor-pointer`}
+                className={`sidebar-icon ${selectedTab === "graphics" ? "active" : ""
+                  } text-2xl cursor-pointer`}
                 onClick={() => handleTabChange("graphics")}
               >
                 <FaChartBar
-                  className={`${
-                    selectedTab === "graphics" ? "text-white" : "text-black"
-                  } transition-colors duration-300`}
+                  className={`${selectedTab === "graphics" ? "text-white" : "text-black"
+                    } transition-colors duration-300`}
                 />
               </div>
             </div>
@@ -74,13 +70,13 @@ export default function Dashboard() {
             </div>
           )}
 
-          {/* {selectedTab === "graphics" && (
+          {selectedTab === "graphics" && (
             <div className="my-8">
-              <Graphic />
+              {/* <Graphic />
+              <BestSellers /> */}
               <Charges />
-              <BestSellers />
             </div>
-          )} */}
+          )}
         </div>
       </div>
     );
