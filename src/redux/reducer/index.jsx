@@ -39,6 +39,7 @@ const initialState = {
   error: [],
   paginated: 1,
   genre: [],
+  allGenres: [],
   language: [],
   genresId: [],
   authors: [],
@@ -46,7 +47,6 @@ const initialState = {
   cart: [],
   currentUser: null,
   registrationError: null,
-  appliedFilters: { genre: null, language: null },
   quantity: 1,
   dailySales: [],
   totalItemsSold: 0,
@@ -150,7 +150,7 @@ export default function rootReducer(state = initialState, action) {
     case GET_ALL_GENRES:
       return {
         ...state,
-        genre: action.payload,
+        allGenres: action.payload,
       };
     case FILTER_BY_GENRES:
       const genresAux = action.payload;
@@ -250,7 +250,6 @@ export default function rootReducer(state = initialState, action) {
         totalCharges: action.payload,
       };
 
-
     case GET_GENRES_BY_ID:
       return {
         ...state,
@@ -308,5 +307,4 @@ export default function rootReducer(state = initialState, action) {
     default:
       return state;
   }
-
 }
