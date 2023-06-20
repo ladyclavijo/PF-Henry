@@ -85,12 +85,13 @@ export default function Details() {
     navigate("/buy", { state: bookData });
   };
 
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
     if (allCarts.length > 0) {
       const findCartWithUserAndBook = allCarts.filter(
         (c) => c.userId === user.uid && c.bookId === book.id
       );
       console.log(findCartWithUserAndBook);
+
       const errorAlert = () => {
         Swal.fire({
           position: "center",
@@ -99,6 +100,7 @@ export default function Details() {
           text: `You have reached the limit of available stock. Remember that you already have ${findCartWithUserAndBook[0].quantity} units of this book in your cart.`,
         });
       };
+
       const successfullyAlert = () => {
         Swal.fire({
           position: "center",
@@ -108,16 +110,69 @@ export default function Details() {
           timer: 1500,
         });
       };
+
       if (findCartWithUserAndBook.length > 0) {
         const qty = quantity + findCartWithUserAndBook[0].quantity;
+
         if (qty <= book.stock) {
-          dispatch(
-            updateCarts({
-              quantity: qty,
+          try {
+            Swal.fire({
+              position: "center",
+              icon: "info",
+              title: "Adding to cart...",
+              showConfirmButton: false,
+            });
+
+            await dispatch(
+              updateCarts({
+                quantity: qty,
+                userId: user.uid,
+                bookId: book.id,
+              })
+            );
+
+            const cartData = {
+              id: book.id,
+              title: book.title,
+              cover: book.cover,
+              price: book.price,
+              quantity: quantity,
+              stock: book.stock,
+            };
+
+            await dispatch(addToCart(cartData));
+            await dispatch(getCartsDB());
+            await dispatch(setQuantity({ id: book.id, qty: quantity }));
+
+            Swal.close();
+            successfullyAlert();
+          } catch (error) {
+            Swal.close();
+            errorAlert();
+          }
+        } else {
+          errorAlert();
+        }
+      } else {
+        try {
+          Swal.fire({
+            position: "center",
+            icon: "info",
+            title: "Adding to cart...",
+            showConfirmButton: false,
+          });
+
+          await dispatch(
+            postCarts({
+              title: book.title,
+              cover: book.cover,
+              price: book.price,
+              quantity: quantity,
               userId: user.uid,
               bookId: book.id,
             })
           );
+
           const cartData = {
             id: book.id,
             title: book.title,
@@ -127,15 +182,27 @@ export default function Details() {
             stock: book.stock,
           };
 
-          dispatch(addToCart(cartData));
-          dispatch(getCartsDB());
-          dispatch(setQuantity({ id: book.id, qty: quantity }));
+          await dispatch(addToCart(cartData));
+          await dispatch(getCartsDB());
+          await dispatch(setQuantity({ id: book.id, qty: quantity }));
+
+          Swal.close();
           successfullyAlert();
-        } else {
+        } catch (error) {
+          Swal.close();
           errorAlert();
         }
-      } else {
-        dispatch(
+      }
+    } else {
+      try {
+        Swal.fire({
+          position: "center",
+          icon: "info",
+          title: "Adding to cart...",
+          showConfirmButton: false,
+        });
+
+        await dispatch(
           postCarts({
             title: book.title,
             cover: book.cover,
@@ -145,6 +212,7 @@ export default function Details() {
             bookId: book.id,
           })
         );
+
         const cartData = {
           id: book.id,
           title: book.title,
@@ -153,35 +221,17 @@ export default function Details() {
           quantity: quantity,
           stock: book.stock,
         };
-        dispatch(addToCart(cartData));
-        dispatch(getCartsDB());
-        dispatch(setQuantity({ id: book.id, qty: quantity }));
-        successfullyAlert();
-      }
-    } else {
-      dispatch(
-        postCarts({
-          title: book.title,
-          cover: book.cover,
-          price: book.price,
-          quantity: quantity,
-          userId: user.uid,
-          bookId: book.id,
-        })
-      );
-      const cartData = {
-        id: book.id,
-        title: book.title,
-        cover: book.cover,
-        price: book.price,
-        quantity: quantity,
-        stock: book.stock,
-      };
 
-      dispatch(addToCart(cartData));
-      dispatch(getCartsDB());
-      dispatch(setQuantity({ id: book.id, qty: quantity }));
-      successfullyAlert();
+        await dispatch(addToCart(cartData));
+        await dispatch(getCartsDB());
+        await dispatch(setQuantity({ id: book.id, qty: quantity }));
+
+        Swal.close();
+        successfullyAlert();
+      } catch (error) {
+        Swal.close();
+        errorAlert();
+      }
     }
   };
 
