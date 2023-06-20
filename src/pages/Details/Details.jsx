@@ -307,6 +307,9 @@ export default function Details() {
     }
   };
 
+
+  const handleuserHasPurchasedBook = allCarts.some ((cart) => cart.userId === user.uid && cart.bookId === book.id);
+
   return (
     <div className="bg-slate-300 min-h-screen w-screen">
       <NavBar />
@@ -376,35 +379,39 @@ export default function Details() {
                             Buy it
                           </button>
                           <div className="reviews">
-                            <h3>Add a Review:</h3>
-                            <textarea
-                              type="text"
-                              value={comment}
-                              onChange={(e) => setComment(e.target.value)}
-                              placeholder="Write your comment"
-                              className="comment"
-                            />
-
-                            <h2>Rating: {rating} estrellas</h2>
-                            <div className="rating-container">
-                              {[...Array(5)].map((_, index) => {
-                                const starValue = index + 1;
-                                return (
-                                  <FaStar
-                                    key={index}
-                                    className="star"
-                                    color={
-                                      starValue <= rating
-                                        ? "#ffc107"
-                                        : "#e4e5e9"
-                                    }
-                                    onClick={() => handleClick(starValue)}
-                                  />
-                                );
-                              })}
-                            </div>
-                            <br />
-                            <button onClick={handleAddReview}>Submit</button>
+                            {handleuserHasPurchasedBook && (
+                              <>
+                              <h3>Add a Review:</h3>
+                              <textarea
+                                type="text"
+                                value={comment}
+                                onChange={(e) => setComment(e.target.value)}
+                                placeholder="Write your comment"
+                                className="comment"
+                              />
+  
+                              <h2>Rating: {rating} estrellas</h2>
+                              <div className="rating-container">
+                                {[...Array(5)].map((_, index) => {
+                                  const starValue = index + 1;
+                                  return (
+                                    <FaStar
+                                      key={index}
+                                      className="star"
+                                      color={
+                                        starValue <= rating
+                                          ? "#ffc107"
+                                          : "#e4e5e9"
+                                      }
+                                      onClick={() => handleClick(starValue)}
+                                    />
+                                  );
+                                })}
+                              </div>
+                              <br />
+                              <button onClick={handleAddReview} disabled={!handleuserHasPurchasedBook}>Submit</button>
+                              </>
+                            )}
                             <h2>Reviews</h2>
                             {reviews?.map((review) => (
                               <div key={review?.id}>
@@ -448,34 +455,39 @@ export default function Details() {
                             Buy it
                           </button>
                           <div className="reviews">
-                            <h3>Add a Review:</h3>
-                            <textarea
-                              type="text"
-                              value={comment}
-                              onChange={(e) => setComment(e.target.value)}
-                              placeholder="Write your comment"
-                              className="comment"
-                            />
-                            <h2>Rating: {rating} estrellas</h2>
-                            <div className="rating-container">
-                              {[...Array(5)].map((_, index) => {
-                                const starValue = index + 1;
-                                return (
-                                  <FaStar
-                                    key={index}
-                                    className="star"
-                                    color={
-                                      starValue <= rating
-                                        ? "#ffc107"
-                                        : "#e4e5e9"
-                                    }
-                                    onClick={() => handleClick(starValue)}
-                                  />
-                                );
-                              })}
-                            </div>
-                            <br />
-                            <button onClick={handleAddReview}>Submit</button>
+                            {handleuserHasPurchasedBook && (
+                              <>
+                              
+                              <h3>Add a Review:</h3>
+                              <textarea
+                                type="text"
+                                value={comment}
+                                onChange={(e) => setComment(e.target.value)}
+                                placeholder="Write your comment"
+                                className="comment"
+                              />
+                              <h2>Rating: {rating} estrellas</h2>
+                              <div className="rating-container">
+                                {[...Array(5)].map((_, index) => {
+                                  const starValue = index + 1;
+                                  return (
+                                    <FaStar
+                                      key={index}
+                                      className="star"
+                                      color={
+                                        starValue <= rating
+                                          ? "#ffc107"
+                                          : "#e4e5e9"
+                                      }
+                                      onClick={() => handleClick(starValue)}
+                                    />
+                                  );
+                                })}
+                              </div>
+                              <br />
+                              <button onClick={handleAddReview} disabled={!handleuserHasPurchasedBook}>Submit</button>
+                              </>
+                            )}
                             <h2>Reviews</h2>
                             {reviews?.map((review) => (
                               <div key={review.id}>
