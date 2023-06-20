@@ -3,15 +3,46 @@ import { useAuth } from "../../context/authContext";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import DashboardUsers from "../../components/DashboardUsers/DashboardUsers";
-// import Graphic from "../../components/Graphics/ItemSold";
-// import Charges from "../../components/Graphics/Charges";
+import MyResponsivePie from "../../components/Graph/ReponsivePie";
 import { FaUsers, FaChartBar, FaHome } from "react-icons/fa";
 import NavBar from "../../components/NavBar/NavBar";
-// import BestSellers from "../../components/Graphics/BestSellers";
 import "./sidebar.css";
+
 
 export default function Dashboard() {
   const { user } = useAuth();
+  const data = [
+    {
+      "id": "hack",
+      "label": "hack",
+      "value": 78,
+      "color": "hsl(159, 70%, 50%)"
+    },
+    {
+      "id": "css",
+      "label": "css",
+      "value": 113,
+      "color": "hsl(40, 70%, 50%)"
+    },
+    {
+      "id": "sass",
+      "label": "sass",
+      "value": 597,
+      "color": "hsl(268, 70%, 50%)"
+    },
+    {
+      "id": "python",
+      "label": "python",
+      "value": 333,
+      "color": "hsl(215, 70%, 50%)"
+    },
+    {
+      "id": "go",
+      "label": "go",
+      "value": 174,
+      "color": "hsl(145, 70%, 50%)"
+    }
+  ]
   const allUsers = useSelector((state) => state.allUsers);
   const [selectedTab, setSelectedTab] = useState("users");
 
@@ -70,13 +101,14 @@ export default function Dashboard() {
             </div>
           )}
 
-          {/* {selectedTab === "graphics" && (
-            <div className="my-8">
-              <Graphic />
-              <Charges />
-              <BestSellers />
+          {selectedTab === "graphics" && (
+            <div className="border border-red-500">
+              <MyResponsivePie
+              data={data}
+              />
+              HOLAAA
             </div>
-          )} */}
+          )}
         </div>
       </div>
     );
