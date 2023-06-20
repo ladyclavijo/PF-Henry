@@ -362,11 +362,11 @@ export const updateBook = (id, payload) => {
   };
 };
 
-export const setQuantity = (number) => {
+export const setQuantity = (payload) => {
   return (dispatch) => {
     return dispatch({
       type: QUANTITY,
-      payload: number,
+      payload,
     });
   };
 };
@@ -421,7 +421,6 @@ export const setQuantity = (number) => {
 //     }
 //   };
 // };
-
 
 // export const getBestSellers = () => {
 //   return async function (dispatch) {

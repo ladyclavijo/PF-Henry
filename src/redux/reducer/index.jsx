@@ -48,6 +48,7 @@ const initialState = {
   currentUser: null,
   registrationError: null,
   quantity: 1,
+  allQuantity: [],
   dailySales: [],
   totalItemsSold: 0,
   totalCharges: [],
@@ -65,7 +66,7 @@ export default function rootReducer(state = initialState, action) {
       };
 
     case ADD_TO_CART: {
-      const { id, title, cover, price, quantity } = action.payload;
+      const { id, title, cover, price, quantity, stock } = action.payload;
       const existingItem = state.cart.find((item) => item.id === id);
 
       if (existingItem) {
@@ -88,6 +89,7 @@ export default function rootReducer(state = initialState, action) {
           cover,
           price,
           quantity,
+          stock,
         };
 
         return {
@@ -109,6 +111,7 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         cart: [],
+        allQuantity: [],
       };
     case GET_BOOK_DETAIL:
       return {
@@ -293,10 +296,50 @@ export default function rootReducer(state = initialState, action) {
         allCarts: action.payload,
       };
     case QUANTITY:
-      return {
-        ...state,
-        quantity: action.payload,
-      };
+      const { id, qty } = action.payload;
+      const cartQuantity = state.allQuantity;
+      if (cartQuantity.length > 0) {
+        const findBook = cartQuantity.find((b) => b.id === id);
+        if (findBook) {
+          const newAllQuantity = cartQuantity.filter((b) => b.id !== id);
+          return {
+            ...state,
+            allQuantity: [...newAllQuantity, { id: id, qty: qty }],
+            cart: state.cart.map((item) => {
+              if (item.id === id) {
+                return {
+                  ...item,
+                  quantity: qty,
+                };
+              }
+              return item;
+            }),
+            quantity: qty,
+          };
+        } else if (id === undefined) {
+          return {
+            ...state,
+            quantity: qty,
+          };
+        } else {
+          return {
+            ...state,
+            allQuantity: [...state.allQuantity, { id: id, qty: qty }],
+            quantity: qty,
+          };
+        }
+      } else if (id === undefined) {
+        return {
+          ...state,
+          quantity: qty,
+        };
+      } else {
+        return {
+          ...state,
+          allQuantity: [{ id: id, qty: qty }],
+          quantity: qty,
+        };
+      }
 
     case GET_BEST_SELLERS:
       return {
