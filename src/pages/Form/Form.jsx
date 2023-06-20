@@ -75,7 +75,7 @@ export default function Form() {
   const navigate = useNavigate();
   // const [disable, setDisable] = useState(true);
   const [errors, setErrors] = useState({});
-  const genre = useSelector((state) => state.genre);
+  const genre = useSelector((state) => state.allGenres);
   const [secondSelectVisible, setSecondSelectVisible] = useState(false);
   const [input, setInput] = useState({
     title: "",
