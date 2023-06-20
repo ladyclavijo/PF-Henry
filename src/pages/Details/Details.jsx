@@ -15,6 +15,7 @@ import { addToCart } from "../../redux/actions/index.jsx";
 import NavBar from "../../components/NavBar/NavBar.jsx";
 import Loader from "../../components/Loader/Loader.jsx";
 import { TbTruckDelivery } from "react-icons/tb";
+import { FaTrash } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
 import "./Details.css";
 import Stock from "../../components/Stock/Stock.jsx";
@@ -33,6 +34,7 @@ export default function Details() {
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState(0);
   const [reviews, setReviews] = useState([]);
+  const allUsers = useSelector((state) => state.allUsers);
 
   useEffect(() => {
     dispatch(getCartsDB());
@@ -168,11 +170,19 @@ export default function Details() {
       rating: rating,
       userId: user.uid,
     };
-
+    const userDB = allUsers.find((u) => u.id === user.uid);
     saveReview(reviewData)
       .then((response) => {
         // Actualiza la lista de reseñas mostrada en el frontend si es necesario
-        setReviews([...reviews, response.review]);
+        setReviews([
+          ...reviews,
+          {
+            id: book.id,
+            rating: rating,
+            reviewContent: comment,
+            user: { username: userDB.username },
+          },
+        ]);
         // Limpia los campos de comentario y calificación
         setComment("");
         setRating(0);
@@ -182,7 +192,7 @@ export default function Details() {
         // Maneja el error en caso de fallo en la solicitud
       });
   };
-
+  console.log(reviews);
   const saveReview = async (reviewData) => {
     try {
       const response = await axios.post("/users/review", reviewData);
@@ -204,8 +214,9 @@ export default function Details() {
     }
   };
 
-  const handleDeleteReview = (id) => {
-    if (user && (user.uid === id || user.isAdmin)) {
+  const handleDeleteReview = (id, userId) => {
+    const userDB = allUsers.find((u) => u.id === user.uid);
+    if (user && (user.uid === userId || userDB.isAdmin)) {
       deleteReview(id)
         .then(() => {
           // Actualiza la lista de reseñas mostrada en el frontend si es necesario
@@ -231,7 +242,6 @@ export default function Details() {
       throw error;
     }
   };
-
 
   return (
     <div className="bg-slate-300 min-h-screen w-screen">
@@ -334,6 +344,14 @@ export default function Details() {
                             <h2>Reviews</h2>
                             {reviews?.map((review) => (
                               <div key={review?.id}>
+                                <button
+                                  className="mt-2 text-red-600"
+                                  onClick={() =>
+                                    handleDeleteReview(review.id, review.userId)
+                                  }
+                                >
+                                  <FaTrash size={17} />
+                                </button>
                                 <h3>
                                   UserName:{" "}
                                   {review?.user?.username ||
@@ -394,6 +412,14 @@ export default function Details() {
                             <h2>Reviews</h2>
                             {reviews?.map((review) => (
                               <div key={review?.id}>
+                                <button
+                                  className="mt-2 text-red-600"
+                                  onClick={() =>
+                                    handleDeleteReview(review.id, review.userId)
+                                  }
+                                >
+                                  <FaTrash size={17} />
+                                </button>
                                 <h3>
                                   UserName:{" "}
                                   {review?.user?.username ||
