@@ -19,6 +19,7 @@ import { FaTrash } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
 import "./Details.css";
 import Stock from "../../components/Stock/Stock.jsx";
+import Swal from "sweetalert2";
 
 export default function Details() {
   const { id } = useParams();
@@ -45,12 +46,12 @@ export default function Details() {
   useEffect(() => {
     setLoading(true);
     dispatch(getBookDetail(id));
+    dispatch(setQuantity({ qty: 1 }));
     setTimeout(() => {
       setLoading(false);
     }, 1000);
     return () => {
       dispatch(clearDetail());
-      dispatch(setQuantity(1));
     };
   }, [dispatch, id]);
 
@@ -89,9 +90,26 @@ export default function Details() {
       const findCartWithUserAndBook = allCarts.filter(
         (c) => c.userId === user.uid && c.bookId === book.id
       );
+      console.log(findCartWithUserAndBook);
+      const errorAlert = () => {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "Oops...",
+          text: `You have reached the limit of available stock. Remember that you already have ${findCartWithUserAndBook[0].quantity} units of this book in your cart.`,
+        });
+      };
+      const successfullyAlert = () => {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Successfully added to cart",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      };
       if (findCartWithUserAndBook.length > 0) {
         const qty = quantity + findCartWithUserAndBook[0].quantity;
-        console.log(qty);
         if (qty <= book.stock) {
           dispatch(
             updateCarts({
@@ -106,15 +124,15 @@ export default function Details() {
             cover: book.cover,
             price: book.price,
             quantity: quantity,
+            stock: book.stock,
           };
 
           dispatch(addToCart(cartData));
           dispatch(getCartsDB());
-          alert("Successfully added to cart");
+          dispatch(setQuantity({ id: book.id, qty: quantity }));
+          successfullyAlert();
         } else {
-          alert(
-            `ERROR: You have reached the limit of available stock. Remember that you already have ${findCartWithUserAndBook[0].quantity} units of this book in your cart. Please reduce the quantity and try again.`
-          );
+          errorAlert();
         }
       } else {
         dispatch(
@@ -133,10 +151,12 @@ export default function Details() {
           cover: book.cover,
           price: book.price,
           quantity: quantity,
+          stock: book.stock,
         };
         dispatch(addToCart(cartData));
         dispatch(getCartsDB());
-        alert("Successfully added to cart");
+        dispatch(setQuantity({ id: book.id, qty: quantity }));
+        successfullyAlert();
       }
     } else {
       dispatch(
@@ -155,11 +175,13 @@ export default function Details() {
         cover: book.cover,
         price: book.price,
         quantity: quantity,
+        stock: book.stock,
       };
 
       dispatch(addToCart(cartData));
       dispatch(getCartsDB());
-      alert("Successfully added to cart");
+      dispatch(setQuantity({ id: book.id, qty: quantity }));
+      successfullyAlert();
     }
   };
 
