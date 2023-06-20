@@ -184,7 +184,7 @@ export default function Cart() {
               </p>
               <div className="flex flex-col items-start">
                 <p className="mt-2 text-green-600 font-bold self-start">
-                  Total: {item.price * item.quantity}
+                  Total: {Number((item.price * item.quantity).toFixed(2))}
                 </p>
                 <button
                   className="mt-2 text-red-600"
