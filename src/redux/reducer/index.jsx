@@ -26,6 +26,7 @@ import {
   TOTAL_ITEMS,
   GET_TOTAL_CHARGES,
   GET_BEST_SELLERS,
+  GET_USER_BY_USERNAME
 } from "../actions/actionsTypes";
 
 const initialState = {
@@ -137,6 +138,7 @@ export default function rootReducer(state = initialState, action) {
         genre: [],
         language: [],
       };
+   
     case CLEAR_DETAIL:
       return {
         ...state,
@@ -304,6 +306,12 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         bestSellers: action.payload,
       };
+    case GET_USER_BY_USERNAME:
+      return {
+        ...state,
+        allUsers: action.payload
+      };
+     
 
     default:
       return state;

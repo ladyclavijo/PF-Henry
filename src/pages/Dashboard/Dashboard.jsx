@@ -9,13 +9,15 @@ import { FaUsers, FaChartBar, FaHome } from "react-icons/fa";
 import NavBar from "../../components/NavBar/NavBar"
 import BestSellers from "../../components/Graphics/BestSellers";
 import "./sidebar.css";
+import SearchDashboard from "./SearchDashboard";
 
 export default function Dashboard() {
   const { user } = useAuth();
   const allUsers = useSelector((state) => state.allUsers);
   const [selectedTab, setSelectedTab] = useState("users");
-
+  
   if (user && allUsers) {
+
     const users = allUsers.filter((u) => u.id !== user.uid);
 
     const handleTabChange = (tab) => {
@@ -47,6 +49,9 @@ export default function Dashboard() {
           </div>
         </div>
         <div className="p-4 text-black">
+        <div className="p-4">
+          <SearchDashboard />
+        </div>
           {selectedTab === "users" && (
             <div>
               {users.map((u) => (
