@@ -26,6 +26,7 @@ import {
   TOTAL_ITEMS,
   GET_TOTAL_CHARGES,
   GET_BEST_SELLERS,
+  UPDATE_PROFILE,
 } from "../actions/actionsTypes";
 
 const initialState = {
@@ -346,6 +347,12 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         bestSellers: action.payload,
       };
+
+      case UPDATE_PROFILE:
+        return {
+            ...state,
+            userProfile: action.payload,
+        }
 
     default:
       return state;
