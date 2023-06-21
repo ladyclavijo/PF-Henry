@@ -28,7 +28,7 @@ export default function Landing() {
           <img
             src={logo}
             alt="Book Logo"
-            style={{ width: '200px', height: 'auto' }}
+            style={{ width: '150px', height: 'auto' }}
           />
         </div>
 
@@ -66,7 +66,7 @@ export default function Landing() {
         </div>
       </div>
 
-      <div style={{ display: 'flex', position: 'absolute', bottom: 0, width: '100%', textAlign: 'center', justifyContent: 'center', paddingBottom: '20px' }}>
+      <div style={{ display: 'flex', position: 'absolute', bottom: '20px', width: '100%', textAlign: 'center', justifyContent: 'center', paddingBottom: '20px' }}>
         <div className="slider">
     
     <SliderComponent />
