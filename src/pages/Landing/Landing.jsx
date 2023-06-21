@@ -5,6 +5,7 @@ import imagen from "../../assets/landing-image.png"
 import logo from "../../assets/Logo.png"
 import { ThemeContext } from "../../components/ThemeProvider/ThemeProvider";
 import "../../Styles/colors.css";
+import SliderComponent from "../../components/Slider/Slider";
 
 
 export default function Landing() {
@@ -64,6 +65,15 @@ export default function Landing() {
           />
         </div>
       </div>
+
+      <div style={{ display: 'flex', position: 'absolute', bottom: 0, width: '100%', textAlign: 'center', justifyContent: 'center', paddingBottom: '20px' }}>
+        <div className="slider">
+    
+    <SliderComponent />
+  </div>
+</div>
+
     </div>
+
   );
 }

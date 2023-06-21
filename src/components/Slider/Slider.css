@@ -1,0 +1,26 @@
+.slider-container {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+
+  }
+  
+  h2 {
+    margin-bottom: 20px;
+  }
+  
+  .slide-item {
+    img {
+      max-width: 100%;
+      height: auto;
+      margin: 0 auto;
+    }
+  }
+
+  .slide-item img {
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+    object-fit: contain; /* Asegura que todas las portadas tengan el mismo tamaño */
+    max-height: 180px; /* Disminuye el tamaño de las portadas ajustando el valor según necesites */
+  }
