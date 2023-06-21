@@ -9,6 +9,7 @@ import {
   postCarts,
   setQuantity,
   updateCarts,
+  getUserDetail,
 } from "../../redux/actions/index.jsx";
 import { useAuth } from "../../context/authContext";
 import { addToCart } from "../../redux/actions/index.jsx";
@@ -40,6 +41,14 @@ export default function Details() {
   useEffect(() => {
     dispatch(getCartsDB());
   }, [cart]);
+
+  useEffect(() => {
+    if (user) {
+      dispatch(getUserDetail(user.uid));
+    }
+  }, [user, dispatch]);
+
+  const userDetail = useSelector((state) => state.userDetail);
 
   const allCarts = useSelector((state) => state.allCarts);
 
@@ -308,12 +317,23 @@ export default function Details() {
   };
 
 
-  const handleuserHasPurchasedBook = allCarts.some ((cart) => cart.userId === user.uid && cart.bookId === book.id);
+  const handleuserHasPurchasedBook = () => {
+    if (user) {
+      // const items = userDetail.response.orders.map((o) => o.items[0]);
+      // console.log(items);
+      const hasPurchasedBook = userDetail.response.orders.filter(element => element.items.some(elem => elem.id === book.id))
+      if (hasPurchasedBook.length > 0) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  };
 
-  return (
+    return (
     <div className="bg-slate-300 min-h-screen w-screen">
       <NavBar />
-      {!book.author ? (
+      {!book.author || userDetail.length === 0 ? (
         <Loader />
       ) : (
         <>
@@ -382,37 +402,37 @@ export default function Details() {
                             Buy it
                           </button>
                           <div className="reviews">
-                            {handleuserHasPurchasedBook && (
+                            {handleuserHasPurchasedBook () && (
                               <>
-                              <h3>Add a Review:</h3>
-                              <textarea
-                                type="text"
-                                value={comment}
-                                onChange={(e) => setComment(e.target.value)}
-                                placeholder="Write your comment"
-                                className="comment"
-                              />
-  
-                              <h2>Rating: {rating} estrellas</h2>
-                              <div className="rating-container">
-                                {[...Array(5)].map((_, index) => {
-                                  const starValue = index + 1;
-                                  return (
-                                    <FaStar
-                                      key={index}
-                                      className="star"
-                                      color={
-                                        starValue <= rating
-                                          ? "#ffc107"
-                                          : "#e4e5e9"
-                                      }
-                                      onClick={() => handleClick(starValue)}
-                                    />
-                                  );
-                                })}
-                              </div>
-                              <br />
-                              <button onClick={handleAddReview} disabled={!handleuserHasPurchasedBook}>Submit</button>
+                                <h3>Add a Review:</h3>
+                                <textarea
+                                  type="text"
+                                  value={comment}
+                                  onChange={(e) => setComment(e.target.value)}
+                                  placeholder="Write your comment"
+                                  className="comment"
+                                />
+
+                                <h2>Rating: {rating} estrellas</h2>
+                                <div className="rating-container">
+                                  {[...Array(5)].map((_, index) => {
+                                    const starValue = index + 1;
+                                    return (
+                                      <FaStar
+                                        key={index}
+                                        className="star"
+                                        color={
+                                          starValue <= rating
+                                            ? "#ffc107"
+                                            : "#e4e5e9"
+                                        }
+                                        onClick={() => handleClick(starValue)}
+                                      />
+                                    );
+                                  })}
+                                </div>
+                                <br />
+                                <button onClick={handleAddReview} disabled={!handleuserHasPurchasedBook ()}>Submit</button>
                               </>
                             )}
                             <h2>Reviews</h2>
@@ -460,35 +480,35 @@ export default function Details() {
                           <div className="reviews">
                             {handleuserHasPurchasedBook && (
                               <>
-                              
-                              <h3>Add a Review:</h3>
-                              <textarea
-                                type="text"
-                                value={comment}
-                                onChange={(e) => setComment(e.target.value)}
-                                placeholder="Write your comment"
-                                className="comment"
-                              />
-                              <h2>Rating: {rating} estrellas</h2>
-                              <div className="rating-container">
-                                {[...Array(5)].map((_, index) => {
-                                  const starValue = index + 1;
-                                  return (
-                                    <FaStar
-                                      key={index}
-                                      className="star"
-                                      color={
-                                        starValue <= rating
-                                          ? "#ffc107"
-                                          : "#e4e5e9"
-                                      }
-                                      onClick={() => handleClick(starValue)}
-                                    />
-                                  );
-                                })}
-                              </div>
-                              <br />
-                              <button onClick={handleAddReview} disabled={!handleuserHasPurchasedBook}>Submit</button>
+
+                                <h3>Add a Review:</h3>
+                                <textarea
+                                  type="text"
+                                  value={comment}
+                                  onChange={(e) => setComment(e.target.value)}
+                                  placeholder="Write your comment"
+                                  className="comment"
+                                />
+                                <h2>Rating: {rating} estrellas</h2>
+                                <div className="rating-container">
+                                  {[...Array(5)].map((_, index) => {
+                                    const starValue = index + 1;
+                                    return (
+                                      <FaStar
+                                        key={index}
+                                        className="star"
+                                        color={
+                                          starValue <= rating
+                                            ? "#ffc107"
+                                            : "#e4e5e9"
+                                        }
+                                        onClick={() => handleClick(starValue)}
+                                      />
+                                    );
+                                  })}
+                                </div>
+                                <br />
+                                <button onClick={handleAddReview} disabled={!handleuserHasPurchasedBook ()}>Submit</button>
                               </>
                             )}
                             <h2>Reviews</h2>
@@ -551,4 +571,4 @@ export default function Details() {
       )}
     </div>
   );
-}
+};
