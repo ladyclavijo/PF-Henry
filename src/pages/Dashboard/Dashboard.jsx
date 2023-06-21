@@ -7,7 +7,7 @@ import { FaUsers, FaChartBar, FaHome } from "react-icons/fa";
 import NavBar from "../../components/NavBar/NavBar";
 import "./sidebar.css";
 import Charges from "../../components/Graphics/Charges";
-
+import ItemSold from "../../components/Graphics/ItemSold";
 export default function Dashboard() {
   const { user } = useAuth();
   const data = [
@@ -103,6 +103,7 @@ export default function Dashboard() {
           {selectedTab === "graphics" && (
             <div className="border border-red-500">
               <Charges />
+              <ItemSold />
             </div>
           )}
         </div>
