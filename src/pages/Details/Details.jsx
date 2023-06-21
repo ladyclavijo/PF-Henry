@@ -310,6 +310,9 @@ export default function Details() {
                     <TbTruckDelivery className="icon" /> Free delivery on orders
                     over $15!
                   </span>
+                  <div>
+                    <p>Seller: {book.publisher}</p>
+                  </div>
                   {user ? (
                     <>
                       {book.stock > 0 ? (

@@ -32,6 +32,7 @@ import {
   TOTAL_ITEMS,
   GET_TOTAL_CHARGES,
   GET_BEST_SELLERS,
+  UPDATE_PROFILE,
 } from "./actionsTypes";
 
 export const getBooks = () => {
@@ -370,6 +371,21 @@ export const setQuantity = (payload) => {
     });
   };
 };
+
+export const updateProfile = (id, payload) => {
+    return async function(dispatch) {
+        try {
+            const response = await axios.put(`/users/${id}`, payload)
+            console.log(response);
+            return dispatch({
+                type: UPDATE_PROFILE,
+                payload: response
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
 
 // export const getOrders = () => {
 //   return async function (dispatch) {
