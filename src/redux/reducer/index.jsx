@@ -27,7 +27,6 @@ import {
   GET_TOTAL_CHARGES,
   GET_BEST_SELLERS,
   UPDATE_PROFILE,
-  SWITCH_UPDATE_BOOK,
 } from "../actions/actionsTypes";
 
 const initialState = {
@@ -55,7 +54,6 @@ const initialState = {
   totalItemsSold: 0,
   totalCharges: [],
   bestSellers: [],
-  switchBook: false,
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -354,11 +352,6 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         userProfile: action.payload,
-      };
-    case SWITCH_UPDATE_BOOK:
-      return {
-        ...state,
-        switchBook: action.payload,
       };
     default:
       return state;
