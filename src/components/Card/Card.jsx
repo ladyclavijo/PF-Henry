@@ -16,10 +16,16 @@ export default function Card({
 
   const { theme } = useContext(ThemeContext);
 
+  const containerClassName = `bg-[#bbf7d0] w-64 h-125 rounded-md hover:opacity-75 hover:text-white transition duration-500 mx-auto ${
+    theme === "dark" ? "dark-mode" : "light-mode"
+  }`;
+
     const styles = {
         container: {
             backgroundColor: "var(--color-cards)",
             color: "var(--color-text)",
+            borderColor: "var(--color-border)",
+            transition: "border-color 0.5s",
         },
     };
   // Props basadas en la API
@@ -30,8 +36,8 @@ export default function Card({
   if (stock) {
     // Este "if()" es para saber si el libro está en stock o no
     return (
-      <div className={`bg-[#bbf7d0] w-64 h-125 rounded-md hover:opacity-75 hover:text-white transition duration-500 mx-auto`} style={styles.container}>
-        <div className="p-4 flex flex-col justify-between h-full ">
+      <div className={containerClassName} style={styles.container}>
+        <div className="p-4 flex flex-col justify-between h-full " >
           <Link to={"/book/" + id} className="text-black ">
             <div className={`bg-[#bbf7d0]`} style={styles.container}>
               <h3 className="text-xl font-medium h-20 overflow-hidden mb-2 text-center hover:text-white">
@@ -52,7 +58,7 @@ export default function Card({
     );
   } else {
     return (
-      <div className={`bg-[#bbf7d0] w-64 h-125 rounded-md hover:opacity-75 hover:text-white transition duration-500 mx-auto`} style={styles.container}>
+      <div className={containerClassName} style={styles.container}>
         <div className="p-4 flex flex-col justify-between h-full ">
           <Link to={"/book/" + id} className="text-black ">
             <div className={`bg-[#bbf7d0]`} style={styles.container}>
