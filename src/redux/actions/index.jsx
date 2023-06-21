@@ -456,9 +456,4 @@ export const updateProfile = (payload) => {
   };
 };
 
-export const switchUpdateBook = (payload) => {
-  return {
-    type: SWITCH_UPDATE_BOOK,
-    payload,
-  };
-};
+
