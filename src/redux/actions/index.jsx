@@ -437,10 +437,11 @@ export const getBestSellers = () => {
   };
 };
 
-export const updateProfile = (id, payload) => {
+export const updateProfile = (payload) => {
+    console.log(payload)
     return async function(dispatch) {
         try {
-            const response = await axios.put(`/users/${id}`, payload)
+            const response = await axios.put(`/users/update`, payload)
             console.log(response);
             return dispatch({
                 type: UPDATE_PROFILE,

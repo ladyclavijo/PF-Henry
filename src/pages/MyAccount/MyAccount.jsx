@@ -25,18 +25,20 @@ export default function MyAccount() {
   const [editing, setEditing] = useState(false);
   const [show, setShow] = useState(false);
 
+  const [newUser, setNewUser] = useState({
+    id: id,
+    username: finalUser?.username || "",
+    lastname: finalUser?.lastname || "",
+    email: finalUser?.email || "",
+    phone: finalUser?.phone || 0,
+    country: finalUser?.country || "",
+    photo: finalUser?.photo || "",
+  })
+
   useEffect(() => {
     dispatch(getUserDetail(id));
   }, [dispatch, id]);
 
-  const [newUser, setNewUser] = useState({
-    username: finalUser?.username || "",
-    lastname: finalUser?.lastname || "",
-    email: finalUser?.email || "",
-    phone: finalUser?.phone || "",
-    country: finalUser?.country || "",
-    photo: finalUser?.photo || "",
-  })
 
   //*******// HANDLE FUNCTIONS (start) //*********//
 
@@ -51,7 +53,7 @@ export default function MyAccount() {
 
   function handleSave() {
     console.log(newUser);
-    dispatch(updateProfile(id, newUser));
+    dispatch(updateProfile(newUser));
     setEditing(false);
   }
 
