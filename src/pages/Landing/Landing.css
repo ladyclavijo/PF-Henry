@@ -7,9 +7,8 @@
   display: flex;
   justify-content: space-between;
   position: fixed;
-  padding: 10px;
   width: 100%;
-  height: 12%;
+  height: 9%;
   top: 0;
   left: 0;
   box-sizing: border-box;
@@ -18,7 +17,7 @@
 
 .logo {
   font-size: 10px;
-  margin-left: 15px;
+  margin-left: 15px;  
 }
 
 .buttons {
@@ -42,8 +41,8 @@
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  height: 45%;
-  margin-top: 79px;
+  height: 47%;
+  margin-top: 4%;
   background-color: rgb(1, 1, 100);
 }
 
@@ -102,7 +101,6 @@
 .blue-box h2:hover {
   color: #9DC8C5;
   transition: .8s;
-
 }
 
 .explore-button {
@@ -118,8 +116,8 @@
 
 .explore-button:hover{
   background-color: rgb(51, 55, 163);
-  color: rgb(255, 255, 255);
-  transition: .8s;
+  color: rgb(139, 189, 205);
+  transition: .6s;
 }
 
 .landing-switch {
