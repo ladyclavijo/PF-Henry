@@ -6,7 +6,7 @@ import DashboardUsers from "../../components/DashboardUsers/DashboardUsers";
 import { FaUsers, FaChartBar, FaHome } from "react-icons/fa";
 import NavBar from "../../components/NavBar/NavBar";
 import "./sidebar.css";
-
+import Charges from "../../components/Graphics/Charges";
 
 export default function Dashboard() {
   const { user } = useAuth();
@@ -62,27 +62,23 @@ export default function Dashboard() {
                 <FaHome />
               </Link>
               <div
-                className={`sidebar-icon mt-4 ${
-                  selectedTab === "users" ? "active" : ""
-                } text-2xl mb-4 cursor-pointer`}
+                className={`sidebar-icon mt-4 ${selectedTab === "users" ? "active" : ""
+                  } text-2xl mb-4 cursor-pointer`}
                 onClick={() => handleTabChange("users")}
               >
                 <FaUsers
-                  className={`${
-                    selectedTab === "users" ? "text-white" : "text-black"
-                  } transition-colors duration-300`}
+                  className={`${selectedTab === "users" ? "text-white" : "text-black"
+                    } transition-colors duration-300`}
                 />
               </div>
               <div
-                className={`sidebar-icon ${
-                  selectedTab === "graphics" ? "active" : ""
-                } text-2xl cursor-pointer`}
+                className={`sidebar-icon ${selectedTab === "graphics" ? "active" : ""
+                  } text-2xl cursor-pointer`}
                 onClick={() => handleTabChange("graphics")}
               >
                 <FaChartBar
-                  className={`${
-                    selectedTab === "graphics" ? "text-white" : "text-black"
-                  } transition-colors duration-300`}
+                  className={`${selectedTab === "graphics" ? "text-white" : "text-black"
+                    } transition-colors duration-300`}
                 />
               </div>
             </div>
@@ -106,7 +102,7 @@ export default function Dashboard() {
 
           {selectedTab === "graphics" && (
             <div className="border border-red-500">
-              HOLAAA
+              <Charges />
             </div>
           )}
         </div>
