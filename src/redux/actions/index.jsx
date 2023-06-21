@@ -33,7 +33,6 @@ import {
   GET_TOTAL_CHARGES,
   GET_BEST_SELLERS,
   UPDATE_PROFILE,
-  SWITCH_UPDATE_BOOK,
 } from "./actionsTypes";
 
 export const getBooks = () => {
