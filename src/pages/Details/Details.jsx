@@ -10,11 +10,13 @@ import {
   setQuantity,
   updateCarts,
   getUserDetail,
+  switchUpdateBook,
 } from "../../redux/actions/index.jsx";
 import { useAuth } from "../../context/authContext";
 import { addToCart } from "../../redux/actions/index.jsx";
 import NavBar from "../../components/NavBar/NavBar.jsx";
 import Loader from "../../components/Loader/Loader.jsx";
+import Form from "../../pages/Form/Form.jsx";
 import { TbTruckDelivery } from "react-icons/tb";
 import { FaTrash } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
@@ -37,6 +39,7 @@ export default function Details() {
   const [rating, setRating] = useState(0);
   const [reviews, setReviews] = useState([]);
   const allUsers = useSelector((state) => state.allUsers);
+  const switchBook = useSelector((state) => state.switchBook);
 
   useEffect(() => {
     dispatch(getCartsDB());
@@ -61,6 +64,7 @@ export default function Details() {
     }, 1000);
     return () => {
       dispatch(clearDetail());
+      dispatch(switchUpdateBook(false));
     };
   }, [dispatch, id]);
 
@@ -80,6 +84,10 @@ export default function Details() {
 
   const handlerHideDescription = () => {
     setShowDescription(false);
+  };
+
+  const handlerShowEditPost = () => {
+    dispatch(switchUpdateBook(true));
   };
 
   const handleBuyClick = () => {
@@ -316,12 +324,13 @@ export default function Details() {
     }
   };
 
-
   const handleuserHasPurchasedBook = () => {
-    if (user) {
+    if (user && userDetail.length > 0) {
       // const items = userDetail.response.orders.map((o) => o.items[0]);
       // console.log(items);
-      const hasPurchasedBook = userDetail.response.orders.filter(element => element.items.some(elem => elem.id === book.id))
+      const hasPurchasedBook = userDetail.response.orders.filter((element) =>
+        element.items.some((elem) => elem.id === book.id)
+      );
       if (hasPurchasedBook.length > 0) {
         return true;
       } else {
@@ -330,245 +339,365 @@ export default function Details() {
     }
   };
 
-    return (
+  return (
     <div className="bg-slate-300 min-h-screen w-screen">
       <NavBar />
-      {!book.author || userDetail.length === 0 ? (
-        <Loader />
+      {user ? (
+        <>
+          {!book.author && userDetail.length <= 0 && userDetail.response ? (
+            <>
+              {Swal.fire({
+                title: "Loading book",
+                text: "Please wait...",
+                allowOutsideClick: false,
+                didOpen: async () => {
+                  Swal.showLoading();
+                  await dispatch(getUserDetail(user.uid));
+                  Swal.close();
+                },
+              })}
+            </>
+          ) : (
+            <>
+              <div>
+                <div>
+                  <span> </span>
+                </div>
+                <div className="buttons">
+                  <button onClick={handlerShowDescription}>Description</button>
+                  <button onClick={handlerHideDescription}>
+                    More information
+                  </button>
+                  {userDetail.response?.Publish_books.filter(
+                    (pb) => pb.id === book.id
+                  ).length > 0 || userDetail.response?.isAdmin === true ? (
+                    <button onClick={handlerShowEditPost}>Edit post</button>
+                  ) : null}
+                </div>
+                {switchBook ? (
+                  <Form book={book}></Form>
+                ) : (
+                  <div className="body">
+                    {showDescription ? (
+                      <div className="conteiner1">
+                        <img src={book.cover} alt={`${book.title} book`} />
+                        <div className="conteinerInfo">
+                          <h1>{book.title}</h1>
+                          <h2 className="author">{book.author}</h2>
+                          <h2 className="description"> {book.description}</h2>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="conteiner1">
+                        <img src={book.cover} alt={`${book.title} book`} />
+                        <div className="conteinerInfo">
+                          <h2 className="moreInfo">
+                            Publisher: {book.publisher}
+                          </h2>
+                          <h2 className="moreInfo">
+                            Publisher Date: {book.publisher_date}
+                          </h2>
+                          <h2 className="moreInfo">Pages: {book.pages}</h2>
+                          <h2 className="moreInfo">
+                            Language: {book.language}
+                          </h2>
+                          {book.genres.length === 1 ? (
+                            <h2 className="moreInfo">
+                              Genre: {book.genres[0].name}
+                            </h2>
+                          ) : (
+                            <h2 className="moreInfo">
+                              Genres:{" "}
+                              {`${book.genres[0].name}, ${book.genres[1].name}`}
+                            </h2>
+                          )}
+                        </div>
+                      </div>
+                    )}
+                    <div className="price">
+                      <h1>${book.price}</h1>
+                      <div className="delivery-container">
+                        <span>
+                          <TbTruckDelivery className="icon" /> Free delivery on
+                          orders over $15!
+                        </span>
+                        <div>
+                          <p>Seller: {book.publisher}</p>
+                        </div>
+                        <>
+                          {book.stock > 0 ? (
+                            <>
+                              <Stock stock={book.stock}></Stock>
+                              <button
+                                className="Add-to-cart"
+                                onClick={handleAddToCart}
+                              >
+                                Add To Cart
+                              </button>
+                              <h4 className="stock">Stock: {book.stock}</h4>
+                              <button
+                                className="Buy-it"
+                                onClick={handleBuyClick}
+                              >
+                                Buy it
+                              </button>
+                              <div className="reviews">
+                                {handleuserHasPurchasedBook() && (
+                                  <>
+                                    <h3>Add a Review:</h3>
+                                    <textarea
+                                      type="text"
+                                      value={comment}
+                                      onChange={(e) =>
+                                        setComment(e.target.value)
+                                      }
+                                      placeholder="Write your comment"
+                                      className="comment"
+                                    />
+                                    <h2>Rating: {rating} estrellas</h2>
+                                    <div className="rating-container">
+                                      {[...Array(5)].map((_, index) => {
+                                        const starValue = index + 1;
+                                        return (
+                                          <FaStar
+                                            key={index}
+                                            className="star"
+                                            color={
+                                              starValue <= rating
+                                                ? "#ffc107"
+                                                : "#e4e5e9"
+                                            }
+                                            onClick={() =>
+                                              handleClick(starValue)
+                                            }
+                                          />
+                                        );
+                                      })}
+                                    </div>
+                                    <br />
+                                    <button
+                                      onClick={handleAddReview}
+                                      disabled={!handleuserHasPurchasedBook()}
+                                    >
+                                      Submit
+                                    </button>
+                                  </>
+                                )}
+                                <h2>Reviews</h2>
+                                {reviews?.map((review) => (
+                                  <div key={review?.id}>
+                                    <button
+                                      className="mt-2 text-red-600"
+                                      onClick={() =>
+                                        handleDeleteReview(
+                                          review?.id,
+                                          review?.userId
+                                        )
+                                      }
+                                    >
+                                      <FaTrash size={17} />
+                                    </button>
+                                    <h3>
+                                      UserName:{" "}
+                                      {review?.user?.username ||
+                                        "Error user with no name"}
+                                    </h3>
+                                    <p>Comment: {review?.reviewContent}</p>
+                                    <p>Rating: {review?.rating}</p>
+                                  </div>
+                                ))}
+                              </div>
+                            </>
+                          ) : (
+                            <>
+                              <button
+                                className="Add-to-cart"
+                                onClick={handleAddToCart}
+                                disabled={book.stock <= 0}
+                              >
+                                Add To Cart
+                              </button>
+                              <h4 className="stock">Stock: Out of stock</h4>
+                              <button
+                                className="Buy-it"
+                                onClick={handleBuyClick}
+                                disabled={book.stock <= 0}
+                              >
+                                Buy it
+                              </button>
+                              <div className="reviews">
+                                {handleuserHasPurchasedBook && (
+                                  <>
+                                    <h3>Add a Review:</h3>
+                                    <textarea
+                                      type="text"
+                                      value={comment}
+                                      onChange={(e) =>
+                                        setComment(e.target.value)
+                                      }
+                                      placeholder="Write your comment"
+                                      className="comment"
+                                    />
+                                    <h2>Rating: {rating} estrellas</h2>
+                                    <div className="rating-container">
+                                      {[...Array(5)].map((_, index) => {
+                                        const starValue = index + 1;
+                                        return (
+                                          <FaStar
+                                            key={index}
+                                            className="star"
+                                            color={
+                                              starValue <= rating
+                                                ? "#ffc107"
+                                                : "#e4e5e9"
+                                            }
+                                            onClick={() =>
+                                              handleClick(starValue)
+                                            }
+                                          />
+                                        );
+                                      })}
+                                    </div>
+                                    <br />
+                                    <button
+                                      onClick={handleAddReview}
+                                      disabled={!handleuserHasPurchasedBook()}
+                                    >
+                                      Submit
+                                    </button>
+                                  </>
+                                )}
+                                <h2>Reviews</h2>
+                                {reviews?.map((review) => (
+                                  <div key={review.id}>
+                                    <button
+                                      className="mt-2 text-red-600"
+                                      onClick={() =>
+                                        handleDeleteReview(
+                                          review?.id,
+                                          review?.userId
+                                        )
+                                      }
+                                    >
+                                      <FaTrash size={17} />
+                                    </button>
+                                    <h3>
+                                      UserName:{" "}
+                                      {review?.user?.username ||
+                                        "Error user with no name"}
+                                    </h3>
+                                    <p>Comment: {review?.reviewContent}</p>
+                                    <p>Rating: {review?.rating}</p>
+                                  </div>
+                                ))}
+                              </div>
+                            </>
+                          )}
+                        </>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </>
+          )}
+        </>
       ) : (
         <>
-          <div>
-            <div>
-              <span> </span>
-            </div>
-            <div className="buttons">
-              <button onClick={handlerShowDescription}>Description</button>
-              <button onClick={handlerHideDescription}>More information</button>
-            </div>
-            <div className="body">
-              {showDescription ? (
-                <div className="conteiner1">
-                  <img src={book.cover} alt={`${book.title} book`} />
-                  <div className="conteinerInfo">
-                    <h1>{book.title}</h1>
-                    <h2 className="author">{book.author}</h2>
-                    <h2 className="description"> {book.description}</h2>
-                  </div>
+          {!book.author ? (
+            <Loader />
+          ) : (
+            <>
+              <div>
+                <div>
+                  <span> </span>
                 </div>
-              ) : (
-                <div className="conteiner1">
-                  <img src={book.cover} alt={`${book.title} book`} />
-                  <div className="conteinerInfo">
-                    <h2 className="moreInfo">Publisher: {book.publisher}</h2>
-                    <h2 className="moreInfo">
-                      Publisher Date: {book.publisher_date}
-                    </h2>
-                    <h2 className="moreInfo">Pages: {book.pages}</h2>
-                    <h2 className="moreInfo">Language: {book.language}</h2>
-                    {book.genres.length === 1 ? (
-                      <h2 className="moreInfo">Genre: {book.genres[0].name}</h2>
-                    ) : (
-                      <h2 className="moreInfo">
-                        Genres:{" "}
-                        {`${book.genres[0].name}, ${book.genres[1].name}`}
-                      </h2>
-                    )}
-                  </div>
+                <div className="buttons">
+                  <button onClick={handlerShowDescription}>Description</button>
+                  <button onClick={handlerHideDescription}>
+                    More information
+                  </button>
                 </div>
-              )}
-              <div className="price">
-                <h1>${book.price}</h1>
-                <div className="delivery-container">
-                  <span>
-                    <TbTruckDelivery className="icon" /> Free delivery on orders
-                    over $15!
-                  </span>
-                  <div>
-                    <p>Seller: {book.publisher}</p>
-                  </div>
-                  {user ? (
-                    <>
-                      {book.stock > 0 ? (
-                        <>
-                          <Stock stock={book.stock}></Stock>
-                          <button
-                            className="Add-to-cart"
-                            onClick={handleAddToCart}
-                          >
-                            Add To Cart
-                          </button>
-                          <h4 className="stock">Stock: {book.stock}</h4>
-                          <button className="Buy-it" onClick={handleBuyClick}>
-                            Buy it
-                          </button>
-                          <div className="reviews">
-                            {handleuserHasPurchasedBook () && (
-                              <>
-                                <h3>Add a Review:</h3>
-                                <textarea
-                                  type="text"
-                                  value={comment}
-                                  onChange={(e) => setComment(e.target.value)}
-                                  placeholder="Write your comment"
-                                  className="comment"
-                                />
-
-                                <h2>Rating: {rating} estrellas</h2>
-                                <div className="rating-container">
-                                  {[...Array(5)].map((_, index) => {
-                                    const starValue = index + 1;
-                                    return (
-                                      <FaStar
-                                        key={index}
-                                        className="star"
-                                        color={
-                                          starValue <= rating
-                                            ? "#ffc107"
-                                            : "#e4e5e9"
-                                        }
-                                        onClick={() => handleClick(starValue)}
-                                      />
-                                    );
-                                  })}
-                                </div>
-                                <br />
-                                <button onClick={handleAddReview} disabled={!handleuserHasPurchasedBook ()}>Submit</button>
-                              </>
-                            )}
-                            <h2>Reviews</h2>
-                            {reviews?.map((review) => (
-                              <div key={review?.id}>
-                                <button
-                                  className="mt-2 text-red-600"
-                                  onClick={() =>
-                                    handleDeleteReview(
-                                      review?.id,
-                                      review?.userId
-                                    )
-                                  }
-                                >
-                                  <FaTrash size={17} />
-                                </button>
-                                <h3>
-                                  UserName:{" "}
-                                  {review?.user?.username ||
-                                    "Error user with no name"}
-                                </h3>
-                                <p>Comment: {review?.reviewContent}</p>
-                                <p>Rating: {review?.rating}</p>
-                              </div>
-                            ))}
-                          </div>
-                        </>
-                      ) : (
-                        <>
-                          <button
-                            className="Add-to-cart"
-                            onClick={handleAddToCart}
-                            disabled={book.stock <= 0}
-                          >
-                            Add To Cart
-                          </button>
-                          <h4 className="stock">Stock: Out of stock</h4>
-                          <button
-                            className="Buy-it"
-                            onClick={handleBuyClick}
-                            disabled={book.stock <= 0}
-                          >
-                            Buy it
-                          </button>
-                          <div className="reviews">
-                            {handleuserHasPurchasedBook && (
-                              <>
-
-                                <h3>Add a Review:</h3>
-                                <textarea
-                                  type="text"
-                                  value={comment}
-                                  onChange={(e) => setComment(e.target.value)}
-                                  placeholder="Write your comment"
-                                  className="comment"
-                                />
-                                <h2>Rating: {rating} estrellas</h2>
-                                <div className="rating-container">
-                                  {[...Array(5)].map((_, index) => {
-                                    const starValue = index + 1;
-                                    return (
-                                      <FaStar
-                                        key={index}
-                                        className="star"
-                                        color={
-                                          starValue <= rating
-                                            ? "#ffc107"
-                                            : "#e4e5e9"
-                                        }
-                                        onClick={() => handleClick(starValue)}
-                                      />
-                                    );
-                                  })}
-                                </div>
-                                <br />
-                                <button onClick={handleAddReview} disabled={!handleuserHasPurchasedBook ()}>Submit</button>
-                              </>
-                            )}
-                            <h2>Reviews</h2>
-                            {reviews?.map((review) => (
-                              <div key={review.id}>
-                                <button
-                                  className="mt-2 text-red-600"
-                                  onClick={() =>
-                                    handleDeleteReview(
-                                      review?.id,
-                                      review?.userId
-                                    )
-                                  }
-                                >
-                                  <FaTrash size={17} />
-                                </button>
-                                <h3>
-                                  UserName:{" "}
-                                  {review?.user?.username ||
-                                    "Error user with no name"}
-                                </h3>
-                                <p>Comment: {review?.reviewContent}</p>
-                                <p>Rating: {review?.rating}</p>
-                              </div>
-                            ))}
-                          </div>
-                        </>
-                      )}
-                    </>
+                <div className="body">
+                  {showDescription ? (
+                    <div className="conteiner1">
+                      <img src={book.cover} alt={`${book.title} book`} />
+                      <div className="conteinerInfo">
+                        <h1>{book.title}</h1>
+                        <h2 className="author">{book.author}</h2>
+                        <h2 className="description"> {book.description}</h2>
+                      </div>
+                    </div>
                   ) : (
-                    <>
-                      {book.stock > 0 ? (
-                        <>
-                          <h4 className="stock">Stock: {book.stock}</h4>
-                          <Link to="/login">
-                            <button className="Add-to-cart">Add To Cart</button>
-                          </Link>
-                          <Link to="/login">
-                            <button className="Buy-it">Buy it</button>
-                          </Link>
-                        </>
-                      ) : (
-                        <>
-                          <h4 className="stock">Stock: No hay stock</h4>
-                          <Link to="/login">
-                            <button className="Add-to-cart">Add To Cart</button>
-                          </Link>
-                          <Link to="/login">
-                            <button className="Buy-it">Buy it</button>
-                          </Link>
-                        </>
-                      )}
-                    </>
+                    <div className="conteiner1">
+                      <img src={book.cover} alt={`${book.title} book`} />
+                      <div className="conteinerInfo">
+                        <h2 className="moreInfo">
+                          Publisher: {book.publisher}
+                        </h2>
+                        <h2 className="moreInfo">
+                          Publisher Date: {book.publisher_date}
+                        </h2>
+                        <h2 className="moreInfo">Pages: {book.pages}</h2>
+                        <h2 className="moreInfo">Language: {book.language}</h2>
+                        {book.genres.length === 1 ? (
+                          <h2 className="moreInfo">
+                            Genre: {book.genres[0].name}
+                          </h2>
+                        ) : (
+                          <h2 className="moreInfo">
+                            Genres:{" "}
+                            {`${book.genres[0].name}, ${book.genres[1].name}`}
+                          </h2>
+                        )}
+                      </div>
+                    </div>
                   )}
+                  <div className="price">
+                    <h1>${book.price}</h1>
+                    <div className="delivery-container">
+                      <span>
+                        <TbTruckDelivery className="icon" /> Free delivery on
+                        orders over $15!
+                      </span>
+                      <div>
+                        <p>Seller: {book.publisher}</p>
+                      </div>
+                      <>
+                        {book.stock > 0 ? (
+                          <>
+                            <h4 className="stock">Stock: {book.stock}</h4>
+                            <Link to="/login">
+                              <button className="Add-to-cart">
+                                Add To Cart
+                              </button>
+                            </Link>
+                            <Link to="/login">
+                              <button className="Buy-it">Buy it</button>
+                            </Link>
+                          </>
+                        ) : (
+                          <>
+                            <h4 className="stock">Stock: No hay stock</h4>
+                            <Link to="/login">
+                              <button className="Add-to-cart">
+                                Add To Cart
+                              </button>
+                            </Link>
+                            <Link to="/login">
+                              <button className="Buy-it">Buy it</button>
+                            </Link>
+                          </>
+                        )}
+                      </>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
+            </>
+          )}
         </>
       )}
     </div>
   );
-};
+}
