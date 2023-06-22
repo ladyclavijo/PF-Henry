@@ -1,4 +1,4 @@
-// import React from "react";
+import React from "react";
 import "./Loader.css";
 
 export default function Loader() {
@@ -6,5 +6,5 @@ export default function Loader() {
     <div className="loader">
       <h1>Loading...</h1>
     </div>
-  )
+  );
 }

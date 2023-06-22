@@ -1,5 +1,5 @@
 import "./Home.css";
-import { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import NavBar from "../../components/NavBar/NavBar.jsx";
