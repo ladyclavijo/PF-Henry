@@ -32,6 +32,7 @@ import {
   TOTAL_ITEMS,
   GET_TOTAL_CHARGES,
   GET_BEST_SELLERS,
+  GET_USER_BY_USERNAME,
   UPDATE_PROFILE,
   SET_REVENUE
 } from "./actionsTypes";
@@ -402,7 +403,9 @@ export const getTotalCharges = () => {
           const parsedTotalCharge = parseFloat(totalCharge).toFixed(2);
 
           if (dailyCharges[createdAt]) {
-            dailyCharges[createdAt] = parseFloat(dailyCharges[createdAt]) + parseFloat(parsedTotalCharge);
+            dailyCharges[createdAt] =
+              parseFloat(dailyCharges[createdAt]) +
+              parseFloat(parsedTotalCharge);
           } else {
             dailyCharges[createdAt] = parseFloat(parsedTotalCharge);
           }
@@ -447,20 +450,6 @@ export const getBestSellers = () => {
 };
 
 
-export const updateProfile = (id, payload) => {
-  return async function (dispatch) {
-    try {
-      const response = await axios.put(`/users/${id}`, payload)
-      console.log(response);
-      return dispatch({
-        type: UPDATE_PROFILE,
-        payload: response
-      })
-    } catch (error) {
-      console.log(error);
-    }
-  }
-}
 
 export const setRevenue = () => {
   return async (dispatch) => {
@@ -477,3 +466,33 @@ export const setRevenue = () => {
   };
 };
 
+export const getUserByUsername = (username) => {
+  return async function (dispatch) {
+    try {
+      const response = await axios.get(`/users?username=${username}`)
+      console.log('response: ', response);
+      return dispatch({
+        type: GET_USER_BY_USERNAME,
+        payload: response.data,
+
+      });
+    } catch (error) {
+      console.log(error.message);
+      }
+  }
+ }
+export const updateProfile = (payload) => {
+  console.log(payload);
+  return async function (dispatch) {
+    try {
+      const response = await axios.put(`/users/update`, payload);
+      console.log(response);
+      return dispatch({
+        type: UPDATE_PROFILE,
+        payload: response,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};

@@ -6,6 +6,7 @@ import DashboardUsers from "../../components/DashboardUsers/DashboardUsers";
 import { FaUsers, FaChartBar, FaHome } from "react-icons/fa";
 import NavBar from "../../components/NavBar/NavBar";
 import "./sidebar.css";
+import SearchDashboard from "./SearchDashboard";
 import Charges from "../../components/Graphics/Charges";
 import ItemSold from "../../components/Graphics/ItemSold";
 import BestSellers from "../../components/Graphics/BestSellers";
@@ -47,8 +48,9 @@ export default function Dashboard() {
   ]
   const allUsers = useSelector((state) => state.allUsers);
   const [selectedTab, setSelectedTab] = useState("users");
-
+  
   if (user && allUsers) {
+
     const users = allUsers.filter((u) => u.id !== user.uid);
 
     const handleTabChange = (tab) => {
@@ -88,6 +90,9 @@ export default function Dashboard() {
           </div>
         </div>
         <div className="p-4 text-black">
+        <div className="p-4">
+          <SearchDashboard />
+        </div>
           {selectedTab === "users" && (
             <div>
               {users.map((u) => (
