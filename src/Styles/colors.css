@@ -7,6 +7,8 @@
     --color-cards: #bbf7d0;
     --color-pagination: #02355e; 
     --color-arrows: black;
+    --color-freq-quest: rgb(44, 46, 112);
+    --color-input: black; 
   }
   
   [data-theme="dark"] {
@@ -18,4 +20,6 @@
     --color-cards: #3a3e3f;
     --color-pagination: #5e6b71; 
     --color-arrows: white;
+    --color-freq-quest: white;
+    --color-input: black;
   }

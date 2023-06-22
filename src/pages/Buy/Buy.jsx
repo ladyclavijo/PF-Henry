@@ -1,11 +1,10 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import ContainerAddress from './Address';
 import Payment from './Payment';
 import Articles from './Articles';
 import NavBar from "../../components/NavBar/NavBar";
 import { ThemeContext } from '../../components/ThemeProvider/ThemeProvider';
 import "../../Styles/colors.css";
-
 
 
 export default function Buy() {

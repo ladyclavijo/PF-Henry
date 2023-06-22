@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from "react";
+import { Fragment, useContext } from "react";
 // import CartButton from "../CartButton/CartButton.jsx"
 import { Link } from "react-router-dom";
 import { ThemeContext } from "../ThemeProvider/ThemeProvider";

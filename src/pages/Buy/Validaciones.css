@@ -7,3 +7,7 @@
 .color-input {
   color: var(--color-input);
 } 
+
+.color-strong {
+    color: var(--color-text);
+  }
