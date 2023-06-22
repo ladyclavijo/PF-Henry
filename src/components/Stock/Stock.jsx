@@ -2,27 +2,30 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setQuantity } from "../../redux/actions";
 
-export default function Stock({ stock }) {
+export default function Stock({ id, stock, qty }) {
   const quantity = useSelector((state) => state.quantity);
+  const [quantitys, setQuantitys] = useState(qty || 1);
   const dispatch = useDispatch();
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
-    if (quantity >= stock) {
+    if (quantitys >= stock) {
       setErrorMessage("Maximum stock reached");
     } else {
       setErrorMessage("");
     }
-  }, [quantity, stock]);
+  }, [quantitys, stock]);
   const handleDecrease = () => {
-    if (quantity > 1) {
-      dispatch(setQuantity(quantity - 1));
+    if (quantitys > 1) {
+      dispatch(setQuantity({ id: id, qty: qty ? qty - 1 : quantity - 1 }));
+      setQuantitys(quantitys - 1);
     }
   };
 
   const handleIncrease = () => {
-    if (quantity < stock) {
-      dispatch(setQuantity(quantity + 1));
+    if (quantitys < stock) {
+      dispatch(setQuantity({ id: id, qty: qty ? qty + 1 : quantity + 1 }));
+      setQuantitys(quantitys + 1);
     }
   };
 
@@ -35,15 +38,22 @@ export default function Stock({ stock }) {
       value = stock;
       setErrorMessage("Maximum stock reached");
     } else if (value <= 0) {
-      value = 1;
+      value = null;
     } else {
       setErrorMessage("");
     }
-    dispatch(setQuantity(value));
+    dispatch(setQuantity({ id: id, qty: value }));
+    setQuantitys(value);
   };
 
   return (
-    <div className="flex flex-col items-center m-2">
+    <div
+      className={
+        qty !== undefined
+          ? "flex flex-col items-start"
+          : "flex flex-col items-center m-2"
+      }
+    >
       <div className="flex justify-between items-center">
         <div className="flex">
           <button
@@ -54,7 +64,7 @@ export default function Stock({ stock }) {
           </button>
           <input
             type="numeric"
-            value={quantity}
+            value={quantitys}
             className="p-2 mx-2 appearance-none w-14 text-center focus:outline-none"
             onChange={handleInputChange}
           />

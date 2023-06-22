@@ -68,19 +68,25 @@ export default function Payment() {
   const findCartByUser = allCarts.filter((c) => c.userId === authUser);
 
   const updateStock = () => {
-    for (let i = 0; i < cart.length; i++) {
-      const findBook = allBooks.find((b) => b.id === cart[i].id);
-      const id = findBook.id;
-      console.log({
-        id: id,
-        stock: findBook.stock - cart[i].qty,
-      });
+    if (bookData) {
+      const findBook = allBooks.find((b) => b.id === bookData.id);
       dispatch(
-        updateBook(id, {
-          id: id,
-          stock: findBook.stock - cart[i].qty,
+        updateBook(bookData.id, {
+          id: bookData.id,
+          stock: findBook.stock - bookData.quantity,
         })
       );
+    } else {
+      for (let i = 0; i < cart.length; i++) {
+        const findBook = allBooks.find((b) => b.id === cart[i].id);
+        const id = findBook.id;
+        dispatch(
+          updateBook(id, {
+            id: id,
+            stock: findBook.stock - cart[i].qty,
+          })
+        );
+      }
     }
   };
 
@@ -146,9 +152,7 @@ export default function Payment() {
 
   return (
     <div className="bg-[#bbf7d0] p-6 rounded-md shadow">
-      <p className="text-black text-left mb-3 font-bold">
-        Payment method
-      </p>
+      <p className="text-black text-left mb-3 font-bold">Payment method</p>
       <h4 className="text-black font-light">
         <Elements stripe={stripePromise}>
           {purchaseSuccess ? (

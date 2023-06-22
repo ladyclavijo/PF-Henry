@@ -26,6 +26,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [noResults, setNoResults] = useState(false);
   const cart = useSelector((state) => state.cart);
+  const allBooks = useSelector((state) => state.allBooks);
   const dispatch = useDispatch();
   const [booksLoaded, setBooksLoaded] = useState(false); // Variable de estado para controlar la carga de libros
 
@@ -46,11 +47,12 @@ export default function Home() {
             cover: cartItem.cover,
             price: cartItem.price,
             quantity: cartItem.quantity,
+            stock: allBooks.find((b) => b.id === cartItem.bookId)?.stock,
           })
         );
       });
     }
-  };
+  }
 
   const bookSorted = useSelector((state) => state.bookSorted);
   const currentPages = useSelector((state) => state.paginated);
@@ -77,29 +79,32 @@ export default function Home() {
     }
   }, [currentCards, dispatch, loading, booksLoaded]);
 
-
   const { theme } = useContext(ThemeContext); // <--- darkMode
 
-    const styles = {
-        container: {
-            backgroundColor: "var(--color-background)",
-        },
-    };
-
-  const handleNoResultsAlert = () => { // <--- sweetAlert
-    Swal.fire({
-      title: 'Opss!',
-      text: 'No books match your search.',
-      imageUrl: 'https://i.pinimg.com/564x/7c/a4/2e/7ca42e4ff366cf7e8ce6b150bfb7b2d9.jpg',
-      imageWidth: 300,
-      imageHeight: 150,
-      imageAlt: 'Custom image',
-    })
+  const styles = {
+    container: {
+      backgroundColor: "var(--color-background)",
+    },
   };
 
-  
+  const handleNoResultsAlert = () => {
+    // <--- sweetAlert
+    Swal.fire({
+      title: "Opss!",
+      text: "No books match your search.",
+      imageUrl:
+        "https://i.pinimg.com/564x/7c/a4/2e/7ca42e4ff366cf7e8ce6b150bfb7b2d9.jpg",
+      imageWidth: 300,
+      imageHeight: 150,
+      imageAlt: "Custom image",
+    });
+  };
+
   return (
-    <div className={"home-page bg-slate-300 min-h-screen"} style={styles.container} >
+    <div
+      className={"home-page bg-slate-300 min-h-screen"}
+      style={styles.container}
+    >
       <div className="home-navbar">
         <div className="div-logo">
           <img src={logo} alt="logo" />
@@ -143,11 +148,9 @@ export default function Home() {
                 stock={book.stock}
                 genres={book.genres}
                 price={book.price}
-                
               />
             ))
           ) : null}
-
         </div>
         {!error.length && (
           <Pagination

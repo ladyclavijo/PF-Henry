@@ -26,7 +26,8 @@ import {
   TOTAL_ITEMS,
   GET_TOTAL_CHARGES,
   GET_BEST_SELLERS,
-  GET_USER_BY_USERNAME
+  GET_USER_BY_USERNAME,
+  UPDATE_PROFILE,
 } from "../actions/actionsTypes";
 
 const initialState = {
@@ -40,6 +41,7 @@ const initialState = {
   error: [],
   paginated: 1,
   genre: [],
+  allGenres: [],
   language: [],
   genresId: [],
   authors: [],
@@ -47,8 +49,8 @@ const initialState = {
   cart: [],
   currentUser: null,
   registrationError: null,
-  appliedFilters: { genre: null, language: null },
   quantity: 1,
+  allQuantity: [],
   dailySales: [],
   totalItemsSold: 0,
   totalCharges: [],
@@ -66,7 +68,7 @@ export default function rootReducer(state = initialState, action) {
       };
 
     case ADD_TO_CART: {
-      const { id, title, cover, price, quantity } = action.payload;
+      const { id, title, cover, price, quantity, stock } = action.payload;
       const existingItem = state.cart.find((item) => item.id === id);
 
       if (existingItem) {
@@ -89,6 +91,7 @@ export default function rootReducer(state = initialState, action) {
           cover,
           price,
           quantity,
+          stock,
         };
 
         return {
@@ -110,6 +113,7 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         cart: [],
+        allQuantity: [],
       };
     case GET_BOOK_DETAIL:
       return {
@@ -152,7 +156,7 @@ export default function rootReducer(state = initialState, action) {
     case GET_ALL_GENRES:
       return {
         ...state,
-        genre: action.payload,
+        allGenres: action.payload,
       };
     case FILTER_BY_GENRES:
       const genresAux = action.payload;
@@ -252,7 +256,6 @@ export default function rootReducer(state = initialState, action) {
         totalCharges: action.payload,
       };
 
-
     case GET_GENRES_BY_ID:
       return {
         ...state,
@@ -296,10 +299,50 @@ export default function rootReducer(state = initialState, action) {
         allCarts: action.payload,
       };
     case QUANTITY:
-      return {
-        ...state,
-        quantity: action.payload,
-      };
+      const { id, qty } = action.payload;
+      const cartQuantity = state.allQuantity;
+      if (cartQuantity.length > 0) {
+        const findBook = cartQuantity.find((b) => b.id === id);
+        if (findBook) {
+          const newAllQuantity = cartQuantity.filter((b) => b.id !== id);
+          return {
+            ...state,
+            allQuantity: [...newAllQuantity, { id: id, qty: qty }],
+            cart: state.cart.map((item) => {
+              if (item.id === id) {
+                return {
+                  ...item,
+                  quantity: qty,
+                };
+              }
+              return item;
+            }),
+            quantity: qty,
+          };
+        } else if (id === undefined) {
+          return {
+            ...state,
+            quantity: qty,
+          };
+        } else {
+          return {
+            ...state,
+            allQuantity: [...state.allQuantity, { id: id, qty: qty }],
+            quantity: qty,
+          };
+        }
+      } else if (id === undefined) {
+        return {
+          ...state,
+          quantity: qty,
+        };
+      } else {
+        return {
+          ...state,
+          allQuantity: [{ id: id, qty: qty }],
+          quantity: qty,
+        };
+      }
 
     case GET_BEST_SELLERS:
       return {
@@ -313,8 +356,12 @@ export default function rootReducer(state = initialState, action) {
       };
      
 
+    case UPDATE_PROFILE:
+      return {
+        ...state,
+        userProfile: action.payload,
+      };
     default:
       return state;
   }
-
 }

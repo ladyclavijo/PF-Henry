@@ -30,15 +30,12 @@ export default function DashboardUsers({ id, username, email, admin, ban }) {
     }
   };
   return (
-    <div className="flex items-center justify-between bg-[#9DC8C5] border border-gray-400 p-4">
+    <div className="flex items-center justify-between  p-4">
       <div className="mr-4">
         <p>{username}</p>
         <p>{email}</p>
       </div>
       <div className="flex items-center">
-        <Link to={URL}>
-          <button className="mr-2 clear-filters-button">DETALLES</button>
-        </Link>
         <div className="mr-2">
           {user.isAdmin === true ? (
             <button className="clear-filters-button" onClick={handleAdmin}>

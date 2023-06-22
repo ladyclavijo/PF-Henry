@@ -736,14 +736,14 @@ progress {
 .container-xxl,
 .container-xl,
 .container-lg,
-.container-md,
+/* .container-md, */
 .container-sm {
-  --bs-gutter-x: 1.5rem;
+  /* --bs-gutter-x: 1.5rem; */
   --bs-gutter-y: 0;
   width: 100%;
   padding-right: calc(var(--bs-gutter-x) * 0.5);
   padding-left: calc(var(--bs-gutter-x) * 0.5);
-  margin-right: auto;
+  /* margin-right: auto; */
   margin-left: auto;
 }
 
@@ -3916,7 +3916,7 @@ textarea.form-control-lg {
 }
 
 .navbar {
-  --bs-navbar-padding-x: 0;
+  /* --bs-navbar-padding-x: 0; */
   --bs-navbar-padding-y: 0.5rem;
   --bs-navbar-color: rgba(var(--bs-emphasis-color-rgb), 0.65);
   --bs-navbar-hover-color: rgba(var(--bs-emphasis-color-rgb), 0.8);

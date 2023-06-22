@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { getAllGenres, createBooks } from "../../redux/actions/index.jsx";
 import NavBar from "../../components/NavBar/NavBar.jsx";
+import { useAuth } from "../../context/authContext.jsx";
 
 function validateForm(input) {
   let errors = {};
@@ -71,11 +72,12 @@ function validateForm(input) {
 }
 
 export default function Form() {
+  const authUser = useAuth()?.user?.uid;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   // const [disable, setDisable] = useState(true);
   const [errors, setErrors] = useState({});
-  const genre = useSelector((state) => state.genre);
+  const genre = useSelector((state) => state.allGenres);
   const [secondSelectVisible, setSecondSelectVisible] = useState(false);
   const [input, setInput] = useState({
     title: "",
@@ -89,6 +91,7 @@ export default function Form() {
     author: [],
     genre: [],
     stock: "",
+    userId: authUser,
   });
   function handleChange(e) {
     if (e.target.name === "author") {
@@ -157,7 +160,6 @@ export default function Form() {
   //         genres: input.genres.filter((gen) => gen !== el),
   //     });
   // }
-
   function handleSubmit(e) {
     e.preventDefault();
     if (

@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
-import { getTotalCharges } from '../../redux/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { getTotalCharges } from '../../redux/actions/index';
+import './Charges.css';
 
-export default function Charges() {
+const Charges = () => {
     const dispatch = useDispatch();
     const totalCharges = useSelector((state) => state.totalCharges);
 
@@ -11,21 +11,38 @@ export default function Charges() {
         dispatch(getTotalCharges());
     }, [dispatch]);
 
-    const data = Object.keys(totalCharges).map((date) => ({
-        date,
-        Amount: totalCharges[date],
-    }));
+    const renderBarChart = () => {
+        const maxCharge = Math.max(...Object.values(totalCharges));
+
+        return Object.keys(totalCharges).map((date) => {
+            const height = (totalCharges[date] / maxCharge) * 100;
+            const barColor = getBarColor(totalCharges[date]);
+
+            return (
+                <div
+                    className="bar"
+                    style={{ height: `${height}%`, backgroundColor: barColor }}
+                    key={date}
+                >
+                    <div className="total">${totalCharges[date]}</div>
+                    <div className="date">{date}</div>
+                </div>
+            );
+        });
+    };
+
+    const getBarColor = (value) => {
+        if (value >= 1) {
+            return '#074a9cc7';
+        }
+    };
 
     return (
-        <div>
-            <h2>Total transaction amount</h2>
-            <BarChart width={600} height={500} data={data}>
-                <XAxis dataKey="date" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Bar dataKey="Amount" fill="#8884d8" barSize={150} />
-            </BarChart>
+        <div className="charges-container">
+            <h2 className='text-black'>Total Charges</h2>
+            <div className="bar-chart">{renderBarChart()}</div>
         </div>
     );
-}
+};
+
+export default Charges;

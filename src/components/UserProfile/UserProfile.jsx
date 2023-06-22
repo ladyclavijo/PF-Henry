@@ -4,10 +4,23 @@ import { FaUserCircle } from 'react-icons/fa';
 import { useAuth } from "../../context/authContext"
 import React, { useState, useEffect, useRef } from 'react';
 
+import { useDispatch, useSelector } from "react-redux";
+import { getUserDetail } from "../../redux/actions/index";
+
 const UserProfile = () => {
   const { user, logout } = useAuth();
   const [isCardOpen, setIsCardOpen] = useState(false);
   const cardRef = useRef(null);
+
+  const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.userDetail);
+  const id = user.uid
+  const finalUser = currentUser.response
+
+
+  useEffect(() => {
+    dispatch(getUserDetail(id));
+  }, [dispatch, id]);
 
   useEffect(() => {
     const handleOutsideClick = (event) => {
@@ -38,22 +51,37 @@ const UserProfile = () => {
   return (
     <div className="user-profile">
       <div className="profile-icon" onClick={() => setIsCardOpen(!isCardOpen)}>
-        <FaUserCircle className="icon" />
+        {finalUser?.photo ? (
+            <img src={finalUser?.photo} className="rounded-full p-0.5"/>
+        ) : (
+            <FaUserCircle className="icon" />
+        )}
       </div>
       {isCardOpen && (
         <div className="user-card" ref={cardRef}>
           <div className="card-content">
             <div className="card-profile-picture">
-              <FaUserCircle className="user-icon" />
+                {
+                    finalUser?.photo ? (
+                        <div className="flex items-center">
+                            <img src={finalUser?.photo} className="rounded-full p-1 mb-1 w-16"/>
+                            <Link to="/myaccount">
+                                <div className="ml-2 text-black">
+                                    <p className="font-bold -mb-1.5">{finalUser.username}</p>
+                                    <p className="inline text-sm w-full italic">{finalUser.name}{finalUser.lastname}</p>
+                                </div>
+                            </Link>
+                        </div>
+                    ) : (
+                        <FaUserCircle className="user-icon" />
+                    )
+                }
             </div>
             <div className="card-info">
-              <h3 className="user-name">
-                <Link to="/myaccount">My Account</Link>
-              </h3>
-              <p className="user-email">{user?.email}</p>
+              <p className="user-email mt-3">{user?.email}</p>
             </div>
             <Link to='/home'>
-              <button onClick={logout} className="logout-button">Logout</button>
+              <button onClick={logout} className="logout-button">Log out</button>
             </Link>
           </div>
         </div>

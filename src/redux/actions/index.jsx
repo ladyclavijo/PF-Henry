@@ -1,5 +1,4 @@
 import axios from "axios";
-import Decimal from 'decimal.js';
 import {
   GET_BOOKS,
   GET_BOOKS_BY_NAME,
@@ -33,7 +32,8 @@ import {
   TOTAL_ITEMS,
   GET_TOTAL_CHARGES,
   GET_BEST_SELLERS,
-  GET_USER_BY_USERNAME
+  GET_USER_BY_USERNAME,
+  UPDATE_PROFILE,
 } from "./actionsTypes";
 
 export const getBooks = () => {
@@ -364,11 +364,11 @@ export const updateBook = (id, payload) => {
   };
 };
 
-export const setQuantity = (number) => {
+export const setQuantity = (payload) => {
   return (dispatch) => {
     return dispatch({
       type: QUANTITY,
-      payload: number,
+      payload,
     });
   };
 };
@@ -398,22 +398,23 @@ export const getTotalCharges = () => {
       orders.forEach((order) => {
         const createdAt = new Date(order.createdAt).toISOString().split("T")[0]; // Formato ISO 8601
         const totalCharge = order.items.find((item) => item.total)?.total;
-
-        // console.log("createdAt:", createdAt);
-        // console.log("totalCharge:", totalCharge);
-
         if (createdAt && totalCharge) {
-          const parsedTotalCharge = new Decimal(totalCharge).toFixed(2);
+          const parsedTotalCharge = parseFloat(totalCharge).toFixed(2);
 
           if (dailyCharges[createdAt]) {
-            dailyCharges[createdAt] = new Decimal(dailyCharges[createdAt]).plus(parsedTotalCharge).toNumber();
+            dailyCharges[createdAt] =
+              parseFloat(dailyCharges[createdAt]) +
+              parseFloat(parsedTotalCharge);
           } else {
-            dailyCharges[createdAt] = new Decimal(parsedTotalCharge).toNumber();
+            dailyCharges[createdAt] = parseFloat(parsedTotalCharge);
           }
         }
       });
 
-      // console.log("dailyCharges:", dailyCharges);
+      // Redondear los valores a 2 decimales
+      for (const date in dailyCharges) {
+        dailyCharges[date] = parseFloat(dailyCharges[date]).toFixed(2);
+      }
 
       dispatch({
         type: GET_TOTAL_CHARGES,
@@ -428,7 +429,7 @@ export const getTotalCharges = () => {
 export const getBestSellers = () => {
   return async function (dispatch) {
     try {
-      const response = await axios.get('/payments/sales');
+      const response = await axios.get("/payments/sales");
       return dispatch({
         type: GET_BEST_SELLERS,
         payload: response.data.bestSellers,
@@ -451,7 +452,21 @@ export const getUserByUsername = (username) => {
       });
     } catch (error) {
       console.log(error.message);
+      }
+  }
+ }
+export const updateProfile = (payload) => {
+  console.log(payload);
+  return async function (dispatch) {
+    try {
+      const response = await axios.put(`/users/update`, payload);
+      console.log(response);
+      return dispatch({
+        type: UPDATE_PROFILE,
+        payload: response,
+      });
+    } catch (error) {
+      console.log(error);
     }
   };
 };
-
