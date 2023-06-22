@@ -1,6 +1,10 @@
-// import { postUser } from "../../redux/actions/index"
+
+import { useState } from 'react';
+import './FormLanding.css';
+
 import React, { useState } from "react";
 import "./FormLanding.css";
+
 
 function FormLanding() {
   const [firstName, setFirstName] = useState("");

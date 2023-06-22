@@ -100,7 +100,10 @@ function App() {
             <Route path="/privacypolicy" element={<Privacy />} />
             <Route path="/returnpolicies" element={<ReturnPolicies />} />
             {/*---------------------- AUTH ROUTES ------------------------------- */}
+
+
             <Route path="/mysells" element={<UserSales />} />
+
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/newuser" element={<NewUsersForm />} />

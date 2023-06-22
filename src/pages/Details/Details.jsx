@@ -1,5 +1,7 @@
 import axios from "axios";
+
 import React, { useEffect, useState, useContext } from "react";
+
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import {
@@ -332,69 +334,27 @@ export default function Details() {
     }
   };
 
-  console.log(book.userId);
+
+  console.log(book.userId)
 
   const { theme } = useContext(ThemeContext);
 
-  const styles = {
-    container: {
-      backgroundColor: "var(--color-background)",
-    },
-  };
+    const styles = {
+        container: {
+            backgroundColor: "var(--color-background)",
+        },
+    };
 
-  return (
-    <div
-      className={`bg-slate-300 min-h-screen w-screen`}
-      style={styles.container}
-    >
-      <NavBar />
-      {!book.author || userDetail.length === 0 ? (
-        <Loader />
-      ) : (
-        <>
-          <div className="m-4">
-            <div className="inline-block mt-8"></div>
-            <div className="flex flex-row justify-between items-center">
-              <div className="w-[54%] flex flex-row bg-[#BFE1DF] rounded-md shadow">
-                <img
-                  className="p-2 w-96"
-                  src={book.cover}
-                  alt={`${book.title} book`}
-                />
-                <div className="m-3 rounded-md">
-                  <h1 className="font-bold text-3xl w-96">{book.title}</h1>
-                  <h2 className="italic text-xl mb-4">{book.author}</h2>
-                  <h2 className="w-96 max-h-64 overflow-auto mb-4">
-                    {" "}
-                    {book.description}
-                  </h2>
-                  <div>
-                    <h2 className="font-bold text-l inline">Publisher: </h2>
-                    <span className="inline ml-1">{book.publisher}</span>
-                  </div>
-                  <div>
-                    <h2 className="font-bold text-l inline">
-                      Publisher date:{" "}
-                    </h2>
-                    <span className="inline ml-1">{book.publisher_date}</span>
-                  </div>
-                  <div>
-                    <h2 className="font-bold text-l inline">
-                      Number of pages:
-                    </h2>{" "}
-                    <span className="inline ml-1">{book.pages}</span>
-                  </div>
-                  <div>
-                    <h2 className="font-bold text-l inline">Language: </h2>
-                    <span className="inline ml-1">
-                      {book.language === "es" ? "Spanish" : "English"}
-                    </span>
-                  </div>
-                  <div></div>
-                  <h2 className="font-bold text-l inline">Genres: </h2>
-                  {book.genres.map((e) => {
-                    return <p className="inline ml-1">{e.name}. </p>;
-                  })}
+    return (
+        <div className={`bg-slate-300 min-h-screen w-screen`} style={styles.container}>
+        <NavBar />
+        {!book.author || userDetail.length === 0 ? (
+            <Loader />
+        ) : (
+            <>
+            <div className="m-4">
+                <div className="inline-block mt-8">
+
                 </div>
               </div>
 

@@ -1,4 +1,6 @@
+
 import React, { useContext } from "react";
+
 import { Link } from "react-router-dom";
 import "./Landing.css";
 import imagen from "../../assets/landing-image.png";

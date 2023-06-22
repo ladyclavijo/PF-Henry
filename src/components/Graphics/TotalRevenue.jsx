@@ -1,6 +1,8 @@
+
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setRevenue } from "../../redux/actions";
+
 import "./TotalRevenue.css";
 
 export default function TotalRevenue() {

@@ -1,4 +1,6 @@
+
 import React, { useState, useContext } from "react";
+
 import { useAuth } from "../../context/authContext";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -20,12 +22,14 @@ export default function Dashboard() {
   const [selectedTab, setSelectedTab] = useState("users");
   const { theme } = useContext(ThemeContext);
 
+  
   const styles = {
-    container: {
-      backgroundColor: "var(--color-background)",
-      color: "var(--color-text)",
-    },
+      container: {
+          backgroundColor: "var(--color-background)",
+          color: "var(--color-text)",
+      },
   };
+  
 
   const data = [
     {
@@ -53,12 +57,14 @@ export default function Dashboard() {
       color: "hsl(215, 70%, 50%)",
     },
     {
-      id: "go",
-      label: "go",
-      value: 174,
-      color: "hsl(145, 70%, 50%)",
-    },
-  ];
+
+      "id": "go",
+      "label": "go",
+      "value": 174,
+      "color": "hsl(145, 70%, 50%)"
+    }
+  ]
+
 
   if (user && allUsers) {
     const users = allUsers.filter((u) => u.id !== user.uid);
@@ -67,11 +73,12 @@ export default function Dashboard() {
       setSelectedTab(tab);
     };
 
+
+
     return (
-      <div
-        className={`home-page bg-slate-300 min-h-screen w-screen flex`}
-        style={styles.container}
-      >
+
+      <div className={`home-page bg-slate-300 min-h-screen w-screen flex`} style={styles.container}>
+
         <NavBar />
         <div className="sidebar bg-[#01017A] p-4 flex flex-col justify-between">
           <div className="sidebar-icons-container sticky top-6">
@@ -107,7 +114,10 @@ export default function Dashboard() {
           </div>
         </div>
         <div className={`p-4 text-black"`} style={styles.container}>
-          <div className="p-4"></div>
+
+          <div className="p-4">
+          </div>
+
           {selectedTab === "users" && (
             <div>
               <SearchDashboard />

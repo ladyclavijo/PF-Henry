@@ -11,11 +11,16 @@ const Faq = () => {
   };
   return (
     <div className={styles.accordionContainerA}>
-      <div className="title-freq-quest">
+
+
+        <div className='title-freq-quest'>
         <div className={styles.titleContainer}>
-          <h2 className={`${styles.title} ${styles.blue}`}>
-            FREQUENT <span className={styles.blue}> QUESTIONS</span>
-          </h2>
+            <h2 className={`${styles.title} ${styles.blue}`}>
+                FREQUENT <span className={styles.blue}> QUESTIONS
+                </span>
+            </h2>
+        </div>
+
         </div>
       </div>
 

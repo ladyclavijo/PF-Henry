@@ -5,7 +5,7 @@ import UserProfile from "../UserProfile/UserProfile";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/authContext"; // Importar el hook useAuth en lugar del contexto
 import { ProtectedButtonAdmin } from "../../pages/Dashboard/ProtectedButtonAdmin";
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { ThemeContext } from "../ThemeProvider/ThemeProvider";
 
 const NavBar = ({ admin }) => {

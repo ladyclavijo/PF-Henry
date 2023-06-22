@@ -1,4 +1,6 @@
+
 import React, { useContext } from "react";
+
 import NavBar from "../../components/NavBar/NavBar.jsx";
 import "./about.css";
 import Faq from "./Faq";
@@ -6,35 +8,33 @@ import Footer from "../../components/Footer/Footer.jsx";
 import { ThemeContext } from "../../components/ThemeProvider/ThemeProvider.jsx";
 import "../../Styles/colors.css";
 
+
+
 export default function About() {
+
   const { theme } = useContext(ThemeContext);
 
-  const styles = {
-    container: {
-      backgroundColor: "var(--color-background)",
-    },
-  };
+    const styles = {
+        container: {
+            backgroundColor: "var(--color-background)",
+        },
+    };
+
+
 
   return (
-    <div
-      className={`bg-slate-300 min-h-screen w-screen`}
-      style={styles.container}
-    >
+    <div className={`bg-slate-300 min-h-screen w-screen`} style={styles.container}>
       <NavBar />
       <div className="containerOne">
-        <div className="containerOneContent">
-          <div className="divAboutLeft">
-            <h2 className="titles">Who are we?</h2>
-            <p>
-              {" "}
-              We are a website that facilitates the online sale of books. We
-              also allow the exchange of books between users of the site. Our
-              goal is to connect book lovers from all over the world, allowing
-              them to buy, sell and exchange books in a simple and secure way.
-            </p>
-          </div>
+      <div className="containerOneContent">
+        <div className="divAboutLeft">
+          <h2 className="titles">Who are we?</h2>
+          <p> We are a website that facilitates the online sale of books. We also allow the exchange of books between users of the site. Our goal is to connect book lovers from all over the world, allowing them to buy, sell and exchange books in a simple and secure way.</p>
+
+        </div>
         </div>
       </div>
+
 
       <div className="containerTwo">
         <div className="divAboutRight">
@@ -130,5 +130,7 @@ export default function About() {
       </div>
       <Footer />
     </div>
-  );
+
+  )
 }
+

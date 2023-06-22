@@ -1,9 +1,11 @@
+
 import React, { useContext } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import "./Payment.css";
 import { ThemeContext } from "../../components/ThemeProvider/ThemeProvider.jsx";
 import "../../Styles/colors.css";
+
 
 export default function Articles() {
   const cartItems = useSelector((state) => state.cart);
@@ -23,10 +25,9 @@ export default function Articles() {
   };
 
   return (
-    <div
-      className="bg-[#bbf7d0] p-6 rounded shadow mt-20 mb-5"
-      style={styles.container}
-    >
+
+    <div className="bg-[#bbf7d0] p-6 rounded shadow mt-20 mb-5" style={styles.container}>
+
       <h2 className="text-2xl font-semibold mb-4">Order Summary</h2>
       {bookData ? (
         <div className="flex items-center ">
@@ -36,18 +37,12 @@ export default function Articles() {
             alt="Book cover"
           />
           <div>
-            <h2 className="text-lg font-semibold" style={styles.container}>
-              {bookData.title}
-            </h2>
-            <p className="text-gray-500" style={styles.container}>
-              Price: ${bookData.price}
-            </p>
-            <p className="text-gray-500" style={styles.container}>
-              Quantity: {bookData.quantity}
-            </p>
-            <p className="text-gray-500" style={styles.container}>
-              Total: ${bookData.price * bookData.quantity}
-            </p>
+
+            <h2 className="text-lg font-semibold" style={styles.container}>{bookData.title}</h2>
+            <p className="text-gray-500" style={styles.container}>Price: ${bookData.price}</p>
+            <p className="text-gray-500" style={styles.container}>Quantity: {bookData.quantity}</p>
+            <p className="text-gray-500" style={styles.container}>Total: ${bookData.price * bookData.quantity}</p>
+
           </div>
         </div>
       ) : (
@@ -59,18 +54,12 @@ export default function Articles() {
               alt="Book cover"
             />
             <div>
-              <h2 className="text-lg font-semibold" style={styles.container}>
-                {item.title}
-              </h2>
-              <p className="text-gray-500" style={styles.container}>
-                Price: ${item.price}
-              </p>
-              <p className="text-gray-500" style={styles.container}>
-                Quantity: {item.quantity}
-              </p>
-              <p className="text-gray-500" style={styles.container}>
-                Total: ${(item.price * item.quantity).toFixed(2)}
-              </p>
+
+              <h2 className="text-lg font-semibold" style={styles.container}>{item.title}</h2>
+              <p className="text-gray-500" style={styles.container}>Price: ${item.price}</p>
+              <p className="text-gray-500" style={styles.container}>Quantity: {item.quantity}</p>
+              <p className="text-gray-500" style={styles.container}>Total: ${(item.price * item.quantity).toFixed(2)}</p>
+
             </div>
           </div>
         ))
