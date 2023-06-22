@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import ContainerAddress from './Address';
 import Payment from './Payment';
 import Articles from './Articles';

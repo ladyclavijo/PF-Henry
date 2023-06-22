@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import {useContext} from 'react';
 import './Validaciones.css'
 import { ThemeContext } from "../../components/ThemeProvider/ThemeProvider.jsx";
 import "../../Styles/colors.css";
