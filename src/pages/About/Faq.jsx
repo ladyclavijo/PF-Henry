@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 // import { ReadLine } from 'react-icons/ri';
 import { RiAddLine } from "react-icons/ri";
 import styles from "./Faq.module.css";
@@ -11,16 +11,11 @@ const Faq = () => {
   };
   return (
     <div className={styles.accordionContainerA}>
-
-
-        <div className='title-freq-quest'>
+      <div className="title-freq-quest">
         <div className={styles.titleContainer}>
-            <h2 className={`${styles.title} ${styles.blue}`}>
-                FREQUENT <span className={styles.blue}> QUESTIONS
-                </span>
-            </h2>
-        </div>
-
+          <h2 className={`${styles.title} ${styles.blue}`}>
+            FREQUENT <span className={styles.blue}> QUESTIONS</span>
+          </h2>
         </div>
       </div>
 
