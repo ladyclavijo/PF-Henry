@@ -1,7 +1,7 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { getBooks, getCartsDB, getUsers } from "./redux/actions/index";
 import Landing from "./pages/Landing/Landing";
 import Home from "./pages/Home/Home";
@@ -12,6 +12,7 @@ import Buy from "./pages/Buy/Buy";
 import Cart from "./pages/Cart/Cart";
 import MyAccount from "./pages/MyAccount/MyAccount";
 import Dashboard from "./pages/Dashboard/Dashboard";
+import UserSales from "./components/UserSales/UserSales";
 import User from "./pages/User/User";
 import Sales from "./pages/Sales/Sales";
 import TermsandConditions from "./components/Footer/Tac/TermsandConditions";
@@ -99,6 +100,9 @@ function App() {
             <Route path="/privacypolicy" element={<Privacy />} />
             <Route path="/returnpolicies" element={<ReturnPolicies />} />
             {/*---------------------- AUTH ROUTES ------------------------------- */}
+
+
+            <Route path="/mysells" element={<UserSales />} />
 
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />

@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useMemo, useContext } from "react";
+import { Fragment, useEffect, useMemo, useContext } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import NavBar from "../../components/NavBar/NavBar.jsx";
 import { Link } from "react-router-dom";
@@ -156,7 +156,9 @@ export default function Cart() {
         {cartItems.map((item) => (
           <div
             key={item.id}
-            className="mt-5 flex items-start bg-green-200 m-10 p-3 relative card-background"
+
+            className="mt-5 flex items-start bg-green-200 m-10 p-3 relative card-background"  style={styles.container}
+
           >
             <img
               className="w-32"
@@ -171,11 +173,15 @@ export default function Cart() {
               >
                 Stock: {item.stock}
               </p>
+              <div className="color-input">
+
               <Stock
                 id={item.id}
                 stock={item.stock}
                 qty={item.quantity}
               ></Stock>
+
+              </div>
               <p
                 className={`self-start text-gray-500`}
                 style={styles.container2}

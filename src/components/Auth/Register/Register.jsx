@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuth } from "../../../context/authContext";
 import { Link, useNavigate } from "react-router-dom";
 import Alert from "../Alert/Alert";
@@ -21,14 +21,11 @@ export default function Register() {
   const [error, setError] = useState();
   const [showAlert, setShowAlert] = useState(false); //<-------- MENSAJE PARA VERIFICACION DEL MAIL
 
-
   //handleChange para ir actualizando el input-estado (email y password)
   const handleChange = ({ target: { name, value } }) => {
     setUser({ ...user, [name]: value });
   };
 
-
-  
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
@@ -36,7 +33,7 @@ export default function Register() {
     try {
       await signup(user.email, user.password);
       setShowAlert(true);
-      // navigate("/newuser"); 
+      // navigate("/newuser");
     } catch (error) {
       console.log(error.code);
       if (error.code === "auth/missing-password") {
@@ -133,24 +130,24 @@ export default function Register() {
             </button>
           </div>
         </form>
-{/* --------------------- MENSAJE PARA QUE VERIFIQUEN EL EMAIL  -------------------*/}
-          {showAlert && (
-            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4 text-center flex flex-col">
-              <span className="text center mb-2">
+        {/* --------------------- MENSAJE PARA QUE VERIFIQUEN EL EMAIL  -------------------*/}
+        {showAlert && (
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4 text-center flex flex-col">
+            <span className="text center mb-2">
               Please verify your email to continue with the registration.
-              </span>
-              <button
-                onClick={() => {
-                  setShowAlert(false);
-                  navigate("/newuser");
-                }}
-                className="bg-red-500 hover:bg-red-700 text-white font-bold text-sm py-2 px-4 rounded focus:outline-none focus:shadow-outline mx-auto w-min"
-              >
-                Next
-             </button>
-           </div>
-          )}
-{/* -------------------------------------------------------------------------------- */}
+            </span>
+            <button
+              onClick={() => {
+                setShowAlert(false);
+                navigate("/newuser");
+              }}
+              className="bg-red-500 hover:bg-red-700 text-white font-bold text-sm py-2 px-4 rounded focus:outline-none focus:shadow-outline mx-auto w-min"
+            >
+              Next
+            </button>
+          </div>
+        )}
+        {/* -------------------------------------------------------------------------------- */}
 
         <p className="my-4 text-sm flex justify-between px-3">
           Already have an Account? <Link to="/login">Login</Link>
