@@ -124,7 +124,8 @@
   --circle-diameter: 30px;
   --circle-bg: rgb(84, 97, 118);
   --circle-inset: calc((var(--circle-diameter) - var(--switch-height)) / 2);
-  padding: 20px;
+  /* padding: 20px; */
+  margin-right: 15px;
 }
 
 .ui-switch input {

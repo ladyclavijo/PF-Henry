@@ -1,11 +1,13 @@
 import { useAuth } from "../../context/authContext";
 import { useDispatch, useSelector } from "react-redux";
 import "./MyAccount.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { getUserDetail, updateProfile } from "../../redux/actions/index";
 import NavBar from "../../components/NavBar/NavBar";
 import { FaLocationArrow,FaMobileAlt,FaMailBulk } from 'react-icons/fa';
+import { ThemeContext } from "../../components/ThemeProvider/ThemeProvider.jsx";
+import "../../Styles/colors.css";
 
 export default function MyAccount() {
 
@@ -90,10 +92,22 @@ export default function MyAccount() {
     )
   }
 
+  const { theme } = useContext(ThemeContext);
+
+  const styles = {
+    container: {
+      backgroundColor: "var(--color-background)",
+      color: "var(--color-text)",
+    },
+    container2: {
+      color: "var(--color-text)",
+    },
+};
+
     return (
-        <div className="bg-slate-300 min-h-screen flex flex-col">
+        <div className="bg-slate-300 min-h-screen flex flex-col"  style={styles.container}>
             <NavBar />
-            <div className="mt-5 ml-5 flex">
+            <div className="mt-5 ml-5 flex"  style={styles.container}>
                 {/* <h2 className="welcome-title">
                 Welcome{", "}
                 <span className="text-[#266386]">
@@ -103,7 +117,8 @@ export default function MyAccount() {
                 </h2> */}
 
                 {editing ? (
-                <div className="w-96 bg-[#9dc8c5] p-4 items-center shadow rounded-md">
+                <div className="w-96 bg-[#9dc8c5] p-4 items-center shadow rounded-md"  style={styles.container}>
+                    <div className="color-input">
                     <div>
                         <img 
                             className="w-82 rounded-full"
@@ -111,7 +126,7 @@ export default function MyAccount() {
                             alt={finalUser?.username}/>
                     </div>
                     <div className="flex flex-col">
-                        <strong>Username</strong>
+                        <strong className="color-strong">Username</strong>
                         <input
                             type="text"
                             name="username"
@@ -121,7 +136,7 @@ export default function MyAccount() {
                         />
                     </div>
                     <div className="flex flex-col">
-                        <strong>Lastname</strong>
+                        <strong className="color-strong">Lastname</strong>
                         <input
                             type="text"
                             name="lastname"
@@ -131,7 +146,7 @@ export default function MyAccount() {
                         />
                     </div>
                     <div className="flex flex-col">
-                        <strong>Email</strong>
+                        <strong className="color-strong">Email</strong>
                         <input
                             type="text"
                             name="email"
@@ -141,7 +156,7 @@ export default function MyAccount() {
                         />
                     </div>  
                     <div className="flex flex-col">
-                        <strong>Number</strong>
+                        <strong className="color-strong">Number</strong>
                         <input
                             type="number"
                             name="phone"
@@ -151,7 +166,7 @@ export default function MyAccount() {
                         />
                     </div>
                     <div className="flex flex-col">
-                        <strong>Country</strong>
+                        <strong className="color-strong">Country</strong>
                         <input
                             type="text"
                             name="country"
@@ -161,7 +176,7 @@ export default function MyAccount() {
                         />
                     </div>
                     <div className="flex flex-col">
-                        <strong>Image</strong>
+                        <strong className="color-strong">Image</strong>
                         <input
                             type="text"
                             name="photo"
@@ -169,6 +184,7 @@ export default function MyAccount() {
                             onChange={(e) => handleChange(e)}
                             className="mb-1"
                         />
+                    </div>
                     </div>
                     <div className="flex space-x-4 mt-2">
                         <button
@@ -188,9 +204,9 @@ export default function MyAccount() {
                 </div>
                 ) : (
 
-                <div className="user-info">
+                <div className="user-info"style={styles.container}>
                     
-                    <div className="w-96 bg-[#9dc8c5] p-4 items-center shadow rounded-md">
+                    <div className="w-96 bg-[#9dc8c5] p-4 items-center shadow rounded-md" style={styles.container}>
 
                         <div className="w-82">
                             <img 
@@ -229,8 +245,8 @@ export default function MyAccount() {
                 </div>
                 )}
                 {show ? (
-                    <div className="bg-[#9dc8c5] ml-8 mt-4 items-start flex flex-row m-4 p-3 shadow rounded-md">
-                        <button className="font-bold" onClick={() => setShow(false)}>Hide bought books</button>
+                    <div className="bg-[#9dc8c5] ml-8 mt-4 items-start flex flex-row m-4 p-3 shadow rounded-md" style={styles.container}>
+                        <button className="font-bold" onClick={() => setShow(false)} style={styles.container}>Hide bought books</button>
                         <div className="ml-6 grid grid-cols-4 gap-x-6 gap-y-2">
                             {finalArray.map((el) => {
                             return (
@@ -247,8 +263,8 @@ export default function MyAccount() {
                         </div>
                     </div>
                 ) : (
-                    <div className=" ml-8 mt-4 items-start flex flex-row m-4">
-                        <button className="font-bold bg-[#9dc8c5] p-3 shadow rounded-md" onClick={() => setShow(true)}>Show bought books</button>
+                    <div className=" ml-8 mt-4 items-start flex flex-row m-4" style={styles.container}>
+                        <button className="font-bold bg-[#9dc8c5] p-3 shadow rounded-md" onClick={() => setShow(true)} style={styles.container}>Show bought books</button>
                     </div>
                 )}
             </div>

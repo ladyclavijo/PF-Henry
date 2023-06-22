@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { loadStripe } from "@stripe/stripe-js";
@@ -16,6 +16,11 @@ import {
   getCartsDB,
   updateBook,
 } from "../../redux/actions";
+
+import './Payment.css'
+import { ThemeContext } from "../../components/ThemeProvider/ThemeProvider.jsx";
+import "../../Styles/colors.css";
+
 const stripePromise = loadStripe(
   "pk_test_51NG2ovEoyRXOeDm5vXpDfSqMqCTF1XPioMsQz5ZZ6aFADDrZ9s4RKikHU0XLdF3dJtr55oTPdv31Sx2iflEysSDS004G9VQN5U"
 );
@@ -140,23 +145,41 @@ export default function Payment() {
       }
     };
 
+    
+
     return (
       <form className="bg-[#bbf7d0]" onSubmit={handleSubmit}>
         <CardElement />
-        <button className="mt-2 w-32 bg-[#9dc8c5] text-base hover:bg-[#7496b8] rounded-md w-full">
+        <div className='color-strong'>
+        <button className="mt-2 w-32 bg-[#9dc8c5] text-base hover:bg-[#7496b8] rounded-md w-full" >
           Confirm
         </button>
+        </div>
       </form>
     );
   };
 
+  const { theme } = useContext(ThemeContext);
+
+  const styles = {
+    container: {
+      backgroundColor: "var(--color-background)",
+      color: "var(--color-text)",
+    },
+    container2: {
+      color: "var(--color-text)",
+    },
+  };
+
   return (
-    <div className="bg-[#bbf7d0] p-6 rounded-md shadow">
-      <p className="text-black text-left mb-3 font-bold">Payment method</p>
-      <h4 className="text-black font-light">
-        <Elements stripe={stripePromise}>
+    <div className="bg-[#bbf7d0] p-6 rounded-md shadow" style={styles.container}>
+      <div className='color-strong'>
+      <p className=" text-left mb-3 font-bold">Payment method</p>
+      </div>
+      <h4 className="text-black font-light" >
+        <Elements stripe={stripePromise} >
           {purchaseSuccess ? (
-            <p>Your books have been bought successfully!</p>
+            <p style={styles.container}>Your books have been bought successfully!</p>
           ) : (
             <CheckoutForm />
           )}

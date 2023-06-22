@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import {
@@ -21,6 +21,8 @@ import { FaStar } from "react-icons/fa";
 import "./Details.css";
 import Stock from "../../components/Stock/Stock.jsx";
 import Swal from "sweetalert2";
+import { ThemeContext } from "../../components/ThemeProvider/ThemeProvider.jsx";
+import "../../Styles/colors.css";
 
 export default function Details() {
   const { id } = useParams();
@@ -331,8 +333,16 @@ export default function Details() {
 
   console.log(book.userId)
 
+  const { theme } = useContext(ThemeContext);
+
+    const styles = {
+        container: {
+            backgroundColor: "var(--color-background)",
+        },
+    };
+
     return (
-        <div className="bg-slate-300 min-h-screen w-screen">
+        <div className={`bg-slate-300 min-h-screen w-screen`} style={styles.container}>
         <NavBar />
         {!book.author || userDetail.length === 0 ? (
             <Loader />

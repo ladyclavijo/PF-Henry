@@ -7,7 +7,6 @@ import { ThemeContext } from '../../components/ThemeProvider/ThemeProvider';
 import "../../Styles/colors.css";
 
 
-
 export default function Buy() {
 
     const { theme } = useContext(ThemeContext);
