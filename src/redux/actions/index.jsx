@@ -34,7 +34,8 @@ import {
   GET_BEST_SELLERS,
   GET_USER_BY_USERNAME,
   UPDATE_PROFILE,
-  SET_REVENUE
+  SET_REVENUE,
+  SWITCH_UPDATE_BOOK,
 } from "./actionsTypes";
 
 export const getBooks = () => {
@@ -449,19 +450,20 @@ export const getBestSellers = () => {
   };
 };
 
-
-
 export const setRevenue = () => {
   return async (dispatch) => {
     try {
-      const response = await axios.get('/payments/sales');
-      console.log('actionssssssssssssssssssss', response.data.revenueByCategory);
+      const response = await axios.get("/payments/sales");
+      console.log(
+        "actionssssssssssssssssssss",
+        response.data.revenueByCategory
+      );
       dispatch({
         type: SET_REVENUE,
-        payload: response.data
+        payload: response.data,
       });
     } catch (error) {
-      console.error('Error fetching revenue by category:', error);
+      console.error("Error fetching revenue by category:", error);
     }
   };
 };
@@ -469,18 +471,17 @@ export const setRevenue = () => {
 export const getUserByUsername = (username) => {
   return async function (dispatch) {
     try {
-      const response = await axios.get(`/users?username=${username}`)
-      console.log('response: ', response);
+      const response = await axios.get(`/users?username=${username}`);
+      console.log("response: ", response);
       return dispatch({
         type: GET_USER_BY_USERNAME,
         payload: response.data,
-
       });
     } catch (error) {
       console.log(error.message);
-      }
-  }
- }
+    }
+  };
+};
 export const updateProfile = (payload) => {
   console.log(payload);
   return async function (dispatch) {
@@ -494,5 +495,11 @@ export const updateProfile = (payload) => {
     } catch (error) {
       console.log(error);
     }
+  };
+};
+export const switchUpdateBook = (payload) => {
+  return {
+    type: SWITCH_UPDATE_BOOK,
+    payload,
   };
 };

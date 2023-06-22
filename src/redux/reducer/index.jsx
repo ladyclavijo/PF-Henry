@@ -29,6 +29,7 @@ import {
   GET_USER_BY_USERNAME,
   UPDATE_PROFILE,
   SET_REVENUE,
+  SWITCH_UPDATE_BOOK,
 } from "../actions/actionsTypes";
 
 const initialState = {
@@ -57,6 +58,7 @@ const initialState = {
   totalCharges: [],
   bestSellers: [],
   revenue: [],
+  switchBook: false,
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -354,23 +356,25 @@ export default function rootReducer(state = initialState, action) {
     case GET_USER_BY_USERNAME:
       return {
         ...state,
-        allUsers: action.payload
+        allUsers: action.payload,
       };
-
 
     case UPDATE_PROFILE:
       return {
         ...state,
         userProfile: action.payload,
-      }
+      };
 
     case SET_REVENUE:
       return {
         ...state,
         revenue: action.payload,
       };
-
-
+    case SWITCH_UPDATE_BOOK:
+      return {
+        ...state,
+        switchBook: action.payload,
+      };
 
     default:
       return state;
