@@ -1,9 +1,12 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect, Fragment, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { getAllGenres, createBooks } from "../../redux/actions/index.jsx";
 import NavBar from "../../components/NavBar/NavBar.jsx";
 import { useAuth } from "../../context/authContext.jsx";
+import { ThemeContext } from "../../components/ThemeProvider/ThemeProvider.jsx";
+import "../../Styles/colors.css";
+import './Form.css';
 
 function validateForm(input) {
   let errors = {};
@@ -198,17 +201,32 @@ export default function Form() {
   useEffect(() => {
     dispatch(getAllGenres());
   }, [dispatch, input]);
+
+  const { theme } = useContext(ThemeContext);
+
+  const styles = {
+    container: {
+      backgroundColor: "var(--color-background)",
+      color: "var(--color-text)",
+    },
+    container2: {
+      color: "var(--color-text)",
+    },
+};
+
+
   return (
-    <div className="bg-slate-300 h-screen w-screen">
+    <div className="bg-slate-300 min-h-screen min-w-screen"  style={styles.container}>
       <NavBar />
-      <div className="mt-5 bg-[#52e6c3] border-2 border-[#52e6c3] w-5/12 h-9/12 rounded-1 mx-auto p-2">
+      <div className="mt-5 bg-[#52e6c3] border-2 border-[#52e6c3] w-5/12 h-9/12 rounded-1 mx-auto p-2"  style={styles.container}>
         <div>
           <h2 className="text-xl font-bold mb-3">Upload your book</h2>
         </div>
 
-        <div className="bg-[#ffffff] p-3">
-          <form onSubmit={(e) => handleSubmit(e)}>
-            <div className="mt-1 mb-1 p-1 bg-[#52e6c3]">
+        <div className="bg-[#ffffff] p-3"  style={styles.container}>
+          <form onSubmit={(e) => handleSubmit(e)}  style={styles.container}>
+          <div className="color-input">
+            <div className="mt-1 mb-1 p-1 bg-[#52e6c3]" >
               <input
                 className="peer block w-full"
                 type="text"
@@ -425,6 +443,7 @@ export default function Form() {
                 Create
               </button>
             </div>
+          </div>
           </form>
         </div>
       </div>
