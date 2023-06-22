@@ -7,18 +7,20 @@ export default function CartButton({ id }) {
   const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
-    const storedCartItems = localStorage.getItem('cartItems');
+    const storedCartItems = localStorage.getItem("cartItems");
     if (storedCartItems) {
       setCartItems(JSON.parse(storedCartItems));
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
   }, [cartItems]);
 
   function addToCart(item) {
-    const existingItemIndex = cartItems.findIndex((cartItem) => cartItem.id === item.id);
+    const existingItemIndex = cartItems.findIndex(
+      (cartItem) => cartItem.id === item.id
+    );
 
     if (existingItemIndex !== -1) {
       const updatedCart = [...cartItems];
@@ -30,7 +32,9 @@ export default function CartButton({ id }) {
   }
 
   function removeFromCart(item) {
-    const existingItemIndex = cartItems.findIndex((cartItem) => cartItem.id === item.id);
+    const existingItemIndex = cartItems.findIndex(
+      (cartItem) => cartItem.id === item.id
+    );
 
     if (existingItemIndex !== -1) {
       const updatedCart = [...cartItems];
@@ -43,14 +47,30 @@ export default function CartButton({ id }) {
     }
   }
 
-  const totalQuantity = cartItems.reduce((total, cartItem) => total + cartItem.quantity, 0);
+  const totalQuantity = cartItems.reduce(
+    (total, cartItem) => total + cartItem.quantity,
+    0
+  );
 
   return (
     <div>
-      <button className="relative" onClick={() => { addToCart({ id }) }}>Add</button>
-      <br/>
-      <button onClick={() => { removeFromCart({ id }) }}>Delete</button>
-      <br/>
+      <button
+        className="relative"
+        onClick={() => {
+          addToCart({ id });
+        }}
+      >
+        Add
+      </button>
+      <br />
+      <button
+        onClick={() => {
+          removeFromCart({ id });
+        }}
+      >
+        Delete
+      </button>
+      <br />
       Quantity total: {totalQuantity}
     </div>
   );

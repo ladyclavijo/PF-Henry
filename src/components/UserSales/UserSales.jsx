@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+
+import React, { useEffect, useState } from "react";
+
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth } from "../../context/authContext";
 import { getUserDetail } from "../../redux/actions/index";
@@ -10,20 +12,25 @@ import {
   FaShoppingBag,
   FaMoneyBillWave,
 } from "react-icons/fa";
+
 import {
   MdOutlinePayments
 } from "react-icons/md"
+
 import "../UserSales/UserSales.css";
 import Footer from "../Footer/Footer";
 const UserSales = () => {
   const dispatch = useDispatch();
   const userLogged = useAuth()?.user?.uid;
   const currentUser = useSelector((state) => state.userDetail);
+
   const [show_orders, setShow_orders] = useState(false)
+
   console.log(currentUser);
   useEffect(() => {
     dispatch(getUserDetail(userLogged));
   }, [dispatch, userLogged]);
+
 
 
 
@@ -68,6 +75,7 @@ const UserSales = () => {
           <h2>My Sales</h2>
           </div>
            {currentUser?.mySales?.allOrders?.flat().map((elem) => {
+
             return (
               <div className="allOrders">
                 <h1>{elem.purchasedAt.slice(0, 10)}</h1>
@@ -99,11 +107,13 @@ const UserSales = () => {
                 </div>
               </div>
             );
+
           })} 
         </section>
       </main>
       <footer >
         <Footer/>
+
       </footer>
     </div>
   );

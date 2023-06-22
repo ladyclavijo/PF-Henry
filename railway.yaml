@@ -1,6 +1,8 @@
 version: 2
-build:
-  env: node
+frontend:
   commands:
     - npm install
     - npm run build
+  plugins:
+    - name: nodejs
+      version: "14"

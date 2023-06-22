@@ -1,7 +1,7 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { getBooks, getCartsDB, getUsers } from "./redux/actions/index";
 import Landing from "./pages/Landing/Landing";
 import Home from "./pages/Home/Home";
@@ -100,7 +100,10 @@ function App() {
             <Route path="/privacypolicy" element={<Privacy />} />
             <Route path="/returnpolicies" element={<ReturnPolicies />} />
             {/*---------------------- AUTH ROUTES ------------------------------- */}
-            <Route path ="/mysells" element={<UserSales/>}/>
+
+
+            <Route path="/mysells" element={<UserSales />} />
+
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/newuser" element={<NewUsersForm />} />

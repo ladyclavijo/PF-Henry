@@ -1,63 +1,78 @@
-import { useState,useContext } from 'react';
-import Validaciones from './Validaciones';
-import Countries from './Countries';
-import './Address.css'
+
+import React, { useState, useContext } from "react";
+import Validaciones from "./Validaciones";
+import Countries from "./Countries";
+import "./Address.css";
+
 import { ThemeContext } from "../../components/ThemeProvider/ThemeProvider.jsx";
 import "../../Styles/colors.css";
 
 export default function Address() {
-    const [addresses, setAddresses] = useState([]);
-    const [newAddress, setNewAddress] = useState({
-        country: '',
-        fullName: '',
-        street: '',
-        postalCode: '',
-        phoneNumber: '',
+  const [addresses, setAddresses] = useState([]);
+  const [newAddress, setNewAddress] = useState({
+    country: "",
+    fullName: "",
+    street: "",
+    postalCode: "",
+    phoneNumber: "",
+  });
+  const [validationError, setValidationError] = useState("");
+  const [selectedAddress, setSelectedAddress] = useState(null);
+  const [expanded, setExpanded] = useState(false);
+
+  const handleInputChange = (e) => {
+    setNewAddress((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handleSelectCountry = (country) => {
+    setNewAddress({
+      ...newAddress,
+      country: country,
     });
-    const [validationError, setValidationError] = useState('');
-    const [selectedAddress, setSelectedAddress] = useState(null);
-    const [expanded, setExpanded] = useState(false);
+  };
 
-    const handleInputChange = (e) => {
-        setNewAddress((prevState) => ({
-            ...prevState,
-            [e.target.name]: e.target.value,
-        }));
-    };
+  const handleAddAddress = () => {
+    if (isFormValid()) {
+      setAddresses([...addresses, newAddress]);
+      setNewAddress({
+        country: "",
+        fullName: "",
+        street: "",
+        postalCode: "",
+        phoneNumber: "",
+      });
+      setValidationError("");
+      setSelectedAddress(newAddress);
+      alert("Address added successfully");
+    } else {
+      setValidationError("Please fill in all fields");
+    }
+  };
 
-    const handleSelectCountry = (country) => {
-        setNewAddress({
-            ...newAddress,
-            country: country,
-        });
-    };
+  const isFormValid = () => {
+    const { country, fullName, street, postalCode, phoneNumber } = newAddress;
+    return country && fullName && street && postalCode && phoneNumber;
+  };
 
-    const handleAddAddress = () => {
-        if (isFormValid()) {
-            setAddresses([...addresses, newAddress]);
-            setNewAddress({
-                country: '',
-                fullName: '',
-                street: '',
-                postalCode: '',
-                phoneNumber: '',
-            });
-            setValidationError('');
-            setSelectedAddress(newAddress);
-            alert('Address added successfully');
-        } else {
-            setValidationError('Please fill in all fields');
-        }
-    };
+  const handleToggleExpanded = () => {
+    setExpanded(!expanded);
+  };
 
-    const isFormValid = () => {
-        const { country, fullName, street, postalCode, phoneNumber } = newAddress;
-        return country && fullName && street && postalCode && phoneNumber;
-    };
+  const { theme } = useContext(ThemeContext);
 
-    const handleToggleExpanded = () => {
-        setExpanded(!expanded);
-    };
+  const styles = {
+    container: {
+      backgroundColor: "var(--color-background)",
+      color: "var(--color-text)",
+    },
+    container2: {
+      color: "var(--color-text)",
+    },
+  };
+
 
     const { theme } = useContext(ThemeContext);
 
@@ -126,11 +141,36 @@ export default function Address() {
                     <button className="mt-2 w-32 bg-[#9dc8c5] hover:bg-[#7496b8] rounded-md w-full" onClick={handleToggleExpanded}>
                         {expanded ? 'Close' : 'Change'}
                     </button>
+
                 </div>
-            </div>
+                <Countries onSelectCountry={handleSelectCountry} />
+              </div>
+              <Validaciones
+                newAddress={newAddress}
+                validationError={validationError}
+                handleInputChange={handleInputChange}
+              />
+              <div className="color-strong">
+                <button
+                  type="button"
+                  className="bg-[#9dc8c5] w-32 mt-4  hover:bg-[#7496b8] rounded-md w-full"
+                  onClick={handleAddAddress}
+                >
+                  Add address
+                </button>
+              </div>
+            </form>
+          </div>
+        )}
+        <div className="flex justify-center">
+          <button
+            className="mt-2 w-32 bg-[#9dc8c5] hover:bg-[#7496b8] rounded-md w-full"
+            onClick={handleToggleExpanded}
+          >
+            {expanded ? "Close" : "Change"}
+          </button>
         </div>
-      );
-      
-      
-      
+      </div>
+    </div>
+  );
 }

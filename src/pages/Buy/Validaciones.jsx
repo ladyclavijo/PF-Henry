@@ -1,3 +1,4 @@
+
 import {useContext} from 'react';
 import './Validaciones.css'
 import { ThemeContext } from "../../components/ThemeProvider/ThemeProvider.jsx";
@@ -81,8 +82,12 @@ const Validaciones = ({ newAddress, validationError, handleInputChange }) => {
                 </div>
             </div>
             {validationError && <p>{validationError}</p>}
+
         </div>
-    );
+      </div>
+      {validationError && <p>{validationError}</p>}
+    </div>
+  );
 };
 
 export default Validaciones;

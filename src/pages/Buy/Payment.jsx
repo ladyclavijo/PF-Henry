@@ -1,4 +1,6 @@
-import { useEffect, useMemo, useState, useContext } from "react";
+
+import React,{ useEffect, useMemo, useState, useContext } from "react";
+
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { loadStripe } from "@stripe/stripe-js";
