@@ -33,6 +33,7 @@ import {
   GET_TOTAL_CHARGES,
   GET_BEST_SELLERS,
   UPDATE_PROFILE,
+  SET_REVENUE
 } from "./actionsTypes";
 
 export const getBooks = () => {
@@ -427,9 +428,17 @@ export const getBestSellers = () => {
   return async function (dispatch) {
     try {
       const response = await axios.get("/payments/sales");
+      const bestSellers = response.data.bestSellers;
+
+      // Ordenar los best sellers por qty de mayor a menor
+      const sortedBestSellers = bestSellers.sort((a, b) => b.qty - a.qty);
+
+      // Obtener los primeros 5 elementos
+      const top5BestSellers = sortedBestSellers.slice(0, 5);
+
       return dispatch({
         type: GET_BEST_SELLERS,
-        payload: response.data.bestSellers,
+        payload: top5BestSellers,
       });
     } catch (error) {
       console.log(error.message);
@@ -437,17 +446,34 @@ export const getBestSellers = () => {
   };
 };
 
+
 export const updateProfile = (id, payload) => {
-    return async function(dispatch) {
-        try {
-            const response = await axios.put(`/users/${id}`, payload)
-            console.log(response);
-            return dispatch({
-                type: UPDATE_PROFILE,
-                payload: response
-            })
-        } catch (error) {
-            console.log(error);
-        }
+  return async function (dispatch) {
+    try {
+      const response = await axios.put(`/users/${id}`, payload)
+      console.log(response);
+      return dispatch({
+        type: UPDATE_PROFILE,
+        payload: response
+      })
+    } catch (error) {
+      console.log(error);
     }
+  }
 }
+
+export const setRevenue = () => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get('/payments/sales');
+      console.log('actionssssssssssssssssssss', response.data.revenueByCategory);
+      dispatch({
+        type: SET_REVENUE,
+        payload: response.data
+      });
+    } catch (error) {
+      console.error('Error fetching revenue by category:', error);
+    }
+  };
+};
+

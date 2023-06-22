@@ -31,3 +31,4 @@ export const TOTAL_ITEMS = "TOTAL_ITEMS";
 export const GET_TOTAL_CHARGES = "TOTAL_CHARGES";
 export const GET_BEST_SELLERS = "BEST_SELLERS";
 export const UPDATE_PROFILE = "UPDATE_PROFILE";
+export const SET_REVENUE = "SET_REVENUE"
