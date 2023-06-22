@@ -28,6 +28,7 @@ import {
   GET_BEST_SELLERS,
   GET_USER_BY_USERNAME,
   UPDATE_PROFILE,
+  SET_REVENUE,
 } from "../actions/actionsTypes";
 
 const initialState = {
@@ -55,6 +56,7 @@ const initialState = {
   totalItemsSold: 0,
   totalCharges: [],
   bestSellers: [],
+  revenue: [],
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -360,6 +362,14 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         userProfile: action.payload,
+      }
+
+    case SET_REVENUE:
+      return {
+        ...state,
+        revenue: action.payload,
+      };
+
       };
     default:
       return state;

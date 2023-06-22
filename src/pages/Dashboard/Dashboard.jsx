@@ -9,6 +9,9 @@ import "./sidebar.css";
 import SearchDashboard from "./SearchDashboard";
 import Charges from "../../components/Graphics/Charges";
 import ItemSold from "../../components/Graphics/ItemSold";
+import BestSellers from "../../components/Graphics/BestSellers";
+import TotalRevenue from "../../components/Graphics/TotalRevenue";
+
 export default function Dashboard() {
   const { user } = useAuth();
   const data = [
@@ -106,9 +109,11 @@ export default function Dashboard() {
           )}
 
           {selectedTab === "graphics" && (
-            <div className="border border-red-500">
+            <div>
               <Charges />
               <ItemSold />
+              {/* <BestSellers /> */}
+              <TotalRevenue />
             </div>
           )}
         </div>
