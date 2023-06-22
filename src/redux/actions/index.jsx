@@ -32,6 +32,7 @@ import {
   TOTAL_ITEMS,
   GET_TOTAL_CHARGES,
   GET_BEST_SELLERS,
+  GET_USER_BY_USERNAME,
   UPDATE_PROFILE,
 } from "./actionsTypes";
 
@@ -439,6 +440,21 @@ export const getBestSellers = () => {
   };
 };
 
+export const getUserByUsername = (username) => {
+  return async function (dispatch) {
+    try {
+      const response = await axios.get(`/users?username=${username}`)
+      console.log('response: ', response);
+      return dispatch({
+        type: GET_USER_BY_USERNAME,
+        payload: response.data,
+
+      });
+    } catch (error) {
+      console.log(error.message);
+      }
+  }
+ }
 export const updateProfile = (payload) => {
   console.log(payload);
   return async function (dispatch) {
@@ -454,5 +470,3 @@ export const updateProfile = (payload) => {
     }
   };
 };
-
-
