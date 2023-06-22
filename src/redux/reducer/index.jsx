@@ -144,7 +144,7 @@ export default function rootReducer(state = initialState, action) {
         genre: [],
         language: [],
       };
-   
+
     case CLEAR_DETAIL:
       return {
         ...state,
@@ -356,7 +356,7 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         allUsers: action.payload
       };
-     
+
 
     case UPDATE_PROFILE:
       return {
@@ -370,7 +370,8 @@ export default function rootReducer(state = initialState, action) {
         revenue: action.payload,
       };
 
-      };
+
+
     default:
       return state;
   }
