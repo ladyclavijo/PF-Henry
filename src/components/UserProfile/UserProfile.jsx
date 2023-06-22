@@ -73,7 +73,15 @@ const UserProfile = () => {
                             </Link>
                         </div>
                     ) : (
-                        <FaUserCircle className="user-icon" />
+                        <div>
+                            <FaUserCircle className="user-icon" />
+                            <Link to="/myaccount">
+                                <div className="ml-2 text-black">
+                                    <p className="font-bold -mb-1.5">{finalUser.username}</p>
+                                    <p className="inline text-sm w-full italic">{finalUser.name}{finalUser.lastname}</p>
+                                </div>
+                            </Link>
+                        </div>
                     )
                 }
             </div>
