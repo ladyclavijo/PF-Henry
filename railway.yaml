@@ -1,7 +1,6 @@
 version: 2
 frontend:
   commands:
-    - npm run clean
     - npm install
     - npm run build
   plugins:
