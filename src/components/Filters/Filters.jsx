@@ -1,5 +1,5 @@
 import "./Filters.css";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   filterByGenres,
@@ -59,8 +59,6 @@ export default function Filters() {
 
   return (
     <div className="filters-container">
-
-      
       <div className="filter-section">
         <label>Genres:</label>
         <select onChange={filterBooksByGenres} value={selectGenre}>
@@ -80,7 +78,6 @@ export default function Filters() {
         </select>
       </div>
 
-
       <div className="filter-section">
         <label>Language:</label>
         <select onChange={filterBooksByLanguages} value={selectLanguage}>
@@ -89,7 +86,6 @@ export default function Filters() {
           <option value="en">English</option>
         </select>
       </div>
-
 
       <div className="filter-section">
         <label>Sort By:</label>
@@ -100,7 +96,6 @@ export default function Filters() {
         </select>
       </div>
 
-
       <div className="filter-section">
         <label>Price:</label>
         <select onChange={handlePrice} value={selectPrice}>
@@ -109,7 +104,6 @@ export default function Filters() {
           <option value="PRI-">LESSER PRICES</option>
         </select>
       </div>
-
 
       <div className="clean-div">
         {/* {Object.values(appliedFilters).some((filter) => filter !== null) && ( -------OCULTA EL BOTON AL LIMPIAR LOS FILTROS-------*/}

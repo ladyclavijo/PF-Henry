@@ -8,7 +8,6 @@ export default {
   },
   build: {
     outDir: "dist",
-    jsxInject: `import React from 'react';`,
     // Agrega otras opciones de configuración de compilación según tus necesidades
   },
 };
