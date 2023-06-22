@@ -9,6 +9,9 @@ import "./sidebar.css";
 import SearchDashboard from "./SearchDashboard";
 import Charges from "../../components/Graphics/Charges";
 import ItemSold from "../../components/Graphics/ItemSold";
+import BestSellers from "../../components/Graphics/BestSellers";
+import TotalRevenue from "../../components/Graphics/TotalRevenue";
+
 export default function Dashboard() {
   const { user } = useAuth();
   const data = [
@@ -45,7 +48,7 @@ export default function Dashboard() {
   ]
   const allUsers = useSelector((state) => state.allUsers);
   const [selectedTab, setSelectedTab] = useState("users");
-  
+
   if (user && allUsers) {
 
     const users = allUsers.filter((u) => u.id !== user.uid);
@@ -87,11 +90,11 @@ export default function Dashboard() {
           </div>
         </div>
         <div className="p-4 text-black">
-        <div className="p-4">
-          <SearchDashboard />
-        </div>
+          <div className="p-4">
+          </div>
           {selectedTab === "users" && (
             <div>
+              <SearchDashboard />
               {users.map((u) => (
                 <DashboardUsers
                   key={u.id}
@@ -106,9 +109,11 @@ export default function Dashboard() {
           )}
 
           {selectedTab === "graphics" && (
-            <div className="border border-red-500">
+            <div>
               <Charges />
               <ItemSold />
+              {/* <BestSellers /> */}
+              <TotalRevenue />
             </div>
           )}
         </div>

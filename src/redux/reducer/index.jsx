@@ -28,6 +28,7 @@ import {
   GET_BEST_SELLERS,
   GET_USER_BY_USERNAME,
   UPDATE_PROFILE,
+  SET_REVENUE,
 } from "../actions/actionsTypes";
 
 const initialState = {
@@ -55,6 +56,7 @@ const initialState = {
   totalItemsSold: 0,
   totalCharges: [],
   bestSellers: [],
+  revenue: [],
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -142,7 +144,7 @@ export default function rootReducer(state = initialState, action) {
         genre: [],
         language: [],
       };
-   
+
     case CLEAR_DETAIL:
       return {
         ...state,
@@ -354,13 +356,22 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         allUsers: action.payload
       };
-     
+
 
     case UPDATE_PROFILE:
       return {
         ...state,
         userProfile: action.payload,
+      }
+
+    case SET_REVENUE:
+      return {
+        ...state,
+        revenue: action.payload,
       };
+
+
+
     default:
       return state;
   }
