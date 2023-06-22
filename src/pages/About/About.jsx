@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import NavBar from "../../components/NavBar/NavBar.jsx";
 import './about.css';
 import Faq from './Faq';

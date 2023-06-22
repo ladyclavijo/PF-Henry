@@ -2,7 +2,7 @@ import './UserProfile.css';
 import { Link } from 'react-router-dom';
 import { FaUserCircle } from 'react-icons/fa';
 import { useAuth } from "../../context/authContext"
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 import { useDispatch, useSelector } from "react-redux";
 import { getUserDetail } from "../../redux/actions/index";
