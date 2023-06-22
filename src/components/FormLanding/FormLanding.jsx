@@ -1,5 +1,5 @@
 // import { postUser } from "../../redux/actions/index"
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './FormLanding.css';
 
 function FormLanding() {

@@ -1,6 +1,8 @@
+@import "../../Styles/colors.css";
+
 .accordionContainerA {
     width: 100%;
-    color:#44e2f7;
+    color: var(--color-freq-quest);
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -19,6 +21,7 @@
     margin-bottom: 1rem;
     padding-top: 1rem;
     padding-bottom: 2rem;
+    margin-right: 15px;
   
   }
   
@@ -73,7 +76,7 @@
   }
   
   .title {
-    color: rgb(46, 61, 78);
+    /* color: rgb(46, 61, 78); */
     font-size: 26px;
     font-weight: bold;
   }
@@ -87,3 +90,5 @@
   .green {
     color: rgb(58, 82, 110); 
   }
+
+
