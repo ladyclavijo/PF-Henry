@@ -1,5 +1,4 @@
 import axios from "axios";
-import Decimal from 'decimal.js';
 import {
   GET_BOOKS,
   GET_BOOKS_BY_NAME,
@@ -33,7 +32,10 @@ import {
   TOTAL_ITEMS,
   GET_TOTAL_CHARGES,
   GET_BEST_SELLERS,
-  GET_USER_BY_USERNAME
+  GET_USER_BY_USERNAME,
+  UPDATE_PROFILE,
+  SET_REVENUE,
+  SWITCH_UPDATE_BOOK,
 } from "./actionsTypes";
 
 export const getBooks = () => {
@@ -364,11 +366,11 @@ export const updateBook = (id, payload) => {
   };
 };
 
-export const setQuantity = (number) => {
+export const setQuantity = (payload) => {
   return (dispatch) => {
     return dispatch({
       type: QUANTITY,
-      payload: number,
+      payload,
     });
   };
 };
@@ -398,22 +400,23 @@ export const getTotalCharges = () => {
       orders.forEach((order) => {
         const createdAt = new Date(order.createdAt).toISOString().split("T")[0]; // Formato ISO 8601
         const totalCharge = order.items.find((item) => item.total)?.total;
-
-        // console.log("createdAt:", createdAt);
-        // console.log("totalCharge:", totalCharge);
-
         if (createdAt && totalCharge) {
-          const parsedTotalCharge = new Decimal(totalCharge).toFixed(2);
+          const parsedTotalCharge = parseFloat(totalCharge).toFixed(2);
 
           if (dailyCharges[createdAt]) {
-            dailyCharges[createdAt] = new Decimal(dailyCharges[createdAt]).plus(parsedTotalCharge).toNumber();
+            dailyCharges[createdAt] =
+              parseFloat(dailyCharges[createdAt]) +
+              parseFloat(parsedTotalCharge);
           } else {
-            dailyCharges[createdAt] = new Decimal(parsedTotalCharge).toNumber();
+            dailyCharges[createdAt] = parseFloat(parsedTotalCharge);
           }
         }
       });
 
-      // console.log("dailyCharges:", dailyCharges);
+      // Redondear los valores a 2 decimales
+      for (const date in dailyCharges) {
+        dailyCharges[date] = parseFloat(dailyCharges[date]).toFixed(2);
+      }
 
       dispatch({
         type: GET_TOTAL_CHARGES,
@@ -428,13 +431,39 @@ export const getTotalCharges = () => {
 export const getBestSellers = () => {
   return async function (dispatch) {
     try {
-      const response = await axios.get('/payments/sales');
+      const response = await axios.get("/payments/sales");
+      const bestSellers = response.data.bestSellers;
+
+      // Ordenar los best sellers por qty de mayor a menor
+      const sortedBestSellers = bestSellers.sort((a, b) => b.qty - a.qty);
+
+      // Obtener los primeros 5 elementos
+      const top5BestSellers = sortedBestSellers.slice(0, 5);
+
       return dispatch({
         type: GET_BEST_SELLERS,
-        payload: response.data.bestSellers,
+        payload: top5BestSellers,
       });
     } catch (error) {
       console.log(error.message);
+    }
+  };
+};
+
+export const setRevenue = () => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get("/payments/sales");
+      console.log(
+        "actionssssssssssssssssssss",
+        response.data.revenueByCategory
+      );
+      dispatch({
+        type: SET_REVENUE,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.error("Error fetching revenue by category:", error);
     }
   };
 };
@@ -442,16 +471,35 @@ export const getBestSellers = () => {
 export const getUserByUsername = (username) => {
   return async function (dispatch) {
     try {
-      const response = await axios.get(`/users?username=${username}`)
-      console.log('response: ', response);
+      const response = await axios.get(`/users?username=${username}`);
+      console.log("response: ", response);
       return dispatch({
         type: GET_USER_BY_USERNAME,
         payload: response.data,
-
       });
     } catch (error) {
       console.log(error.message);
     }
   };
 };
-
+export const updateProfile = (payload) => {
+  console.log(payload);
+  return async function (dispatch) {
+    try {
+      const response = await axios.put(`/users/update`, payload);
+      console.log(response);
+      return dispatch({
+        type: UPDATE_PROFILE,
+        payload: response,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+export const switchUpdateBook = (payload) => {
+  return {
+    type: SWITCH_UPDATE_BOOK,
+    payload,
+  };
+};

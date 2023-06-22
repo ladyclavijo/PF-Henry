@@ -1,0 +1,51 @@
+.slider-container {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    cursor: default;
+  }
+  
+  .slider-title {
+    display: flex;
+    font-size: 25px;
+    margin-bottom: 20px;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-arrows);
+    position: relative;
+    cursor: default;
+    pointer-events: none;
+  }
+
+  .slider-title::before,
+  .slider-title::after {
+  content: "";
+  flex-grow: 1;
+  height: 1px;
+  background-color: var(--color-arrows); /* Utiliza el color deseado para la línea */
+  margin: 0 5px; /* Ajusta los márgenes según sea necesario */
+  }
+
+  .slider-title::before {
+    width: 40%;
+  }
+  
+  .slider-title::after {
+    width: 40%;
+  }
+  
+  .slide-item {
+    img {
+      max-width: 100%;
+      height: auto;
+      /* margin: 0 auto; */
+    }
+  }
+
+  .slide-item img {
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+    object-fit: contain; /* Asegura que todas las portadas tengan el mismo tamaño */
+    max-height: 180px; /* Disminuye el tamaño de las portadas ajustando el valor según necesites */
+  }

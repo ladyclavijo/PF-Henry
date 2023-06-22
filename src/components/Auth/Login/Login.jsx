@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuth } from "../../../context/authContext";
 import { Link, useNavigate } from "react-router-dom";
 import Alert from "../Alert/Alert";
 import { getUsers, registerUser } from "../../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 
 export default function Login() {
   const [users, setUsers] = useState({
@@ -15,57 +15,54 @@ export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [error, setError] = useState();
-  console.log('user firebase:', user?.email)
+  console.log("user firebase:", user?.email);
 
   useEffect(() => {
     dispatch(getUsers());
   }, [dispatch]);
 
-
   const allUsers = useSelector((state) => state.allUsers);
-  console.log('userDb:' , allUsers)
+  console.log("userDb:", allUsers);
 
   const handleChange = ({ target: { name, value } }) => {
     setUsers({ ...users, [name]: value });
   };
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
 
-    try{
+    try {
       if (allUsers && allUsers.length > 0) {
         // Resto del código
-        const isBanned =  allUsers.find((userData) => {
-          console.log('isBan:', userData.isBan )
+        const isBanned = allUsers.find((userData) => {
+          console.log("isBan:", userData.isBan);
 
-          return userData.email ===  users.email && userData.isBan === true
-           
+          return userData.email === users.email && userData.isBan === true;
+        });
+        // const nameUser = allUsers.map((e) => e.email === users.email ? e.username : e.username )
+
+        if (!isBanned) {
+          await login(users.email, users.password);
+          navigate("/home");
+        } else {
+          const email = "bookbuster@gmail.com";
+          const subject = "Banned Account";
+          const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(
+            subject
+          )}`;
+          // Reemplaza 'exampleuser@gmail.com' con el correo electrónico real del usuario
+
+          const message = `The email user <span style="font-weight: bold; color:#5D5D69;">${users.email}</span> has been banned. Please contact <a href="${mailtoLink}" style="color: #8e6cff;">bookbuster@gmail.com</a> customer support for more information.`;
+
+          Swal.fire({
+            title: "Banned!",
+            html: message,
+            confirmButtonText: "Ok",
           });
-          // const nameUser = allUsers.map((e) => e.email === users.email ? e.username : e.username )
-        
-
-          if(!isBanned){
-            await login(users.email, users.password)
-            navigate('/home')
-            
-          }else{
-            const email = 'bookbuster@gmail.com';
-            const subject = 'Banned Account';
-            const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(subject)}`;
-             // Reemplaza 'exampleuser@gmail.com' con el correo electrónico real del usuario
-          
-            const message = `The email user <span style="font-weight: bold; color:#5D5D69;">${users.email}</span> has been banned. Please contact <a href="${mailtoLink}" style="color: #8e6cff;">bookbuster@gmail.com</a> customer support for more information.`;
-          
-            Swal.fire({
-              title: 'Banned!',
-              html: message,
-              confirmButtonText: 'Ok'
-            });
-            }
-          }
-    } catch (error) { 
+        }
+      }
+    } catch (error) {
       console.log(error.code);
       if (error.code === "auth/user-not-found") {
         setError("User Not Found!");
@@ -82,41 +79,40 @@ export default function Login() {
 
       // setError(error.message);
     }
-
-  }
+  };
   //------------------------- GOOGLE ------------------------------//
   const handleGoogleSignin = async () => {
     try {
       const userAvaible = await loginWithGoogle();
       // console.log('AvilableUser:', userAvaible.UserCredentialImpl.user.email)
       if (userAvaible) {
-        
         const userDB = allUsers.filter((u) => {
           return u.id === userAvaible.user.uid;
         });
 
-        const banedUserDb =  allUsers.find((u) => {
+        const banedUserDb = allUsers.find((u) => {
           // console.log('user1:', u.email)
           // console.log('user2:',userAvaible.user.email)
           // console.log('user3:',u.isBan )
           return u.email === userAvaible.user.email && u.isBan === true;
         });
 
-        if(banedUserDb){
+        if (banedUserDb) {
           if (banedUserDb) {
-            const email = 'bookbuster@gmail.com';
-            const subject = 'Banned Account';
-            const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(subject)}`;
+            const email = "bookbuster@gmail.com";
+            const subject = "Banned Account";
+            const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(
+              subject
+            )}`;
             const message = `The email user <span style="font-weight: bold; color:#5D5D69;">${userAvaible.user.email}</span> has been banned. Please contact <a href="${mailtoLink}" style="color: #8e6cff;">bookbuster@gmail.com</a> customer support for more information.`;
-            
+
             Swal.fire({
-              title: 'Banned!',
+              title: "Banned!",
               html: message,
-              confirmButtonText: 'Ok'
+              confirmButtonText: "Ok",
             });
           }
-          
-      }else if (!userDB.length) {
+        } else if (!userDB.length) {
           const userGoogle = {
             id: userAvaible.user.uid,
             username: userAvaible.user.displayName,
@@ -128,7 +124,6 @@ export default function Login() {
           navigate("/home");
         }
       }
-      
     } catch (error) {
       setError(error.message);
     }
@@ -146,7 +141,6 @@ export default function Login() {
     }
   };
 
-  
   return (
     <div className="bg-slate-300 h-screen text-black flex">
       <div className="w-full max-w-xs m-auto">
