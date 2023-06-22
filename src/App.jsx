@@ -59,6 +59,7 @@ function App() {
             <Route path="/" element={<Landing />} />
             <Route path="/home" element={<Home />} />
             <Route path="/sales" element={<Sales />} />
+            <Route path="/mysales" element={<UserSales />} />
             <Route path="/book/:id" element={<Details allBooks={allBooks} />} />
             <Route
               path="/form"
